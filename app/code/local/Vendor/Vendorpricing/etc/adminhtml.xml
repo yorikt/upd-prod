@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendorpricing extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendorpricing
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<vendorpricing translate="title" module="vendorpricing">
+										<title>Vendorpricing</title>
+									</vendorpricing>
+								</children>
+							</config>
+						</children>
+					</system>
+					<vendorpricing translate="title" module="vendorpricing">
+						<title>Vendorpricing</title>
+						<children>
+							<vendorpricing translate="title" module="vendorpricing">
+								<title>Vendor Pricings</title>
+							</vendorpricing>
+						</children>
+					</vendorpricing>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<!-- <menu>
+		<vendorpricing translate="title" module="vendorpricing">
+			<title>Vendorpricing</title>
+			<sort_order>110</sort_order>
+			<depends>
+				<module>Vendor_Vendorpricing</module>
+		 	</depends>
+		 	<children>
+				<vendorpricing translate="title" module="vendorpricing">
+					<title>Vendor Pricings</title>
+					<action>adminhtml/vendorpricing_vendorpricing</action>
+					<sort_order>0</sort_order>
+				</vendorpricing>
+			</children>
+		</vendorpricing>
+	</menu> -->
+</config>

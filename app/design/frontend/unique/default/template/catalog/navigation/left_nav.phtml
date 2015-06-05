@@ -1,0 +1,44 @@
+<?php
+//	$meigee_unique_sidebar = MAGE::helper('ThemeOptionsUnique')->getThemeOptionsUnique('meigee_unique_sidebar');
+//    $block_categories = $meigee_unique_sidebar['block_categories']; 
+?>
+<!-- <div class="block block-vertical-nav">
+    <div class="block-title">
+        <strong><span><?php //echo $this->__('Categories') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <?php //$_menu = $this->renderCategoriesMenuHtml(0,'level-top') ?>
+        <?php //if($_menu): ?>
+                <ul <?php //if ($block_categories['option_2'] == 1): ?> class="closed-default"<?php //endif; ?> <?php //if ($block_categories['option'] == 1): ?> id="categories-accordion" <?php //endif; ?>>
+                	<?php //echo $_menu ?>
+                </ul>
+        <?php //endif ?>
+    </div>
+</div>
+ -->
+<script>
+if(jQuery('.mb-left div').hasClass( "mb-mana-catalog-leftnav" ))
+{}
+else{ 
+	var temp2 = 'Name|Position'; 
+
+	var temp1 = temp2.split('|');
+
+	var newarr = [];
+
+	jQuery('.category-products .toolbar .sorter .sort-by').first().find('select option').each(function(e){ 
+
+		var isfind = jQuery.inArray(jQuery.trim(jQuery(this).text()), temp1 );
+		var isfindnewarr = jQuery.inArray(jQuery.trim(jQuery(this).text()), newarr );
+		if(isfind == '-1' || isfindnewarr !='-1'){
+	
+			jQuery(this).remove();
+		}
+		else{
+			newarr.push(jQuery.trim(jQuery(this).text()));
+		}
+
+	});
+}
+
+</script>

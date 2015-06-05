@@ -1,0 +1,232 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+?>
+<div class="entry-edit">
+	<div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Settings') ?></h4>
+    </div>
+	<fieldset id="grop_fields">
+   		 <div class="field">
+		 <table class="form-list" cellspacing="0" style="width:100%">
+		 <tr>
+		 <td>
+		 Product Rule
+		 </td>
+		 <td>
+		 <?php
+		 	$selectedsetting = Mage::registry('selectedcustomerproductsetting');
+		 ?>
+		 <select name = "product[settings]" class="product_rule required-entry" id="rule">
+		<option value="">--Select Settings--</option>		 	
+<option <?php if(!empty($selectedsetting['0']['settings_id']) && $selectedsetting['0']['settings_id']=='1'){?> selected="selected" <?php }?> value="1">All Customers</option>
+			<option <?php if(!empty($selectedsetting['0']['settings_id']) && $selectedsetting['0']['settings_id']=='2'){?> selected="selected" <?php }?> value="2">Selected Customers</option>
+		 </select>
+		 </td>
+		 </tr>
+                   </table>
+		 </div>
+	</fieldset>
+	
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Regions') ?></h4>
+    </div>
+	
+	<?php 
+	
+	?>
+    <fieldset id="grop_fields">
+   		 <div class="field">
+		 
+		 			<table class="form-list" cellspacing="0" style="width:100%">
+						<tr>
+							<td colspan=4><a href="javascript:void(0);" name="select_all"  id="select_all_region" >Select All</a>   | <a href="javascript:void(0);" name="unselect_all" id="unselect_all_region" >Unselect All</a></td>	
+						</tr>
+					<tr>
+		 			<?php 
+						$selectedstates = Mage::registry('selectedregions');
+						 
+						$states = Mage::getModel('directory/country')->load('US')->getRegions();
+						$counter = 0;
+						$state_counter = '0'; 
+						foreach ($states as $state_key => $state){
+							
+					?>
+					<td>
+					   <input name="product[regions][]" <?php if(in_array($state->getId(),$selectedstates)){?> checked="checked" <?php }?> value="<?php echo $state->getId(); ?>" <?php if($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox region-checkbox" id="product_regions_<?php echo $state->getId() ?>" type="checkbox" />
+						<label for="product_reigions_<?php echo $state->getId() ?>"><?php echo $this->escapeHtml($state->getName()) ?></label>
+						</td>					   
+						<?php  
+							$state_counter++;
+						   $counter++;
+						   if($counter >3){$counter = 0; echo "</tr><tr>";} 
+						}
+					?>
+						</tr>
+                   </table>
+                </div>
+    </fieldset>
+</div>
+
+
+<div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('catalog')->__('Customers Group') ?></h4>
+    </div>
+	
+    <fieldset id="grop_fields">
+    <div class="store-scope">
+        <?php echo $this->getHintHtml() ?>
+       
+		 			<table class="form-list" cellspacing="0" style="width:100%">
+		 			<td colspan=4><a href="javascript:void(0);" name="select_all" class="select_all_customer_group" id="select_all_customer_group" >Select All</a>    |    
+	<a href="javascript:void(0);" name="unselect_all" id="unselect_all_customer_group" >Unselect All</a></td>	
+					<tr>
+            <?php 
+			$customer_group = new Mage_Customer_Model_Group();
+			$allGroups  = $customer_group->getCollection()->toOptionHash();
+			
+			$selectedgroups = Mage::registry('selectedcustomergroups'); 
+			
+			$counter = 0; 
+			foreach($allGroups as $key=>$allGroup){
+			   $customerGroup[$key]=array('value'=>$allGroup,'label'=>$allGroup);
+			   ?>
+			   <td>
+			   <input name="product[customer_ids][]" <?php if(in_array($key,$selectedgroups)){?> checked="checked" <?php }?> value="<?php echo $key; ?>" <?php if($this->isReadonly()):?> disabled="disabled"<?php endif;?> class="checkbox customergroup-checkbox" id="product_customergroup_<?php echo $key ?>" type="checkbox" />
+				<label for="product_customergroup_<?php echo $key ?>"><?php echo $this->escapeHtml($allGroup) ?></label>
+			   </td>
+			   <?php  
+			    $counter++;
+						   if($counter >3){$counter = 0; echo "</tr><tr>";} 
+			}
+				?>
+		        </tr>
+           </table>
+    	</div>
+    </fieldset>
+</div>
+<script type="text/javascript"> 
+
+/************code for select/unselect customer group all*******************/
+var productCustomersgroupCheckboxes = $$('.customergroup-checkbox');
+
+Event.observe('unselect_all_customer_group', 'click', toggleUnSelectAllCustomer);
+Event.observe('select_all_customer_group', 'click', toggleSelectAllCustomer);
+
+function toggleSelectAllCustomer(){
+	if(jQuery("#rule").val()==1){
+        return false;
+    }
+	for(var i=0;i<productCustomersgroupCheckboxes.length;i++){
+			$(productCustomersgroupCheckboxes[i]).checked = true;
+	}
+}
+function toggleUnSelectAllCustomer(){
+	for(var i=0;i<productCustomersgroupCheckboxes.length;i++){
+			$(productCustomersgroupCheckboxes[i]).checked = false;
+	}
+}
+function toggleEnableAllCustomer(){
+	  for(var i=0;i<productCustomersgroupCheckboxes.length;i++){
+	    jQuery(productCustomersgroupCheckboxes[i]).prop("disabled",false);
+	  }
+	 }
+	        function toggledisableAllCustomer(){
+	  for(var i=0;i<productCustomersgroupCheckboxes.length;i++){
+	    jQuery(productCustomersgroupCheckboxes[i]).prop("disabled",true);
+	  }
+}
+
+/************code for select/unselect region group all*******************/
+	var productRegionCheckboxes = $$('.region-checkbox');
+	
+	Event.observe('unselect_all_region', 'click', toggleUnSelectAllRegion);
+	Event.observe('select_all_region', 'click', toggleSelectAllRegion);
+	
+	function toggleSelectAllRegion(){
+		if(jQuery("#rule").val()==1){
+	        return false;
+	    }
+		for(var i=0;i<productRegionCheckboxes.length;i++){
+				$(productRegionCheckboxes[i]).checked = true;
+		}
+	}
+	function toggleUnSelectAllRegion(){
+		for(var i=0;i<productRegionCheckboxes.length;i++){
+				$(productRegionCheckboxes[i]).checked = false;
+		}
+	}
+	function toggleEnableAllRegion(){
+		  for(var i=0;i<productRegionCheckboxes.length;i++){
+		    jQuery(productRegionCheckboxes[i]).prop("disabled",false);
+		                                
+		  }
+		 }
+		        function toggledisableAllRegion(){
+		  for(var i=0;i<productRegionCheckboxes.length;i++){
+		    jQuery(productRegionCheckboxes[i]).prop("disabled",true);
+		                                
+		  }
+	}
+	
+	/************code for select/unselect when product rule is change************/
+	jQuery.noConflict();
+	
+	jQuery(document).ready(function()
+	        {
+	            var rule =jQuery("#rule").val();
+	            if(rule==1){
+	                toggleUnSelectAllRegion();
+	                toggleUnSelectAllCustomer();
+	                toggledisableAllRegion();
+	                toggledisableAllCustomer();
+	            }
+	         });
+	 
+	jQuery( ".product_rule" ).change(function () {
+	
+	        var rule_type =jQuery("#rule").val();
+	        if(rule_type==1){
+	            var ruleConfirm= confirm("Are you sure you want to change product rule for all customers?");
+	        if (ruleConfirm == true) {
+	            toggleUnSelectAllRegion();
+	            toggleUnSelectAllCustomer();
+	            toggledisableAllRegion();
+	            toggledisableAllCustomer();
+	        }else{
+	           jQuery("#rule").val(2) 
+	        }
+	        
+	        }
+	        if(rule_type==2){
+	            toggleEnableAllRegion();
+	            toggleEnableAllCustomer();
+	        }
+	        });
+		
+	
+</script>

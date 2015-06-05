@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendors extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendors
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+	<!-- Manage Vendors grid action -->
+	<adminhtml_vendors_managevendors_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendors/managevendors</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendors/adminhtml_managevendors" name="managevendors" />
+		</reference>
+	</adminhtml_vendors_managevendors_index>
+	<adminhtml_vendors_managevendors_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_managevendors_grid" name="managevendors_grid"/>
+		</block>
+	</adminhtml_vendors_managevendors_grid>
+	<!-- Managevendors add/edit action -->
+	<adminhtml_vendors_managevendors_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendors/managevendors</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendors/adminhtml_managevendors_edit" name="managevendors_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="vendors/adminhtml_managevendors_edit_tabs" name="managevendors_tabs"></block>
+		</reference> 
+	</adminhtml_vendors_managevendors_edit>
+	<!-- Contacts grid action -->
+	<adminhtml_vendors_contact_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendors/contact</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendors/adminhtml_contact" name="contact" />
+		</reference>
+	</adminhtml_vendors_contact_index>
+	<adminhtml_vendors_contact_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_contact_grid" name="contact_grid"/>
+		</block>
+	</adminhtml_vendors_contact_grid>
+	<!-- Contact add/edit action -->
+	<adminhtml_vendors_contact_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendors/contact</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendors/adminhtml_contact_edit" name="contact_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="vendors/adminhtml_contact_edit_tabs" name="contact_tabs"></block>
+		</reference> 
+	</adminhtml_vendors_contact_edit>
+	<adminhtml_vendors_managevendors_contacts>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_managevendors_edit_tab_contact" name="managevendors.edit.tab.contact"/>
+			<block type="adminhtml/widget_grid_serializer" name="contact_grid_serializer">
+				<reference name="contact_grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>managevendors.edit.tab.contact</grid_block_name>
+							<data_callback>getSelectedContacts</data_callback>
+							<hidden_input_name>contacts</hidden_input_name>
+							<reload_param_name>managevendors_contacts</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+						<input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+	</adminhtml_vendors_managevendors_contacts>
+	<adminhtml_vendors_managevendors_contactsgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_managevendors_edit_tab_contact" name="managevendors.edit.tab.contact"/>
+		</block>
+	</adminhtml_vendors_managevendors_contactsgrid>
+	<adminhtml_vendors_contact_managevendorss>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_contact_edit_tab_managevendors" name="contact.edit.tab.managevendors"/>
+			<block type="adminhtml/widget_grid_serializer" name="managevendors_grid_serializer">
+				<reference name="managevendors_grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>contact.edit.tab.managevendors</grid_block_name>
+							<data_callback>getSelectedManagevendorss</data_callback>
+							<hidden_input_name>managevendorss</hidden_input_name>
+							<reload_param_name>contact_managevendorss</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+						<input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+	</adminhtml_vendors_contact_managevendorss>
+	<adminhtml_vendors_contact_managevendorssgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendors/adminhtml_contact_edit_tab_managevendors" name="contact.edit.tab.managevendors"/>
+		</block>
+	</adminhtml_vendors_contact_managevendorssgrid>
+</layout>

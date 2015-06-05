@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendors extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendors
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<modules>
+		<Vendor_Vendors>
+			<version>0.0.1</version>
+		</Vendor_Vendors>
+	</modules>
+	<global>
+		<resources>
+			<vendor_vendors_setup>
+				<setup>
+					<module>Vendor_Vendors</module>
+					<class>Vendor_Vendors_Model_Resource_Setup</class>
+				</setup>
+			</vendor_vendors_setup>
+		</resources>
+		<blocks>
+			<vendors>
+				<class>Vendor_Vendors_Block</class>
+			</vendors>
+		</blocks>
+		<helpers>
+			<vendors>
+				<class>Vendor_Vendors_Helper</class>
+			</vendors>
+		</helpers>
+		<models>
+			<vendors>
+				<class>Vendor_Vendors_Model</class>
+				<resourceModel>vendors_resource</resourceModel>
+			</vendors>
+			<vendors_resource>
+				<class>Vendor_Vendors_Model_Resource</class>
+				<entities>
+					<managevendors>
+						<table>vendors_managevendors</table>
+					</managevendors>
+					<managevendors_store>
+						<table>vendors_managevendors_store</table>
+					</managevendors_store>
+					<contact>
+						<table>vendors_contact</table>
+					</contact>
+					<contact_store>
+						<table>vendors_contact_store</table>
+					</contact_store>
+					<managevendors_contact>
+						<table>vendors_managevendors_contact</table>
+					</managevendors_contact>
+					<contact_managevendors>
+						<table>vendors_managevendors_contact</table>
+					</contact_managevendors>
+				</entities>
+			</vendors_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<vendor_vendors>
+					<file>vendor_vendors.xml</file>
+				</vendor_vendors>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Vendor_Vendors>
+					<files>
+						<default>Vendor_Vendors.csv</default>
+					</files>
+				</Vendor_Vendors>
+			</modules>
+		</translate>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Vendor_Vendors before="Mage_Adminhtml">Vendor_Vendors_Adminhtml</Vendor_Vendors>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+		<vendors>
+		</vendors>
+	</default>
+</config>

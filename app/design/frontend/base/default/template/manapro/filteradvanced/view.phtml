@@ -1,0 +1,176 @@
+<?php
+/**
+ * @category    Mana
+ * @package     ManaPro_FilterAdvanced
+ * @copyright   Copyright (c) http://www.manadev.com
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+/**
+ * Category layered navigation
+ * @author Mana Team
+ * Injected instead of standard catalog/layer/view.phtml.
+ */
+/* @var $this Mana_Filters_Block_View */
+?>
+<?php
+/**
+ * Category layered navigation
+ *
+ * @see Mage_Catalog_Block_Layer_View
+ */
+
+/* @var $core Mana_Core_Helper_Data */
+$core = Mage::helper('mana_core');
+
+/* @var $filterHelper Mana_Filters_Helper_Data */
+$filterHelper = Mage::helper('mana_filters');
+$temp = '';
+?>
+<?php if($this->canShowBlock()): ?>
+<div class="block block-layered-nav">
+    <div class="block-title">
+        <strong><span><?php echo $this->__('Shop By') ?></span></strong>
+    </div>
+    <div class="block-content">
+        <?php echo $this->getStateHtml() ?>
+        <?php if ($core->isMageVersionEqualOrGreater('1.7') && $this->getLayer()->getState()->getFilters()) : ?>
+        <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+        <?php endif; ?>
+        <?php if($this->canShowOptions()): ?>
+            <?php $_filterGroups = Mage::helper('mana_filters')->renderHtml($this, 'groups'); ?>
+            <?php foreach ($_filterGroups as $_filterGroup): ob_start(); ?>
+                <?php $_filters = $_filterGroup->getFilters(); ?>
+                <?php foreach ($_filters as $_filter): ?>
+                <?php if($_filter->getItemsCount()): ?>
+                    <dt class="<?php $filterHelper->renderHtml($this, 'name_css', array('filter' => $_filter)); ?>"
+                        <?php $filterHelper->renderHtml($this, 'name_attributes', array('filter' => $_filter)); ?>
+                    >
+                        <?php $filterHelper->renderHtml($this, 'name_before', array('filter' => $_filter)); ?>
+                        <?php echo $this->__($_filter->getName()); 
+				$temp .= $this->__($_filter->getName())."|";
+			?>
+                        <?php $filterHelper->renderHtml($this, 'name_after', array('filter' => $_filter)); ?>
+                    </dt>
+                    <dd class="<?php $filterHelper->renderHtml($this, 'value_css', array('filter' => $_filter)); ?>">
+                        <?php echo $_filter->getHtml() ?>
+                    </dd>
+                <?php endif; ?>
+                <?php endforeach; ?>
+                <?php if($_filterGroupHtml = trim(ob_get_clean())) : ?>
+                    <?php $_filterGroupName = $_filterGroup->getName() ? $this->__($_filterGroup->getName()) : $this->__('Shopping Options'); ?>
+
+                    <div class="block-subtitle m-filter-group <?php $filterHelper->renderHtml($this, 'group_css', array('group' => $_filterGroup)); ?>"
+                        <?php $filterHelper->renderHtml($this, 'group_attributes', array('group' => $_filterGroup)); ?>
+                    >
+                        <?php $filterHelper->renderHtml($this, 'group_before', array('group' => $_filterGroup)); ?>
+                        <?php echo $_filterGroupName ?>
+                        <?php $filterHelper->renderHtml($this, 'group_after', array('group' => $_filterGroup)); ?>
+                    </div>
+
+                    <dl class="narrow-by-list" id="narrow-by-list-<?php echo $_filterGroup->getId() ?>">
+                        <?php echo $_filterGroupHtml ?>
+                    </dl>
+                    <script type="text/javascript">decorateDataList('narrow-by-list-<?php echo $_filterGroup->getId() ?>')</script>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</div>
+<?php endif; ?>
+<script>
+var temp2 = '<?php echo $temp; ?>';
+
+temp2 += 'Cost - Low To High|Cost - High to Low|Part Name|Part Number|Our Picks'; 
+
+var temp1 = temp2.split('|');
+
+var newarr = [];
+
+jQuery('.category-products .toolbar .sorter .sort-by').first().find('select option').each(function(e){ 
+
+	var isfind = jQuery.inArray(jQuery.trim(jQuery(this).text()), temp1 );
+	var isfindnewarr = jQuery.inArray(jQuery.trim(jQuery(this).text()), newarr );
+	if(isfind == '-1' || isfindnewarr !='-1'){
+	
+		jQuery(this).remove();
+	}
+	else{
+		newarr.push(jQuery.trim(jQuery(this).text()));
+	}
+
+});
+
+	/* ESPL SAN 20150325 0638PM START */
+	/* Sort by dropdown start */
+	var newarr1 = [];
+	jQuery('.category-products .toolbar .sorter .sort-by .customsortbydropdown ul').find('li').each(function(e){ 
+
+		var isfind1 = jQuery.inArray(jQuery.trim(jQuery(this).find("a").attr("sortname")), temp1 );
+		var isfindnewarr1 = jQuery.inArray(jQuery.trim(jQuery(this).find("a").attr("sortname")), newarr1 );
+		if(isfind1 == '-1' || isfindnewarr1 !='-1'){
+	
+			jQuery(this).remove();
+		}
+		else{
+			newarr1.push(jQuery.trim(jQuery(this).html()));
+		}
+
+		if(jQuery.trim(jQuery(this).find("a").attr("selected")) == "selected"){
+			var customtext = jQuery(this).find("a").html();
+			jQuery(".customsortbydropdown dt a span").html(customtext);
+		}
+	});	 
+	jQuery(".customsortbydropdown dt a").click(function() {
+		jQuery(".customsortbydropdown dd ul").toggle();
+	});
+		
+	jQuery(".customsortbydropdown dd ul li a").click(function() {
+		var text = jQuery(this).html();
+		jQuery(".customsortbydropdown dt a span").html(text);
+		jQuery(".customsortbydropdown dd ul").hide();
+		setLocation(jQuery(".customsortbydropdown dt a span .value").html());
+	});
+		
+	function getSelectedValue(id) {
+		return jQuery("#" + id).find("dt a span.value").html();
+	}
+
+	jQuery(document).bind('click', function(e) {
+		var $clicked = jQuery(e.target);
+		if (! $clicked.parents().hasClass("customsortbydropdown"))
+		    jQuery(".customsortbydropdown dd ul").hide();
+	});
+	/* Sort by dropdown end */
+	/* Show dropdown start */
+	jQuery('.category-products .toolbar .sorter .limiter .customshowdropdown ul').find('li').each(function(e){ 
+
+		if(jQuery.trim(jQuery(this).find("a").attr("selected")) == "selected"){
+			var customtext = jQuery(this).find("a").html();
+			jQuery(".customshowdropdown dt a span").html(customtext);
+		}
+	});
+	jQuery(".customshowdropdown dt a").click(function() {
+		jQuery(".customshowdropdown dd ul").toggle();
+	});
+		
+	jQuery(".customshowdropdown dd ul li a").click(function() {
+		var text = jQuery(this).html();
+		jQuery(".customshowdropdown dt a span").html(text);
+		jQuery(".customshowdropdown dd ul").hide();
+		setLocation(jQuery(".customshowdropdown dt a span .value").html());
+	});
+		
+	function getSelectedValue(id) {
+		return jQuery("#" + id).find("dt a span.value").html();
+	}
+
+	jQuery(document).bind('click', function(e) {
+		var $clicked = jQuery(e.target);
+		if (! $clicked.parents().hasClass("customshowdropdown"))
+		    jQuery(".customshowdropdown dd ul").hide();
+	});
+	/* Show dropdown end */
+	/* ESPL SAN 20150325 0638PM END */
+
+
+</script>

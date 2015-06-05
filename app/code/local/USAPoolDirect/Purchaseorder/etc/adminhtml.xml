@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Purchaseorder extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Purchaseorder
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<purchaseorder translate="title" module="purchaseorder">
+										<title>Purchaseorder</title>
+									</purchaseorder>
+								</children>
+							</config>
+						</children>
+					</system>
+					<purchaseorder translate="title" module="purchaseorder">
+						<title>Purchaseorder</title>
+						<children>
+							<purchaseorder translate="title" module="purchaseorder">
+								<title>Purchase Orders</title>
+							</purchaseorder>
+						</children>
+					</purchaseorder>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<!-- <menu>
+		<purchaseorder translate="title" module="purchaseorder">
+			<title>Purchaseorder</title>
+			<sort_order>110</sort_order>
+			<depends>
+				<module>USAPoolDirect_Purchaseorder</module>
+		 	</depends>
+		 	<children>
+				<purchaseorder translate="title" module="purchaseorder">
+					<title>Purchase Orders</title>
+					<action>adminhtml/purchaseorder_purchaseorder</action>
+					<sort_order>0</sort_order>
+				</purchaseorder>
+			</children>
+		</purchaseorder>
+	</menu> -->
+</config>

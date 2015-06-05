@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendorpricing extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendorpricing
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+	<!-- Vendor Pricings grid action -->
+	<adminhtml_vendorpricing_vendorpricing_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendorpricing/vendorpricing</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendorpricing/adminhtml_vendorpricing" name="vendorpricing" />
+		</reference>
+	</adminhtml_vendorpricing_vendorpricing_index>
+	<adminhtml_vendorpricing_vendorpricing_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="vendorpricing/adminhtml_vendorpricing_grid" name="vendorpricing_grid"/>
+		</block>
+	</adminhtml_vendorpricing_vendorpricing_grid>
+	<!-- Vendorpricing add/edit action -->
+	<adminhtml_vendorpricing_vendorpricing_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>vendorpricing/vendorpricing</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="vendorpricing/adminhtml_vendorpricing_edit" name="vendorpricing_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="vendorpricing/adminhtml_vendorpricing_edit_tabs" name="vendorpricing_tabs"></block>
+		</reference> 
+	</adminhtml_vendorpricing_vendorpricing_edit>
+</layout>

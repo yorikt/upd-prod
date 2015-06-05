@@ -1,0 +1,67 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ *
+ * @see Mage_Checkout_Block_Cart_Totals
+ * @var $this Mage_Checkout_Block_Cart_Totals
+ */
+?>
+<?php if ($this->canApplyMsrp()): ?>
+    <div class="cart-msrp-totals"><?php echo $this->__('ORDER TOTAL WILL BE DISPLAYED BEFORE YOU SUBMIT THE ORDER'); ?></div>
+<?php else: ?>
+    <table id="shopping-cart-totals-table">
+        <col />
+        <col />
+        <tfoot>
+            <?php echo $this->renderTotals('footer'); ?>
+        </tfoot>
+        <tbody>
+            <?php echo $this->renderTotals(); ?>
+        </tbody>
+    </table>
+<?php endif; ?>
+	<?php /* ESPL SAN 20150312 0457PM START */ ?>
+	<script type="text/javascript">
+            //<![CDATA[
+		jQuery('#shopping-cart-totals-table tr').each(function() {
+		  var str = jQuery(this).find("td:first").html();
+			if (str.indexOf("Shipping &amp; Handling") >= 0){
+				//alert(str);
+				//jQuery(this).find("td:first").html("hello");
+				sdf = (str.split("-"));
+				finalstr = (sdf[1]);
+				if(jQuery.trim(finalstr)!='' && jQuery.trim(finalstr)!='undefined'){
+					jQuery(this).find("td:first").html("Shipping &amp; Handling<br\/\>("+jQuery.trim(finalstr));	
+				}
+			}
+			
+		});
+            //]]>
+            </script>
+	<?php /* ESPL SAN 20150312 0457PM END */ ?>

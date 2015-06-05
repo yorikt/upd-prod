@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config>
+  <sections>
+    <general>
+      <groups>
+        <store_information translate="label">
+	<fields>
+        <city>
+              <label>City</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>40</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+           </city>
+	<state>
+              <label>State</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>30</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+           </state>
+          <zip>
+              <label>Zip</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>50</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+             </zip>
+          </fields>
+	  </store_information>
+	</groups>
+    </general>
+  </sections>
+</config>

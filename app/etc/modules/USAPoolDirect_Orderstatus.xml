@@ -1,0 +1,8 @@
+<config> 
+    <modules>
+        <USAPoolDirect_Orderstatus>
+            <active>true</active>
+            <codePool>local</codePool>
+        </USAPoolDirect_Orderstatus>
+    </modules>
+</config>

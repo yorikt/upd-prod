@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<!--
+/*
+ * My Override on admin user Grid
+ */
+-->
+<config>
+    <modules>
+        <USAPoolDirect_Adminusers>
+            <version>0.1.0</version>
+        </USAPoolDirect_Adminusers>
+    </modules>
+    <global>
+        <blocks>
+            <adminhtml>
+                <rewrite>
+                    <permissions_user_grid>USAPoolDirect_Adminusers_Block_Permissions_User_Grid</permissions_user_grid>
+                </rewrite>
+            </adminhtml>
+        </blocks>
+    </global>
+    <adminhtml>
+    	<menu>
+	    	<system translate="title" module="Adminhtml">
+				<children>
+					<acl translate="title">
+	                    <title>Admin Users</title>
+	                    <sort_order>10</sort_order>
+	                    <children>
+	                        <users translate="title">
+	                            <title>Users</title>
+	                            <action>adminhtml/permissions_user</action>
+	                        </users>
+	                        <roles translate="title">
+	                            <title>Roles</title>
+	                            <action>adminhtml/permissions_role</action>
+	                        </roles>
+	                    </children>
+	                </acl>
+				</children>
+	        </system>
+		</menu>
+	</adminhtml>
+</config>

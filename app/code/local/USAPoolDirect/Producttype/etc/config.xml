@@ -1,0 +1,118 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Producttype extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Producttype
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<modules>
+		<USAPoolDirect_Producttype>
+			<version>0.0.1</version>
+		</USAPoolDirect_Producttype>
+	</modules>
+	<global>
+		<resources>
+			<usapooldirect_producttype_setup>
+				<setup>
+					<module>USAPoolDirect_Producttype</module>
+					<class>USAPoolDirect_Producttype_Model_Resource_Setup</class>
+				</setup>
+			</usapooldirect_producttype_setup>
+		</resources>
+		<blocks>
+			<producttype>
+				<class>USAPoolDirect_Producttype_Block</class>
+			</producttype>
+		</blocks>
+		<helpers>
+			<producttype>
+				<class>USAPoolDirect_Producttype_Helper</class>
+			</producttype>
+		</helpers>
+		<models>
+			<producttype>
+				<class>USAPoolDirect_Producttype_Model</class>
+				<resourceModel>producttype_resource</resourceModel>
+			</producttype>
+			<producttype_resource>
+				<class>USAPoolDirect_Producttype_Model_Resource</class>
+				<entities>
+					<producttype>
+						<table>producttype_producttype</table>
+					</producttype>
+					<producttype_store>
+						<table>producttype_producttype_store</table>
+					</producttype_store>
+					<producttype_product>
+						<table>producttype_producttype_product</table>
+					</producttype_product>
+				</entities>
+			</producttype_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<usapooldirect_producttype>
+					<file>usapooldirect_producttype.xml</file>
+				</usapooldirect_producttype>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<USAPoolDirect_Producttype>
+					<files>
+						<default>USAPoolDirect_Producttype.csv</default>
+					</files>
+				</USAPoolDirect_Producttype>
+			</modules>
+		</translate>
+		<events>
+			<core_block_abstract_prepare_layout_after>
+				<observers>
+					<producttype>
+						<type>singleton</type>
+						<class>producttype/adminhtml_observer</class>
+						<method>addProducttypeBlock</method>
+					</producttype>
+				</observers>
+			</core_block_abstract_prepare_layout_after>
+			<catalog_product_save_after>
+				<observers>
+					<producttype>
+						<type>singleton</type>
+						<class>producttype/adminhtml_observer</class>
+						<method>saveProducttypeData</method>
+					</producttype>
+				</observers>
+			</catalog_product_save_after>
+		</events>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<USAPoolDirect_Producttype before="Mage_Adminhtml">USAPoolDirect_Producttype_Adminhtml</USAPoolDirect_Producttype>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+		<producttype>
+		</producttype>
+	</default>
+</config>

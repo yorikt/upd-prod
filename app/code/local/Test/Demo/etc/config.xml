@@ -1,0 +1,44 @@
+<!--<?xml version="1.0"?>
+<config>
+	<global>
+		<models>
+			<demo>
+				<class>Test_Demo_Model</class>
+			</demo>
+		</models>
+		<helpers>
+			<demo>
+				<class>Test_Demo_Helper</class>
+			</demo>
+		</helpers>
+		<events>
+			<customer_login>
+				<observers>
+					<demo>	
+						<type>model</type>
+						<class>demo/observer</class>
+						<method>logCustomer</method>
+					</demo>
+				</observers>
+			</customer_login>
+		</events>
+	</global>
+		<frontend>
+			<routers>
+				<test_demo>
+					<use>standard</use>
+					<args>
+						<module>Test_Demo</module>
+						<frontName>demo</frontName>
+					</args>
+				</test_demo>
+				<catalog>
+					<args>
+						<modules>
+							<demo before="Mage_Catalog">Test_Demo</demo>
+						</modules>
+					</args>
+				</catalog>
+			</routers>
+		</frontend>
+</config>-->

@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Vendorrelation extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       USAPoolDirect
+ * @package        USAPoolDirect_Vendorrelation
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_vendorrelation_customervendorid_index>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>usapooldirect_vendorrelation/customervendorid</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="usapooldirect_vendorrelation/adminhtml_customervendorid" name="customervendorid" />
+
+        </reference>
+        
+    </adminhtml_vendorrelation_customervendorid_index>
+    <adminhtml_vendorrelation_customervendorid_grid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="usapooldirect_vendorrelation/adminhtml_customervendorid_grid" name="customervendorid_grid"/>
+        </block>
+    </adminhtml_vendorrelation_customervendorid_grid>
+    <!-- Customervendorid add/edit action -->
+    <adminhtml_vendorrelation_customervendorid_edit>
+        <update handle="editor"/>
+        <reference name="menu">
+            <action method="setActive">
+                <menupath>usapooldirect_vendorrelation/customervendorid</menupath>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="usapooldirect_vendorrelation/adminhtml_customervendorid_edit" name="customervendorid_edit"></block>
+        </reference>
+        <reference name="left">
+            <block type="usapooldirect_vendorrelation/adminhtml_customervendorid_edit_tabs" name="customervendorid_tabs"></block>
+        </reference>
+    </adminhtml_vendorrelation_customervendorid_edit>
+<default>
+    <reference name="head">
+        <action method="addJs">
+            <name>googlemap.js</name>
+        </action>
+      </reference>
+        </default>
+</layout>

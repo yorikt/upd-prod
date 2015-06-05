@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Elitech_Comment extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Elitech
+ * @package		Elitech_Comment
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<modules>
+		<Elitech_Comment>
+			<version>0.0.1</version>
+		</Elitech_Comment>
+	</modules>
+	<global>
+		<resources>
+			<elitech_comment_setup>
+				<setup>
+					<module>Elitech_Comment</module>
+					<class>Elitech_Comment_Model_Resource_Setup</class>
+				</setup>
+			</elitech_comment_setup>
+		</resources>
+		<blocks>
+			<comment>
+				<class>Elitech_Comment_Block</class>
+			</comment>
+		</blocks>
+		<helpers>
+			<comment>
+				<class>Elitech_Comment_Helper</class>
+			</comment>
+		</helpers>
+		<models>
+			<comment>
+				<class>Elitech_Comment_Model</class>
+				<resourceModel>comment_resource</resourceModel>
+			</comment>
+			<comment_resource>
+				<class>Elitech_Comment_Model_Resource</class>
+				<entities>
+					<comment>
+						<table>comment_comment</table>
+					</comment>
+					<comment_store>
+						<table>comment_comment_store</table>
+					</comment_store>
+				</entities>
+			</comment_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<elitech_comment>
+					<file>elitech_comment.xml</file>
+				</elitech_comment>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Elitech_Comment>
+					<files>
+						<default>Elitech_Comment.csv</default>
+					</files>
+				</Elitech_Comment>
+			</modules>
+		</translate>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Elitech_Comment before="Mage_Adminhtml">Elitech_Comment_Adminhtml</Elitech_Comment>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+		<comment>
+		</comment>
+	</default>
+</config>

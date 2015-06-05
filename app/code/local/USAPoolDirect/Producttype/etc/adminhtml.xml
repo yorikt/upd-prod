@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Producttype extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Producttype
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<producttype translate="title" module="producttype">
+										<title>Producttype</title>
+									</producttype>
+								</children>
+							</config>
+						</children>
+					</system>
+					<producttype translate="title" module="producttype">
+						<title>Producttype</title>
+						<children>
+							<producttype translate="title" module="producttype">
+								<title>ProductTypes</title>
+							</producttype>
+						</children>
+					</producttype>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<!-- <menu>
+		<producttype translate="title" module="producttype">
+			<title>Producttype</title>
+			<sort_order>110</sort_order>
+			<depends>
+				<module>USAPoolDirect_Producttype</module>
+		 	</depends>
+		 	<children>
+				<producttype translate="title" module="producttype">
+					<title>ProductTypes</title>
+					<action>adminhtml/producttype_producttype</action>
+					<sort_order>0</sort_order>
+				</producttype>
+			</children>
+		</producttype>
+	</menu> -->
+</config>

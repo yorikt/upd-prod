@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Producttype extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Producttype
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+	<!-- ProductTypes grid action -->
+	<adminhtml_producttype_producttype_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>producttype/producttype</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="producttype/adminhtml_producttype" name="producttype" />
+		</reference>
+	</adminhtml_producttype_producttype_index>
+	<adminhtml_producttype_producttype_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="producttype/adminhtml_producttype_grid" name="producttype_grid"/>
+		</block>
+	</adminhtml_producttype_producttype_grid>
+	<!-- Producttype add/edit action -->
+	<adminhtml_producttype_producttype_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>producttype/producttype</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="producttype/adminhtml_producttype_edit" name="producttype_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="producttype/adminhtml_producttype_edit_tabs" name="producttype_tabs"></block>
+		</reference> 
+	</adminhtml_producttype_producttype_edit>
+	<adminhtml_producttype_producttype_catalog_product_producttypes>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="producttype/adminhtml_catalog_product_edit_tab_producttype" name="product.edit.tab.producttype"/>
+			<block type="adminhtml/widget_grid_serializer" name="producttype_grid_serializer">
+				<reference name="producttype_grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>product.edit.tab.producttype</grid_block_name>
+						<data_callback>getSelectedProducttypes</data_callback>
+						<hidden_input_name>producttypes</hidden_input_name>
+						<reload_param_name>product_producttypes</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+						<input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+	</adminhtml_producttype_producttype_catalog_product_producttypes>
+	<adminhtml_producttype_producttype_catalog_product_producttypesgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="producttype/adminhtml_catalog_product_edit_tab_producttype" name="product.edit.tab.producttype"/>
+		</block>
+	</adminhtml_producttype_producttype_catalog_product_producttypesgrid>
+	<adminhtml_producttype_producttype_products>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="producttype/adminhtml_producttype_edit_tab_product" name="producttype.edit.tab.product"/>
+			<block type="adminhtml/widget_grid_serializer" name="product_grid_serializer">
+				<reference name="product_grid_serializer">
+					<action method="initSerializerBlock">
+						<grid_block_name>producttype.edit.tab.product</grid_block_name>
+							<data_callback>getSelectedProducts</data_callback>
+							<hidden_input_name>products</hidden_input_name>
+							<reload_param_name>producttype_products</reload_param_name>
+					</action>
+					<action method="addColumnInputName">
+						<input_name>position</input_name>
+					</action>
+				</reference>
+			</block>
+		</block>
+	</adminhtml_producttype_producttype_products>
+	<adminhtml_producttype_producttype_productsgrid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="producttype/adminhtml_producttype_edit_tab_product" name="producttype.edit.tab.product"/>
+		</block>
+	</adminhtml_producttype_producttype_productsgrid>
+</layout>

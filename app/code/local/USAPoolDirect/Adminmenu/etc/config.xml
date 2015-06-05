@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_vendor extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_vendor
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<adminhtml>
+		<menu>
+		
+		<promo translate="title" module="catalogrule">
+			<depends>
+                 <module>Disable_This_Module</module>
+            </depends>
+        </promo>
+		
+		<catalog translate="title" module="catalog">
+            <title>Products</title>
+            <sort_order>20</sort_order>
+            <!--action>adminhtml/catalog</action-->
+            <depends>
+                <module>Mage_Catalog</module>
+            </depends>
+			
+            <children>
+				<categories translate="title" module="catalog">
+                    <title>Manage Categories</title>
+                    <action>adminhtml/catalog_category/</action>
+                    <sort_order>20</sort_order>
+                </categories>
+               <productattachments module="productattachments">
+				<title>Product Attachments</title>
+				<sort_order>10</sort_order>               
+				<children>
+					<items module="productattachments">
+						<title>Manage Attachments</title>
+						<sort_order>0</sort_order>
+						<action>productattachmentsadmin/adminhtml_productattachments</action>
+					</items>
+					<productcats module="productattachments">
+							<title>Manage Categories</title>
+							<sort_order>1</sort_order>
+							<action>productattachmentsadmin/adminhtml_productcats</action>
+					</productcats>
+					<config translate="title">
+						<title>Configuration</title>
+						<sort_order>2</sort_order>
+						<action>adminhtml/system_config/edit/section/productattachments</action>
+					</config>
+				</children>
+			</productattachments>
+			
+                <catalog translate="title" module="catalogrule">
+                    <title>Catalog Price Rules</title>
+                    <action>adminhtml/promo_catalog/</action>
+					<sort_order>11</sort_order> 
+                    <depends><module>Mage_Catalog</module></depends>
+                </catalog>
+				 <quote translate="title" module="salesrule">
+                    <title>Shopping Cart Price Rules</title>
+                    <action>adminhtml/promo_quote/</action>
+					<sort_order>12</sort_order> 
+                    <depends><module>Mage_Sales</module></depends>
+                </quote>    
+			</children>
+		</catalog>
+		
+		<sales translate="title" module="sales">
+            <title>Orders</title>
+			<sort_order>0</sort_order>
+		</sales>
+		
+		<customer translate="title" module="customer">
+            <title>Customers</title>
+            <sort_order>10</sort_order>
+		</customer>
+			
+		<blog translate="title" module="blog">
+			<title>Blog</title>
+			<sort_order>50</sort_order>
+		</blog>
+		
+		<newsletter translate="title" module="newsletter">
+            <title>Newsletter</title>
+            <sort_order>60</sort_order>
+		</newsletter>
+		
+		 <report translate="title" module="reports">
+            <title>Reports</title>
+            <sort_order>70</sort_order>
+		</report>
+		
+		<xmlconnect translate="title" module="xmlconnect">
+            <title>Mobile</title>
+            <sort_order>80</sort_order>
+		</xmlconnect>
+		
+		<dashboard translate="title" module="adminhtml">
+            <title>Dashboard</title>
+            <sort_order>90</sort_order>
+        </dashboard>
+		
+		<cms translate="title" module="cms">
+            <title>CMS</title>
+            <sort_order>100</sort_order>
+		</cms>
+		
+		<system translate="title" module="adminhtml">
+            <title>System</title>
+            <sort_order>110</sort_order>
+		</system>
+		
+		
+		<FME_Extensions>
+			<depends>
+                 <module>Disable_This_Module</module>
+            </depends>
+		</FME_Extensions>
+		
+		<meigee translate="title" module="ThemeOptionsUnique">
+			<depends>
+        	         <module>Disable_This_Module</module>
+	            </depends>
+		</meigee>
+
+		</menu>
+	</adminhtml>
+</config>

@@ -1,0 +1,8 @@
+.products-grid .product-name a{
+	color:#000000;
+	text-transform:none;
+	font-weight:normal;
+}
+.products-grid .product-name a:hover{
+	color: #75ab4e;
+}

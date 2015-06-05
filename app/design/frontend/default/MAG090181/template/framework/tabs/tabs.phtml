@@ -1,0 +1,185 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Mage
+ * @copyright  Copyright (c) 2008 Irubin Consulting Inc. DBA Varien (http://www.varien.com)
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+
+
+// $_product = $this->getProduct();
+//$_product = Mage::getModel('catalog/product');
+
+$_product = Mage::registry('product');
+$id = $_product->getId();
+
+$productattachmentsTable = Mage::getSingleton('core/resource')->getTableName('productattachments');
+$productattachmentsProductsTable = Mage::getSingleton('core/resource')->getTableName('productattachments_products');
+$productattachmentsStoreTable = Mage::getSingleton('core/resource')->getTableName('productattachments_store');
+$storeId = Mage::app()->getStore()->getId();
+
+$sqry = "SELECT a.* FROM ".$productattachmentsTable." a
+INNER JOIN ".$productattachmentsStoreTable." AS store_table ON a.productattachments_id = store_table.productattachments_id
+INNER JOIN ".$productattachmentsProductsTable." AS ap ON a.productattachments_id = ap.productattachments_id
+WHERE ap.product_id = ".$id." AND store_table.store_id in(0,".$storeId.") AND a.status = 1";
+$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$select = $connection->query($sqry);
+$relatedProductAttachments = $select->fetchAll();
+
+?>
+
+<div class="new-tab">
+<ul class="tabs">
+    <?php $i = 0;
+  
+  	$attachment_tab = '';
+    $tabs_array = array(
+    				array('alias'=>'description_tabbed','title'=>'Product Description'),
+    				array('alias'=>'related_tabbed','title'=>'Related Products'),
+    				array('alias'=>'productattachments_tabbed','title'=>'dem,o'),
+    				array('alias'=>'review_tabbed','title'=>"Product's Review"),
+    				array('alias'=>'tags_tabbed','title'=>'Product Tags'),
+    				array('alias'=>'cms','title'=>'CMS Tab'),
+    				array('alias'=>'additional_tabbed','title'=>'Additional Information')
+    				
+    		);
+    
+    ?>
+    <?php foreach ($tabs_array as $_index => $_tab):
+    ?>
+        <?php if($_tab['alias']=='productattachments_tabbed' && count($relatedProductAttachments) != 0){?>
+            <?php					
+                $tab_title = $_tab['title']; 
+                $tab_is_cms= strpos($_tab['alias'], 'cms');  
+            ?>
+           	<li id="product_tabs_productattachments_tabbed">
+	    	<a href="#"><?php echo $this->__(Mage::helper('productattachments')->getProductPageAttachmentHeading()) ?><span class="arrow"></span></a>
+	    	</li>	
+           
+           
+	    
+        <?php }elseif($this->getChildHtml($_tab['alias']) && strlen(strip_tags(trim($this->getChildHtml($_tab['alias']))))>0 ){?>
+        	<?php					
+        		$tab_title = $_tab['title'];
+        		if($_tab['alias']=='related_tabbed' && count($_product->getRelatedProductIds())!='0'){
+        			$tab_title = 'Part Lists'; 
+        		}else if($_tab['alias']=='related_tabbed'){
+        			$tab_title = '';
+        		}
+                $tab_is_cms= strpos($_tab['alias'], 'cms');  
+            ?>
+            <li id="product_tabs_<?php echo $_tab['alias'] ?>" <?php echo !$i  ? 'class="active first"' : '' ?>><a href="#"><?php echo $tab_title ; ?><span class="arrow"></span></a></li>
+            <?php $i++; ?>
+        <?php }?>
+    <?php endforeach; ?>
+    
+</ul>
+</div>
+<div class="padder">
+    <?php foreach ($tabs_array as $_index => $_tab): ?>
+        	
+        	<?php if($_tab['alias']=='productattachments_tabbed' && count($relatedProductAttachments) != 0){?>
+        		<div id="product_tabs_<?php echo $_tab['alias'] ?>_contents">
+        		<h6><?php echo $_tab['title'] ?></h6>
+	           		<ul>	
+						<?php foreach ($relatedProductAttachments as $item): ?>
+				    		 <li>
+							 	<?php
+									//check download limit
+									if($item['limit_downloads']!="" && $item['limit_downloads']!=0){
+										if($item['downloads']<=$item['limit_downloads']){
+											echo $item['file_icon'] . '  ' .  '<a href="javascript:;" onclick="alert(\'You can not download because this attachment excceds the number of download\');"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+										}else{
+											echo $item['file_icon'] . '  ' .  '<a href="'.Mage::getUrl('productattachments').'index/download?id='.$item['productattachments_id'].'"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+										}
+									}else{
+										echo $item['file_icon'] . '  ' .  '<a href="'.Mage::getUrl('productattachments').'index/download?id='.$item['productattachments_id'].'"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+									}
+									if(Mage::getStoreConfig('productattachments/general/show_counter')) {
+								?>
+				                	Downloads: (<?php echo $item['downloads']; ?>)
+				                <?php 
+									} 
+								?>
+								<?php
+				                	if(Mage::getStoreConfig('productattachments/productattachments/showcontent')) {
+								?>
+				                	<br /><?php echo $item['content']; ?><br />
+				                <?php 
+									} 
+								?>
+				             </li>
+				            
+				        <?php endforeach; ?>
+				    </ul>
+			    </div>
+			<?php }else{?>
+			<?php if($this->getChildHtml($_tab['alias'])){?>
+			<div id="product_tabs_<?php echo $_tab['alias'] ?>_contents">
+			   <h6><?php echo $_tab['title'] ?></h6>
+			   <ol><?php echo $this->getChildHtml($_tab['alias']); ?></ol>
+			</div>
+			
+			<?php } ?>
+			<?php }?>
+        
+    <?php endforeach; ?>
+  </div> 
+    <script type="text/javascript">
+var MegnorTabs = Class.create();
+MegnorTabs.prototype = {
+    initialize: function(selector) {
+        $$(selector).each(this.initTab.bind(this));
+    },
+
+    initTab: function(el) {
+        el.href = 'javascript:void(0)';
+        if ($(el).up('li').hasClassName('active')) {
+            this.showContent(el);
+        }
+        el.observe('click', this.showContent.bind(this, el));
+    },
+
+    showContent: function(a) {
+        var li = $(a).up('li'),
+            ul = $(li).up('ul');
+
+        ul.select('li'/*, 'ol'*/).each(function(el) {
+            var contents = $(el.id + '_contents');
+            if (el.id == li.id) {
+                el.addClassName('active');
+                contents.show();
+				productListAutoSet();
+            } else {
+                el.removeClassName('active');
+                contents.hide();
+            }
+        });
+    }
+}
+new MegnorTabs('.tabs a');
+</script>

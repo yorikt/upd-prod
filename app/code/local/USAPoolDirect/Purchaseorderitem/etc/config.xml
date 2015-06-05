@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Purchaseorderitem extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Purchaseorderitem
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<modules>
+		<USAPoolDirect_Purchaseorderitem>
+			<version>0.0.1</version>
+		</USAPoolDirect_Purchaseorderitem>
+	</modules>
+	<global>
+		<resources>
+			<usapooldirect_purchaseorderitem_setup>
+				<setup>
+					<module>USAPoolDirect_Purchaseorderitem</module>
+					<class>USAPoolDirect_Purchaseorderitem_Model_Resource_Setup</class>
+				</setup>
+			</usapooldirect_purchaseorderitem_setup>
+		</resources>
+		<blocks>
+			<purchaseorderitem>
+				<class>USAPoolDirect_Purchaseorderitem_Block</class>
+			</purchaseorderitem>
+		</blocks>
+		<helpers>
+			<purchaseorderitem>
+				<class>USAPoolDirect_Purchaseorderitem_Helper</class>
+			</purchaseorderitem>
+		</helpers>
+		<models>
+			<purchaseorderitem>
+				<class>USAPoolDirect_Purchaseorderitem_Model</class>
+				<resourceModel>purchaseorderitem_resource</resourceModel>
+			</purchaseorderitem>
+			<purchaseorderitem_resource>
+				<class>USAPoolDirect_Purchaseorderitem_Model_Resource</class>
+				<entities>
+					<purchaseorderitem>
+						<table>purchaseorderitem_purchaseorderitem</table>
+					</purchaseorderitem>
+					<purchaseorderitem_store>
+						<table>purchaseorderitem_purchaseorderitem_store</table>
+					</purchaseorderitem_store>
+				</entities>
+			</purchaseorderitem_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<usapooldirect_purchaseorderitem>
+					<file>usapooldirect_purchaseorderitem.xml</file>
+				</usapooldirect_purchaseorderitem>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<USAPoolDirect_Purchaseorderitem>
+					<files>
+						<default>USAPoolDirect_Purchaseorderitem.csv</default>
+					</files>
+				</USAPoolDirect_Purchaseorderitem>
+			</modules>
+		</translate>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<USAPoolDirect_Purchaseorderitem before="Mage_Adminhtml">USAPoolDirect_Purchaseorderitem_Adminhtml</USAPoolDirect_Purchaseorderitem>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+		<purchaseorderitem>
+		</purchaseorderitem>
+	</default>
+</config>

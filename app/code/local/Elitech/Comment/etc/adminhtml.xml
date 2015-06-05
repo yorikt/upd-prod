@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Elitech_Comment extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Elitech
+ * @package		Elitech_Comment
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<comment translate="title" module="comment">
+										<title>Comment</title>
+									</comment>
+								</children>
+							</config>
+						</children>
+					</system>
+					<comment translate="title" module="comment">
+						<title>Comment</title>
+						<children>
+							<comment translate="title" module="comment">
+								<title>Comments</title>
+							</comment>
+						</children>
+					</comment>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<!-- <menu>
+		<comment translate="title" module="comment">
+			<title>Comment</title>
+			<sort_order>150</sort_order>
+			<depends>
+				<module>Elitech_Comment</module>
+		 	</depends>
+		 	<children>
+				<comment translate="title" module="comment">
+					<title>Comments</title>
+					<action>adminhtml/comment_comment</action>
+					<sort_order>0</sort_order>
+				</comment>
+			</children>
+		</comment>
+	</menu> -->
+</config>

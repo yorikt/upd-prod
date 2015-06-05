@@ -1,0 +1,514 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     default_modern
+ * @copyright   Copyright (c) 2011 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+
+/**
+ * Product view template
+ *
+ * @see Mage_Catalog_Block_Product_View
+ */
+
+$_product = Mage::registry('product');
+$id = $_product->getId();
+
+$productattachmentsTable = Mage::getSingleton('core/resource')->getTableName('productattachments');
+$productattachmentsProductsTable = Mage::getSingleton('core/resource')->getTableName('productattachments_products');
+$productattachmentsStoreTable = Mage::getSingleton('core/resource')->getTableName('productattachments_store');
+$storeId = Mage::app()->getStore()->getId();
+
+$sqry = "SELECT a.* FROM ".$productattachmentsTable." a
+INNER JOIN ".$productattachmentsStoreTable." AS store_table ON a.productattachments_id = store_table.productattachments_id
+INNER JOIN ".$productattachmentsProductsTable." AS ap ON a.productattachments_id = ap.productattachments_id
+WHERE ap.product_id = ".$id." AND store_table.store_id in(0,".$storeId.") AND a.status = 1";
+$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+$select = $connection->query($sqry);
+$relatedProductAttachments = $select->fetchAll();
+
+
+
+
+?>
+<?php 
+$meigee_unique_productpage = MAGE::helper('ThemeOptionsUnique')->getThemeOptionsUnique('meigee_unique_productpage');
+$this->_product = Mage::registry('product');
+if ($this->_product->getUniquePrtabs()):
+$productpage_additional = $this->_product->getUniquePrtabs();
+else:
+$productpage_additional = $meigee_unique_productpage['additional'];
+$productpage_additional = $productpage_additional['product_tabs'];
+endif;
+
+$custom_tabs = array();
+$product_custom_tabs = explode(",", $productpage_additional);
+foreach ($product_custom_tabs as $product_custom_tab) {
+	$custom_tabs[] = trim($product_custom_tab);
+};
+
+
+
+
+$tabs_array = array(
+    				array('alias'=>'description','title'=>'Product Description'),
+					array('alias'=>'upsell_products','title'=>'We Also Recommend'),
+    				array('alias'=>'additional','title'=>'Specifications'),
+    				array('alias'=>'product.tags','title'=>'Product Tags'),
+    				
+    		);
+
+
+?>
+<ul
+	class="meigee-tabs">
+	<?php foreach ($tabs_array as $_index => $_tab): 
+	    $product_tags_str ='';
+	    if($_tab['alias']=='product.tags'){
+		
+		$class_product_tags = (!$_index)?' active first':'';
+		$product_tags_str = '<li id="product_tabs_'.$_tab['alias'].'"
+		class="'.$class_product_tags.'"><a href="#">'.$_tab['title'].'
+	    </a></li>';
+		continue;
+	    }
+
+	    /*added on 16th September 2014*/
+	    if($_tab['alias']=='description'){
+		$desc= $_product->getDescription();
+		if($desc==''){
+			continue;
+		}
+	    }
+	    /*===========================*/
+
+
+	?>
+
+	<?php if($this->getChildHtml($_tab['alias'])): ?>
+	<li id="product_tabs_<?php echo $_tab['alias'] ?>"
+		class="<?php echo !$_index?' active first':''?>"><a href="#"><?php echo $_tab['title']?>
+	</a></li>
+	<?php endif; ?>
+	<?php endforeach; ?>
+
+	<?php foreach ($custom_tabs as $key) {
+	 if(!empty($key)):
+	 ?>
+	<li id="<?php echo $key; ?>"><div class="tab-left"></div> <a href="#"><?php echo Mage::getModel('cms/block')->setStoreId(Mage::app()->getStore()->getId())->load($key)->getTitle(); ?>
+	</a>
+		<div class="tab-right"></div></li>
+	<?php endif; 
+} ?>
+
+	<!-- ###################### Product Attachment manual tab ################# -->
+	<?php if(!empty($relatedProductAttachments)):?>
+	<li class="" id="product_tabs_resources"><a href="javascript:void(0)">Product Documentation</a>
+	</li>
+	<?php endif; ?>
+	<?php echo $product_tags_str;?>
+	<!-- ###################### Product Attachment manual tab ################# -->
+
+	<!-- ###################### Product  partlists tab ################# -->
+	<?php 
+	// Below array is going to use to generate a list
+	$_product=Mage::getModel('catalog/product')->load($id);
+	$relatedProductsId=$_product->getRelatedProductIds();
+	if(!empty($relatedProductsId)) :
+	?>
+
+	<li class="" id="product_tabs_partlists"><a href="javascript:void(0)">Part
+			lists</a></li>
+	<?php endif; ?>
+	<!-- ###################### Product  partlists tab ################# -->
+
+</ul>
+<?php foreach ($tabs_array as $_index => $_tab): ?>
+<?php if($this->getChildHtml($_tab['alias'])): 
+
+/*added on 16th September 2014*/
+ if($_tab['alias']=='description'){
+		$desc= $_product->getDescription();
+		if($desc==''){
+			continue;
+		}
+
+	    }
+/*============================*/
+
+?>
+<div class="meigee-tabs-content"
+	id="product_tabs_<?php echo $_tab['alias'] ?>_contents">
+	<?php echo $this->getChildHtml($_tab['alias']) ?>
+</div>
+<?php endif; ?>
+<?php endforeach; ?>
+
+<?php foreach ($custom_tabs as $key) {
+	if(!empty($key)):
+	?>
+<div class="meigee-tabs-content" id="<?php echo $key; ?>_contents">
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId(trim($key))->toHtml() ?>
+</div>
+<?php endif; 
+} ?>
+
+
+<!-- ###################### Product Attachment manual tab content ################# -->
+<?php if(!empty($relatedProductAttachments)):?>
+<div id="product_tabs_resources_contents" class="meigee-tabs-content"
+	style="">
+	<h2>Attachement</h2>
+	<div class="box-collateral">
+		<ul>
+			<?php foreach ($relatedProductAttachments as $item): ?>
+			<li><?php
+			//check download limit
+			    /*if($item['limit_downloads']!="" && $item['limit_downloads']!=0){
+				if($item['downloads']<=$item['limit_downloads']){
+				    echo $item['file_icon'] . '  ' .  '<a href="javascript:;" onclick="alert(\'You can not download because this attachment excceds the number of download\');"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+				}else{
+				    echo $item['file_icon'] . '  ' .  '<a href="'.Mage::getUrl('productattachments').'index/download?id='.$item['productattachments_id'].'"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+				}
+			    }else{
+				echo $item['file_icon'] . '  ' .  '<a href="'.Mage::getUrl('productattachments').'index/download?id='.$item['productattachments_id'].'"><b>'. $item['title']. '</b></a>  Size: ('.$item['file_size'].')';
+			    }*/
+			    $download_link_with_title = preg_replace('/Download/',$item['title'], $item['download_link']);
+		 
+			    echo $item['file_icon'] . '  ' .$download_link_with_title.'  Size: ('.$item['file_size'].')';
+		 
+			if(Mage::getStoreConfig('productattachments/general/show_counter')) {
+				?> Downloads: (<?php echo $item['downloads']; ?>) <?php
+			}
+			?> <?php
+			if(Mage::getStoreConfig('productattachments/productattachments/showcontent')) {
+				?> <br /> <?php echo $item['content']; ?><br /> <?php
+			}
+			?>
+			</li>
+
+			<?php endforeach; ?>
+		</ul>
+
+	</div>
+</div>
+<?php endif; ?>
+<!-- ###################### Product Attachment manual tab ################# -->
+
+
+
+<!-- ###################### Product Attachment manual part list content tab ################# -->
+<?php if(!empty($relatedProductsId)) :
+	?>
+<div id="product_tabs_partlists_contents" class="meigee-tabs-content"
+	style="">
+	<h2>Part Lists</h2>
+	<div class="box-collateral">
+		<style>
+.tbl_part {
+	width: 100%;
+}
+
+.tbl_part tr th {
+	background: none repeat scroll 0 0 #f0f0f0;
+	font-size: 13px;
+	font-weight: bold;
+	height: 35px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.tbl_part tr td {
+	background-color: white;
+	border-bottom: 1px solid #e1e1e1;
+	height: 80px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+div.parts-thumb {
+	float: left;
+	padding-left: 20px;
+	width: 8%;
+}
+
+div.parts-items {
+	color: #444444;
+	float: left;
+	font-size: 13px;
+	margin-bottom: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	text-decoration: none;
+	width: 32%;
+}
+
+div.parts-key {
+	float: left;
+	width: 5%;
+}
+
+div.parts-sku {
+	float: left;
+	width: 12%;
+}
+
+div.parts-price {
+	float: left;
+	width: 12%;
+}
+
+div.parts-quantity {
+	float: left;
+	width: 8%;
+}
+</style>
+	
+		 <?php
+ if(isset($_product['part_image']) && $_product->getPartImage()!='' && $_product['part_image']!='no_selection'){ 
+ ?>
+<p class="product-image">
+
+			<a
+				href="<?php echo $this->helper('catalog/image')->init($_product, 'part_image')->backgroundColor(array(242,242,242))->resize(2000); ?>"
+				data-zoom="showTitle: false, adjustX: -5, adjustY:-5, tint: '#fff', tintOpacity:0.6, position:'inside'"
+				class="cloud-zoom" id="zoom3"
+				style="position: relative; display: block;"><img
+				title="<?php echo $this->escapeHtml($this->getImageLabel()) ?>" alt="<?php echo $this->escapeHtml($this->getImageLabel()) ?>"
+				src="<?php echo $this->helper('catalog/image')->init($_product, 'part_image')->backgroundColor(array(242,242,242))->resize(1100);?>"
+				id="image1" style="display: block;"> </a>
+
+
+		</p>
+<?php } ?>
+
+		<table class="tbl_part" cellspacing="10">
+			<tr>
+				<th class="parts-thumb">Items</th>
+				<th class="parts-items">&nbsp;</th>
+				<th class="parts-key">Key</th>
+				<th class="parts-sku">Sku</th>
+				<th class="parts-price">Price</th>
+				<th class="parts-quantity">Qty</th>
+				<th class="parts-buttons">&nbsp;</th>
+			</tr>
+
+			<?php 
+				
+
+			$relatedProducts=array();
+			$i=0;
+
+			$resource = Mage::getSingleton('core/resource');
+			$tableName = $resource->getTableName('producttype_producttype_product_related');
+			$connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+
+			foreach($relatedProductsId as $relatedProductId)
+			{
+				$_item = Mage::getModel('catalog/product')->load($relatedProductId);
+					
+					
+					
+				$select = $connection->select()->from($tableName, array('*'))->where('product_id=?',$id)->where('related_product_id=?',$_item->getId());
+					
+				$rowArray =$connection->fetchRow($select);
+					
+
+					
+				?>
+
+			<tr>
+				<td class="parts-thumb"><img
+					src="<?php echo $this->helper('catalog/image')->init($_item, 'thumbnail')->backgroundColor(array(242,242,242))->resize(75,75) ?>"
+					width="75" height="75"
+					alt="<?php echo $this->escapeHtml($_item->getName()) ?>" /></td>
+				<td class="parts-items"><h3>
+						<?php echo $this->escapeHtml($_item->getName()) ?>
+					</h3></td>
+				<td class="parts-key"><?php if($_item->getId()==$rowArray['related_product_id']){
+					echo $rowArray['product_key'];
+				}else{echo "*";
+				}?>
+				</td>
+				<td class="parts-sku"><?php echo $this->escapeHtml($_item->getSku()) ?>
+				</td>
+				<td class="parts-price"><?php echo $this->getPriceHtml($_item, true, '-related') ?>
+				</td>
+				<td class="parts-quantity"><input type="text"
+					class="input-text qty parts-qty" title="Qty" value="1"
+					maxlength="12" id="qty" name="qty"></td>
+				<td class="parts-buttons">
+				
+				<?php
+				
+				$_carturl = Mage::helper('checkout/cart')->getAddUrl($_item);
+				?>
+				<?php if($_item->isSaleable()): ?>
+
+					<div class="add-to-box">
+						<div class="add-to-cart">
+							<button onclick="setLocationAjax('<?php echo $_carturl; ?>','<?php echo $relatedProductId; ?>')"
+								class="button btn-cart progress-buttons" data-vertical=""
+								data-style="fill" title="Add to Bag"
+								 type="button">
+								<span class="content"><span><span>Add to Bag</span>
+								</span>
+								</span><span class="progress"><span class="progress-inner"></span>
+								</span>
+							</button>
+
+						</div>
+
+						<?php endif; ?>
+				</td>
+			</tr>
+			<?php 
+			$i++;
+			}
+
+
+			?>
+		</table>
+
+
+
+	</div>
+
+
+</div>
+<?php endif; ?>
+<!-- ###################### Product Attachment manual part list content tab ################# -->
+
+
+<script type="text/javascript">
+$$('.meigee-tabs > li:first')[0].addClassName('active first');//added on 17th September 2014
+
+//<![CDATA[
+Varien.Tabs = Class.create();
+Varien.Tabs.prototype = {
+  initialize: function(selector) {
+    var self=this;
+    $$(selector+' a').each(this.initTab.bind(this));
+  },
+
+  initTab: function(el) {
+      el.href = 'javascript:void(0)';
+      if ($(el.parentNode).hasClassName('active')) {
+        this.showContent(el);
+      }
+      el.observe('click', this.showContent.bind(this, el));
+  },
+
+  showContent: function(a) {
+    var li = $(a.parentNode), ul = $(li.parentNode);
+    ul.select('li', 'ol').each(function(el){
+      var contents = $(el.id+'_contents');
+      if (el==li) {
+        el.addClassName('active');
+        contents.show();
+      } else {
+        el.removeClassName('active');
+        contents.hide();
+      }
+    });
+  }
+}
+new Varien.Tabs('.meigee-tabs');
+//]]>
+
+$$('.meigee-tabs > li:last')[0].addClassName('last');
+
+</script>
+<?php if(Mage::getStoreConfig('ajax/general/enabledpro')){ ?>
+	<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('.ajax-fancybox').fancybox(
+				{
+				   hideOnContentClick : true,
+				   width:600,
+				   autoDimensions: true,
+				   type : 'iframe',
+				   showTitle: false,
+				   scrolling: 'no',
+				   afterLoad: function(){
+						setTimeout(function(){
+							var frameBodyHeight = jQuery('.fancybox-iframe').contents().find('body').addClass('iframe-body').height();
+							if(jQuery(window).height() > frameBodyHeight+30){
+								jQuery('.fancybox-inner').css('height', frameBodyHeight);
+							}
+						}, 1000);
+					}
+				}
+			);
+			
+			/* button loader */
+			jQuery('.products-grid li.item .btn-cart').on('click', function(){
+				jQuery(this).parent().addClass('active');
+			});
+			
+			jQuery('.lockshow-bg').remove();
+		});
+		
+		function showOptions(id){
+			jQuery('#fancybox'+id).trigger('click');
+		}
+		function setAjaxData(data,iframe){
+			if(data.status == 'ERROR'){
+				alert(data.message);
+			}else{
+				if(jQuery('.top-cart')){
+					jQuery('.top-cart').replaceWith(data.sidebar);
+				}
+				jQuery.fancybox.close();
+				jQuery('body').append('<div class="add-to-cart-success">test7' + data.message +' <br /><a href="<?php echo $this->getUrl('checkout/cart'); ?>"><?php echo $this->__('Go to Shopping Cart') ?></a><a href="#" class="btn-remove"><i class="fa fa-times"></i></a></div>');
+				setTimeout(function () {jQuery('.add-to-cart-success').slideUp(500)}, 5000);
+				jQuery('.add-to-cart-success a.btn-remove').click(function(){
+					jQuery(this).parent().slideUp(500);
+					return false;
+				});
+			}
+		}
+		function setLocationAjax(url,id){
+			url += 'isAjax/1';
+			url = url.replace("checkout/cart","ajax/index");
+			try {
+				
+				jQuery.ajax( {
+					url : url,
+					dataType : 'json',
+					success : function(data) {
+						jQuery('.products-grid li.item').removeClass('active');
+						setAjaxData(data,false);
+					}
+				});
+			} catch (e) {
+			}
+		}
+		productLabels();
+		productHoverImages();
+    </script>
+    <?php }else{ ?>
+	<script type="text/javascript">
+		jQuery('.lockshow-bg').remove();
+		
+	</script>
+	<?php } ?>

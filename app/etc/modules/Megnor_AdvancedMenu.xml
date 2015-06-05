@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Megnor_AdvancedMenu>
+            <active>true</active>
+            <codePool>local</codePool>
+           <!-- <depends>
+          		<Meigee_CategoriesEnhanced/>
+      		</depends> -->  
+        </Megnor_AdvancedMenu>
+    </modules>
+</config> 

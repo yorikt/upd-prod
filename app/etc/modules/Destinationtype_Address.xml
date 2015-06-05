@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Destinationtype_Address>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Destinationtype_Address>
+    </modules>
+</config> 

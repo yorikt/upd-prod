@@ -1,0 +1,851 @@
+/**
+*
+* Feel free to add your own css rules here.
+*
+*/
+/* changes in product view page's tabs */
+.meigee-tabs a{
+	/*font-size:1.125em; ESPL SAN 20150311 0328PM START END */
+	font-size:1.167em;
+	letter-spacing:0;
+}
+.product-collateral .box-collateral{
+	color:#666666;
+}
+#product_tabs_additional_contents .box-collateral .data-table th{
+	color:#333333;
+}
+#product_tabs_additional_contents .box-collateral .data-table td{
+	color:#666666;
+}
+#product_tabs_additional_contents .box-collateral .data-table tbody tr th
+{
+	width: 10%;
+}
+
+
+
+/*modify the layered navigation spacing*/
+aside.sidebar .block{
+	padding: 1.5em;
+}
+
+aside.sidebar .block .block-title, aside.sidebar .block.block-layered-nav dl dd{
+	margin-bottom: 0.938em;
+    padding-bottom: 0.938em;
+}
+
+aside.sidebar .block.block-layered-nav dl dt{
+	margin-bottom: 0.625em;
+}
+
+#aw-ln-filters-container dd ol li{
+	padding: 0px !important;
+}
+aside.sidebar .block.block-layered-nav dl dd li a, aside.sidebar .block.block-layered-nav dl dd li strong{
+	padding: 1px 0 0 0;
+}
+
+/*remove bottom border from item name on order review of check out page  */
+.opc h3{
+	border-bottom:0px;
+}
+
+
+/*display top links and remove unnecessary links */
+.custometoplinks ul{
+	display:block !important;
+	float:left;
+	font-size: 1em;
+	width:100%;
+	margin-top:2px;
+	line-height: 1.5em;
+}
+.custometoplinks ul li { float: left; border-right: 1px solid #DDDDDD; padding: 0 .5em; }
+.custometoplinks ul li:last-child { border: 0; }
+.custometoplinks ul li a{
+	font-size:1em !important;
+	color:#1270A3 !important;
+}
+
+.custometoplinks ul li:last-child { 
+    display:none; 
+} 
+.custometoplinks ul li:nth-last-child(2) {
+	border-right:none;
+}
+
+.footer-info .footer-logo img{
+	width:100% !important;
+}
+
+.var-narrow.var-chromeless .tweet{
+	padding:0 2px 10px 0 !important;
+}
+
+.mycustomtweet{
+	margin-top:-1.2em !important;
+}
+
+.freeshippingicon{
+	color:#1270A3; 
+	font-size:1.5em;
+	font-weight:bold;
+	margin-top: 6px;
+}
+
+/*modify search box on header on 16th sept 2014*/
+header#header .form-search .indent{
+	border-color:#1270A3;
+}
+header#header .form-search button{
+	background:none repeat scroll 0 0 #1270A3;
+}
+header#header .form-search button > span{
+	background:none repeat scroll 0 0 #1270A3;
+}
+header#header .form-search button span i{
+	color:#FFFFFF;
+}
+header#header .form-search .indent input{
+	background-color: #EEEEEE;
+	color: #666666;
+	font-size: 14px;
+}
+header#header .form-search .indent:hover input{
+	color: #666666;
+	font-size: 14px;
+}
+header#header .form-search.focus button span i{
+	color:#FFFFFF;
+}
+header#header .form-search.focus button > span{
+	background:none repeat scroll 0 0 #1270A3;
+}
+header#header .form-search.focus .indent input{
+	color: #666666;
+}
+
+
+/*add bottom border to featured products not last li*/
+.products-list-wrapper .meigee-widget > li.item{
+	border-bottom: 1px solid rgb(221, 221, 221); 
+	margin-bottom: 1.5em;
+}
+ .products-list li.item:last-of-type{
+	border-bottom: 0px;
+	margin-bottom: 0;
+}
+
+
+/*change the background color of hover add to cart button*/
+button.button.progress-buttons:hover{
+	background-color:#1270A3;
+}
+
+#m-wait {
+    color: #d85909;
+    font-size: 1.1em;
+    font-weight: bold;
+    height: 1866px;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    z-index: 20000;
+}
+
+.ajax-box-overlay-layered {
+    background-color: rgba(0, 0, 0, 0.3);
+    display: none;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 9998;
+}
+
+.ajax-box-overlay-layered i.load {
+    background-color: rgba(0, 0, 0, 0.82);
+    background-image: url("../images/fancybox/fancybox_loading.gif");
+    background-position: center center;
+    background-repeat: no-repeat;
+    border-radius: 10px;
+    display: inline-block;
+    left: 50%;
+    margin: 0 0 0.75em;
+    padding: 22px;
+    position: absolute;
+    top: 30%;
+}
+
+.pdetail-custom{
+	/*font-size:1.0em !important;*/
+	font-size:11px !important;
+	color:#333333 !important;
+}
+/* ESPL SAN 150309 1240PM START */
+.pdetail-custom span{
+	/*font-size:1.0em !important;*/
+	font-size:16px !important;
+	color:#666666 !important;
+}
+/* ESPL SAN 150309 1240PM END */
+.form-list label{
+	font-size:12px !important;
+}
+.form-list .input-box input , .form-list .input-box select , .cart .discount .input-box input,  .form-list select{
+	font-size:14px !important;
+	color:#333333 !important;
+}
+.product-view .product-shop .price-box .regular-price .price, .product-view .product-shop .price-box .special-price .price{
+	font-size:32px !important;
+}
+
+.product-view .sku{
+	font-size:16px !important; /* ESPL SAN 090315 1240PM START END */
+	color:#000000 !important;
+	margin-right:0.4em;
+	margin-bottom:0.3em;
+}
+.product-collateral .box-collateral, mydesc {
+	font-size:14px !important;
+}
+
+#product_tabs_description_contents{
+	font-size:14px !important;
+}
+#product_tabs_description_contents, #product_tabs_additional_contents, #product_tabs_product.tags_contents, .meigee-tabs-content {
+	color:#333333 !important;
+}
+.cart-table .cart-edit{
+	display:none;
+}
+.c_actions .btn-remove2:after{
+	content:'Remove Item'; 
+	/*color:red;*/
+	/*font-size:14px;*/
+}
+.c_actions .btn-remove2 .fa-times{
+	display:none !important;
+}
+/*.c_actions .btn-remove2{
+	padding-top:2px;
+}*/
+
+.totals .totals-border{
+	font-size:14px;
+}
+
+
+.cart-product tr td{
+padding: 0px !important;
+border:0px !important;
+}
+
+/* ESPL SAN 20150309 1240PM START */
+aside.sidebar .block.block-layered-nav dl dd li, .m-slider-values{
+	color:#666666;
+}
+.product-view .product-shop .product-name h1{
+	margin-bottom:0.3em;
+}
+.product-view .product-shop .product-name h1.custom-manu{
+	font-weight: bold;
+	margin-bottom:0.4em;
+	color: #000000;
+}
+.product-view .product-shop .product-name h1{
+	text-transform:none;
+	font-weight: normal;
+	color: #000000;
+}
+.product-view .product-shop p{
+	/*margin-bottom:0.4em !important; */
+}
+input, select, textarea, button{
+	font:11px/18px Lato,sans-serif;
+}
+/* ESPL SAN 20150309 1240PM END */
+
+/* ESPL SAN 20150310 1240PM START */
+.customsku{
+	padding-left: 14px; 
+	float: left;
+}
+.product-view .product-shop .add-to-links-box{
+	display:none;
+}
+.meigee-tabs a{
+	text-transform:none;
+}
+header#header.header-2 .nav-container ul li.active a.level-top{
+	background-color:#1270A3;
+}
+.nav-container a.level-top i, .nav-container .active a.level-top i, .nav-container a.level-top i:hover, header#header.header-2 .nav-container a.level-top, header#header.header-2 .nav-container a.level-top:hover i, 
+header#header.header-2 .nav-container a.level-top:hover, .nav-container .over a.level-top:hover,
+.nav-container .over a.level-top i,
+.nav-container .over a.level-top:hover i{
+	color:#ffffff;
+}
+header#header.floating .nav-container a.level-top:hover,
+header#header.floating .nav-container .active a.level-top,
+header#header.floating .nav-container .over a.level-top,
+header#header.header-2 .nav-container a.level-top:hover, .nav-container .over a.level-top {
+	background-color:#1898DC;
+}
+.category-products .products-grid li.item .product-container{
+	border: 1px solid #CCCCCC;
+	padding: 12px 12px 0 12px;
+	margin: 6px;
+}
+.category-products .products-grid li.item .product-container:hover{
+	border: 2px solid #0099CC;
+}
+.products-grid li.item{
+	padding:0;
+}
+.products-grid .product-name{
+	text-align:center;
+	font-size:14px;
+	margin-bottom:16px;
+}
+.products-grid .product-name a{
+	color:#000000;
+	text-transform:none;
+	font-weight:normal;
+	font-size:14px;	
+	letter-spacing:0px;
+}
+.products-grid .price-box{
+	text-align:center;
+}
+.products-grid .price-box{
+	 margin: 0 0 1em;
+}
+.products-grid .manusku{
+	text-align:center;
+	font-size:14px;
+	margin-bottom:12px;
+	color: #000000;
+	font-weight: bold;
+	word-wrap: break-word;
+}
+.products-grid .product-container .button-holder{
+	display:block !important;
+	margin:0px !important;
+	text-align:center !important;
+}
+.products-grid .product-container .button-holder button.btn-cart {
+	background:none repeat scroll 0 0 #75ab4e;
+}
+.products-grid .product-container .button-holder button.btn-cart:hover{
+	background-color:#1270A3;
+}
+
+
+.products-grid .product-container .button-holder button.btn-cart span span {
+	color:#ffffff;
+}
+.category-products .sorter .limiter select option:last-child, .category-products .sorter .sort-by select option:last-child {
+		border-bottom: 1px solid #999999;
+}
+.category-products .sorter .limiter select option, .category-products .sorter .sort-by select option
+{  
+	font-size:12px;
+	/*border-bottom: 1px solid #999999;*/
+	border-right: 1px solid;
+	border-color:#999999;
+	color: #333333;
+    	padding: 6px;
+	font-weight:bold;
+}
+.category-products .sorter .limiter select, .category-products .sorter .limiter select option[selected="selected"],
+.category-products .sorter .sort-by select, .category-products .sorter .sort-by select option[selected="selected"]
+{
+      color:#000000;
+      font-weight:bold;
+}
+.category-products .sorter .limiter select>option:hover, .category-products .sorter .sort-by select option.hover,
+{  
+     color:#FFFFFF;
+     background-color:#1270A3;
+}
+.category-products .sorter .limiter select option:hover {
+	background-color: blue;
+	color: white;
+}
+
+.products-list.small .product-name a{
+	text-transform:none;
+	letter-spacing:normal;	
+}
+.product-shop .homecart button.button.progress-buttons, .product-shop .homecart button.button.progress-buttons span span{
+	background-color:#75AB4E;
+}
+.product-shop .homecart button.button.progress-buttons:hover, .product-shop .homecart button.button.progress-buttons:hover span span{
+	background-color:#1270A3 !important;
+}
+.product-shop .homecart button.button.progress-buttons span span i{
+	color:#FFFFFF;
+}
+.content-text-banner .banner-content h3{
+	font-size:13px;
+}
+/* ESPL SAN 20150310 1240PM START */
+
+/* ESPL SAN 20150311 1240PM START */
+
+header#header .header-bottom-left, header#header.header-2 .header-bottom-wrapper, body.boxed-layout header#header.header-2 .header-bottom-wrapper .container_12, .nav-container a.level-top
+{
+	background-color:#072E43;
+}
+.product-view .product-shop .product-name .availability{
+	color: #204623 !important;
+	margin-top:0.6em;
+}
+.product-view .product-shop .product-name .availability i{
+	margin-top:0;
+}
+#login-form .new-users .content p, #login-form .registered-users .content p{
+	font-size:1.167em;
+	color:#666666;
+}
+#login-form .registered-users .content p.required{
+	font-size:0.91em;
+	color:#e71861;
+	float:left;
+}
+#login-form .new-users .buttons-set button.button
+{
+	float:left;
+	margin-left:0;
+}
+#login-form .new-users .buttons-set button.button span span, #login-form .registered-users .buttons-set button.button span span
+{
+	background-color:#1270A3;
+	color:#FFFFFF;
+}
+#login-form .new-users .buttons-set button.button:hover span span, #login-form .registered-users .buttons-set button.button:hover span span 
+{
+	background-color:#222222;
+	color:#FFFFFF;
+}
+#login-form .registered-users .content ul{
+	margin-top: 27px;
+}
+#login-form .registered-users .content .form-list label{
+	font-size:14px !important;
+	color:#666666;
+	font-weight:bold;
+}
+#login-form .registered-users .buttons-set button.button{
+	float:left;
+	margin-right:85%;
+	margin-left:0px;
+}
+#login-form .registered-users .buttons-set a.f-left{
+	font-size:14px;
+}
+.account-login{
+	margin-bottom:170px;
+}
+#login-holder .account-login{
+	margin-bottom:0px;
+}
+.account-login #login-form .new-users{
+	width:450px;
+}
+.account-login #login-form .registered-users{
+	width:498px;
+	float:right;
+}
+
+.cart .cart-table th{
+	font-size: 14px; 
+	font-weight: bold; 
+	color: #333333;
+	text-align:left;
+}
+.cart .cart-table .product-box .product-name a{
+	font-size: 14px; 
+	font-weight: bold; 
+	color: #000000; 
+	text-transform: none;
+	letter-spacing:0;
+}
+.cartmanusku{
+	font-size: 14px; 
+	font-weight: normal; 
+	color: #666666; 
+}
+.data-table .c_actions, .data-table .c_actions a{
+	text-align:center;
+	float:none;
+	color:#FF0000;
+	font-size: 12px !important; 
+}
+.data-table .cart-price .price{
+	font-size:20px;
+}
+.data-table .quantity-box input.qty{
+	color: #000000; 
+	font-weight: bold;
+}
+.cart-table .buttons-row .buttons button.btn-clear span span, .cart-table .buttons-row .buttons button.btn-update span span,
+.cart .discount .buttons-set button span span, .cart .shipping .buttons-set button span span, #co-billing-form #billing-buttons-container button span span, #co-shipping-form #shipping-buttons-container button span span, #co-shipping-method-form #shipping-method-buttons-container button span span, #opc-payment #payment-buttons-container button span span{
+	background-color:#666666;
+	color:#FFFFFF;
+}
+.cart-table .buttons-row .buttons button.btn-clear:hover span span, .cart-table .buttons-row .buttons button.btn-update:hover span span, .cart .discount .buttons-set button:hover span span, .cart .shipping .buttons-set button:hover span span, #co-billing-form #billing-buttons-container button:hover span span, #co-shipping-form #shipping-buttons-container button:hover span span, #co-shipping-method-form #shipping-method-buttons-container button:hover span span, #opc-payment #payment-buttons-container button:hover span span 
+{
+	background-color:#75ab4e;
+	color:#FFFFFF;
+}
+.cart .discount label, .cart .shipping p, .cart .shipping .sp-methods label{
+	color:#666666;
+	font-size:14px;
+}
+.cart .discount .buttons-set{
+	text-align:left;
+}
+/* ESPL SAN 20150311 1240PM START */
+
+/* ESPL ANK 20150312 1049AM START */
+.subcatheader{
+	border:solid 1px #ccc; 
+	width:112px; 
+	height:146px; 
+	text-align:center;
+	float:left;
+	/*padding-top:10px;
+	padding-bottom:10px;*/
+	margin-right:12px; 
+	margin-bottom:12px;
+}
+.subcatheader:hover{
+	border:solid 1px #0099CC; 
+}
+/* ESPL ANK 20150312 1049AM END */
+.cart .shipping .form-list label{
+	color:#666666;
+	font-size:14px !important;
+	font-weight:bold;
+}
+.cart .shipping .buttons-set button{
+	float:left;
+}
+.cart .shipping .sp-methods{
+	margin-top:48px;
+}
+ .cart .shipping .sp-methods dt{
+	color:#000000;
+	font-size:18px;
+	font-weight:bold;
+}
+.cart .totals table th, .cart .totals table td{
+	color:#333333;
+	font-size:14px;
+}
+.cart .totals table .price{
+	color:#990000;
+	font-size:14px;
+	font-weight:bold;
+	font-family:Lato,sans-serif;
+}
+.cart .totals .checkout-types li a{
+	color: #1270a3;
+	font-size: 14px;
+}
+.cart .sp-methods .price{
+	color: #1270A3;
+	font-size:14px;
+	margin-top:5px;
+}
+
+/* ESPL ANK 20150312 1049AM START */
+.custom-add-to-cart-success{
+	top:35%;
+	padding:0px;
+	width:300px;
+}
+
+.add-to-cart-header{
+background-color:black; 
+padding:15px; 
+color:white;
+}
+
+.add-to-cart-h2{
+margin-bottom:0px;
+}
+
+.add-to-cart-data-msg{
+	color: #333333;
+    font-size: 14px;
+    padding: 20px;
+}
+
+.add-to-cart-custom-button{
+	background:none repeat scroll 0 0 #75AB4E !important;
+	color:#fff !important;
+}
+
+.add-to-cart-custom-buttoncontinue{
+	background:none repeat scroll 0 0 #1270A3 !important;
+	color:#fff !important;
+}
+.add-to-cart-custom-buttoncontinue:hover{
+	background:none repeat scroll 0 0 #222222 !important;
+}
+.add-to-cart-custom-button:hover{
+	background:none repeat scroll 0 0 #222222 !important;
+}
+ .cart-remove-box, .add-to-cart-success{
+	top:35% !important;
+	padding:0px  !important;
+	width:300px  !important;
+}
+/* ESPL ANK 20150312 1049AM END */
+
+.cart-table .quantity-box{
+	margin-bottom:0px;
+}
+.data-table .c_actions, .data-table .c_actions a{
+	 margin-bottom: -20px;
+	    margin-top: 5px;
+}
+.data-table .shoppingcartprodutname a{
+	max-width:100%;
+}
+.shoppingcarttable{
+	margin-bottom:44px;
+}
+#login-form .new-users .content{
+	padding-bottom:22px;
+}
+#opc-billing #co-billing-form .form-list label, #opc-shipping #co-shipping-form .form-list label, #opc-payment #co-payment-form .form-list label{
+	color: #666666;
+        font-size: 14px !important;
+        font-weight: bold;
+}
+#checkoutSteps .buttons-set .back-link{
+	font-size:14px;
+}
+.pushfooterdown{
+	margin-bottom:480px;
+}
+.fontnormalweight label{
+        font-weight: normal !important;
+}
+#opc-shipping_method #checkout-step-shipping_method .sp-methods dt, #opc-payment #checkout-step-payment .sp-methods dt label{
+	font-size: 18px; 
+	color: #000000;
+}
+#opc-shipping_method #checkout-step-shipping_method .sp-methods dd ul li label{
+	color: #666666;
+        font-size: 14px;
+}
+#opc-shipping_method #checkout-step-shipping_method .sp-methods dd ul li span.price{
+	color: #1270a3;
+        font-size: 14px;
+	margin-top:2px;
+}
+.cvv-what-is-this{
+	font-weight:bold;
+	text-transform:capitalize;
+}
+#opc-review #checkout-step-review #checkout-review-table th{
+	color: #333333;
+        font-size: 14px;
+        font-weight: bold;	
+}
+#opc-review #checkout-step-review #checkout-review-table th:first-child{
+	text-align:left;
+	padding-left:1.5em;
+}
+#opc-review #checkout-step-review #checkout-review-table td h3.product-name{
+	font-size: 14px; 
+	font-weight: bold; 
+	color: #000000; 
+	text-transform: none;	
+	letter-spacing:0;
+}
+#opc-review #checkout-step-review #checkout-review-table tbody td.a-center{
+	font-size: 14px; 
+	font-weight: bold; 
+	color: #000000; 
+}
+#opc-review #review-buttons-container button span span{
+	background-color:#75AB4E;
+	color:#FFFFFF;
+}
+#opc-review #review-buttons-container button:hover span span{
+	background-color:#222222;
+	color:#FFFFFF;
+}
+#opc-review #checkout-step-review #checkout-review-table tbody td .cart-price .price{
+	font-size:16px;	
+}
+#opc-review #checkout-step-review #checkout-review-table tfoot td{
+	font-size:14px;	
+	font-weight: bold; 
+	color: #333333; 
+}
+#opc-review #checkout-step-review #checkout-review-table tfoot td .price{
+	font-size:16px;	
+}
+aside.sidebar #checkout-progress-wrapper .block.block-progress div dt{
+	font-size:14px;	
+	font-weight: bold; 
+	color: #333333; 
+}
+aside.sidebar #checkout-progress-wrapper .block.block-progress div dt span.changelink{
+	font-weight: normal; 
+}
+aside.sidebar #checkout-progress-wrapper .block.block-progress dd.complete,
+aside.sidebar #checkout-progress-wrapper .block.block-progress dd.complete dl.cards-list table.info-table{
+	font-size:12px;	
+	color: #333333; 
+}
+aside.sidebar #checkout-progress-wrapper .block.block-progress dd.complete dl.cards-list table.info-table th{
+	text-align:left;
+}
+
+.order-info dt{
+	font-size:14px;
+}
+.successorderdetail p.ordersuccessdatelabel{
+	font-size: 14px; 
+	color: #000000; 	
+}
+.successorderdetail p span.ordersuccessdatevalue{
+	font-size: 14px; 
+	color: #666666; 	
+}
+.successorderdetail .box-content{
+	font-size: 14px; 
+	color: #333333; 
+	font-weight: normal; 
+}
+.successorderdetail .order-items #my-orders-table thead th{
+	font-size:14px;	
+	font-weight: bold; 
+	color: #333333; 
+}
+.successorderdetail .order-items #my-orders-table thead th:first-child{
+	text-align:left !important;
+	padding-left:1.5em;
+}
+.successorderdetail .order-items #my-orders-table tbody h3.product-name{
+	font-size:14px;	
+	font-weight: bold; 
+	color: #000000;
+	text-transform:none;
+	letter-spacing:0;
+}
+.successorderdetail .order-items #my-orders-table tbody .orderedlbl{
+	display:none;
+}
+.successorderdetail .order-items #my-orders-table tbody .nobr{
+	font-size:14px;	
+	font-weight: bold; 
+	color: #000000;
+}
+.successorderdetail .order-items #my-orders-table tbody .cart-price .price{
+	font-size:16px;	
+}
+.successorderdetail .order-items #my-orders-table tfoot td{
+	color: #333333;
+    	font-size: 14px;
+	font-weight: bold;
+}
+.successorderdetail .order-items #my-orders-table tfoot td .price{
+    	font-size: 16px;
+}
+.m-more-less{
+	text-align:left !important;
+	margin-left:12px;
+}
+.products-grid ~ .toolbar-bottom{
+	margin-top:0;	
+}
+
+/* ESPL SAN 20150325 0638PM START */
+.customsortulli{
+	float: right; height: 36px;
+}
+.customsortulli dd, .customsortulli dt, .customsortulli ul { 
+	margin:0px; padding:0px; 
+}
+.customsortulli dd { 
+	position:relative; 
+}
+.customsortulli a{ 
+	color:#000000; 
+	text-decoration:none; 
+	outline:none;
+	font-weight:bold;
+}
+.customsortulli a:hover {
+	/*color:#5d4617;*/
+	 cursor: pointer !important;	
+}
+.customsortulli dt a:hover, .customsortulli dt a:focus { 
+	/*color:#5d4617; 
+	//border: 1px solid #5d4617;*/
+	 cursor: pointer !important;
+}
+.customsortulli dt a {
+	background: none repeat scroll 0 0 #eee;
+	display: block;
+	height: 28px;
+	padding: 4px 10px;
+	vertical-align: middle;
+	color:#000000;
+	font-weight:bold;
+}
+.customsortulli dt a span {
+	cursor:pointer; 
+	display:block; 
+	padding:5px;
+	float: left;
+}
+.customsortulli dd ul { 
+	background:none repeat scroll 0 0 #eee; 
+	border:1px solid #999999; 
+	color:#333333;
+	display:none;
+	left:0px; 
+	position:absolute; 
+	width:auto; 
+	min-width:148px;
+	list-style:none;
+	z-index:99;
+}
+.customshowdropdown dd ul { 
+	min-width:64px;
+}
+.customsortulli span.value { 
+	display:none;
+}
+.customsortulli dd ul li a { 
+	color: #333333;
+	display: block;
+	font-weight: normal;
+	padding: 1px 10px;
+}
+.customsortulli dd ul li a:hover { 
+	background-color:#1270A3;
+	color:#FFFFFF;
+}
+.category-products .sorter .sort-by label, .category-products .sorter .limiter label{
+	padding-top:10px;
+}
+.customsortulli .fa-caret-down{
+	vertical-align: middle; 
+	padding-top: 8px; 
+	padding-right: 5px;
+	padding-left: 10px;
+}
+/* ESPL SAN 20150325 0638PM END */

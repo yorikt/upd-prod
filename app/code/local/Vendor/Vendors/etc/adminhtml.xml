@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendors extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendors
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<vendors translate="title" module="vendors">
+										<title>Vendors</title>
+									</vendors>
+								</children>
+							</config>
+						</children>
+					</system>
+					<vendors translate="title" module="vendors">
+						<title>Vendors</title>
+						<children>
+							<managevendors translate="title" module="vendors">
+								<title>Manage Vendors</title>
+							</managevendors>
+							<contact translate="title" module="vendors">
+								<title>Contacts</title>
+							</contact>
+						</children>
+					</vendors>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+	<menu>
+		<vendors translate="title" module="vendors">
+			<title>Vendors</title>
+			<sort_order>30</sort_order>
+			<depends>
+				<module>Vendor_Vendors</module>
+		 	</depends>
+		 	<children>
+				<managevendors translate="title" module="vendors">
+					<title>Manage Vendors</title>
+					<action>adminhtml/vendors_managevendors</action>
+					<sort_order>0</sort_order>
+				</managevendors>
+				<!-- <contact translate="title" module="vendors">
+					<title>Contacts</title>
+					<action>adminhtml/vendors_contact</action>
+					<sort_order>10</sort_order>
+				</contact> -->
+			</children>
+		</vendors>
+	</menu>
+</config>

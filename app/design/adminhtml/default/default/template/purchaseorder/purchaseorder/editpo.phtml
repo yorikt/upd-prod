@@ -1,0 +1,840 @@
+<?php
+$order = Mage::getModel("sales/order")->load($this->getRequest()->getParam('order_id'));
+
+if($order->getCustomerId() === NULL){
+	$customer_firstname = $order->getBillingAddress()->getFirstname();
+	$customer_lastname = $order->getBillingAddress()->getLastname();
+	$customer_company = $order->getBillingAddress()->getCompany();
+}
+//else, they're a normal registered user.
+else {
+	$customer = Mage::getModel('customer/customer')->load($order->getCustomerId());
+	$customer_firstname = $customer->getDefaultBillingAddress()->getFirstname();
+	$customer_lastname = $customer->getDefaultBillingAddress()->getLastname();
+	$customer_company = $customer->getDefaultBillingAddress()->getCompany();
+}
+
+//get all po number
+$tablename_po = Mage::getSingleton("core/resource")->getTableName('purchaseorder_purchaseorder');
+$vendor_tablename_po = Mage::getSingleton("core/resource")->getTableName('vendors_managevendors');
+$tablename_po_item = Mage::getSingleton("core/resource")->getTableName('purchaseorderitem_purchaseorderitem');
+$connection_po = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+$query = 'SELECT * FROM ' . $tablename_po .'
+				WHERE po_number = '.$this->getRequest()->getParam('po_number').' AND order_id = '.$this->getRequest()->getParam('order_id');
+$po_data = $connection_po->fetchAll($query);
+$final_po_data = $po_data['0'];
+
+$query_item = 'SELECT * FROM ' . $tablename_po_item .'
+		  WHERE po_order_no = '.$this->getRequest()->getParam('po_number').' AND order_id = '.$this->getRequest()->getParam('order_id');
+$po_item_data = $connection_po->fetchAll($query_item);
+
+//end all po number
+
+//get all vendor list
+$query_vendor = 'SELECT * FROM ' . $vendor_tablename_po ;
+$vendor_data = $connection_po->fetchAll($query_vendor);
+//end get all vendor list
+
+$currency_symbol = Mage::app()->getLocale()->currency( $currency_code )->getSymbol();
+//get from url
+$form_save_url  =  Mage::registry('form_save_url');
+$delete_url  =  Mage::registry('delete_url');
+$back_url  =  Mage::registry('form_back_url');
+$ajax_vendor_url  =  Mage::registry('ajax_vendor_url');
+$comment_list_url  =  Mage::registry('comment_list_url');
+$comment_url  =  Mage::registry('comment_url');
+$order_url = Mage::registry('order_url');
+
+//ger from key
+$adminobj= new Mage_Adminhtml_Block_Template();
+
+
+//filed disable query
+$disable_style = '';
+$status_disable_style ='';
+$open_status_disable_type ='';
+
+$colspan = '7';
+if($final_po_data['order_status']=='cancelled' || $final_po_data['order_status']=='issued' || $final_po_data['order_status']=='completed'){
+		
+	$disable_style = 'readonly="readonly"';
+	$colspan = '6';
+}
+
+if($final_po_data['order_status']=='completed'){
+	$status_disable_style = 'disabled="disabled"';
+}
+
+if($final_po_data['order_status']=='open'){
+	$open_status_disable_type = 'display:none;';
+}
+
+
+
+?>
+<div class="columns ">
+<div id="page:left" class="side-col">
+                            <h3>Order View</h3>
+<ul class="tabs" id="sales_order_view_tabs">
+    <li>
+        <a class="tab-item-link" title="Order Information" name="order_info" id="sales_order_view_tabs_order_info" href="<?php echo $order_url?>">
+            <span>Information</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Invoices" name="order_invoices" id="sales_order_view_tabs_order_invoices" href="<?php echo $order_url?>">
+            <span>Invoices</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Credit Memos" name="order_creditmemos" id="sales_order_view_tabs_order_creditmemos" href="<?php echo $order_url?>">
+            <span>Credit Memos</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Shipments" name="order_shipments" id="sales_order_view_tabs_order_shipments" href="<?php echo $order_url?>">
+            <span>Shipments</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link ajax only notloaded" title="Order History" name="order_history" id="sales_order_view_tabs_order_history" href="<?php echo $order_url?>">
+            <span>Comments History</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Transactions" name="order_transactions" id="sales_order_view_tabs_order_transactions" href="<?php echo $order_url?>">
+            <span>Transactions</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link ajax only active" title="Purchase Order" name="Purchase Order" id="sales_order_view_tabs_Purchase Order" href="#">
+            <span>Purchase Order</span>
+        </a>
+        
+    </li>
+</ul>
+
+</div>
+<div id="content" class="main-col">
+<div class="content-header" style="display: flex">
+    <h3 class="icon-head head-sales-order"><?php echo Mage::helper('sales')->__('Order # %s %s | %s', $order->getRealOrderId(), '', $this->formatDate($order->getData('created_at'), 'medium', true));?></h3></p>
+</div>
+		<form id="po_purchase" action="<?php echo $form_save_url; ?>" enctype="multipart/form-data" method="post">
+		<input type="hidden" value="0" name="send_mail" id="send_mail">
+		<input type="hidden" value="<?php echo $this->getRequest()->getParam('order_id');?>" name="order_id">
+		<input type="hidden" value="<?php echo $final_po_data['po_number']?>" name="po_number">
+		<input type="hidden" value="<?php echo $adminobj->getFormKey();?>" name="form_key">
+		<input type="hidden" value="<?php echo $ajax_vendor_url;?>" id="ajax_vendor_url">
+		
+		<div class="entry-edit">
+		        <div class="entry-edit-head" style="display: flex">
+		           
+		           <h4 class="icon-head head-products">Purchase Order Detials</h4>
+		        </div>
+		    </div>
+    <div id="invoice_item_container">
+          <div class="grid np">
+		  <div class="hor-scroll">
+		    <table cellspacing="0" class="data order-tables">
+		        <tbody>
+		        		            
+		            	<tr>
+			            	<td><strong>PO Number:</strong></td>
+			            	<td colspan="3"><?php echo $final_po_data['po_number']?></td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Order:</strong></td>
+			            	<td colspan="3"><?php echo $final_po_data['order_number'];?></td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Status:</strong></td>
+			            	<input type="hidden" value="<?php echo ($final_po_data['order_status']=='issued' || $final_po_data['order_status']=='cancelled')?'0':'1'?>" id="select_hdn">
+			            	<input type="hidden" value="<?php echo ($final_po_data['order_status']=='issued')?'1':'0'?>" id="select_issued_hdn">
+			            	<input type="hidden" value="<?php echo ($final_po_data['order_status']=='completed')?'1':'0'?>" id="select_completed_hdn">
+			            	<td>
+			            	
+			            	
+			            	<select name="order_status" id="order_status" <?php echo ($final_po_data['order_status']=='issued')?'':$disable_style?>>
+				            	<option value="open" <?php if($final_po_data['order_status']=='open'){?> selected="selected" <?php }?> <?php echo $status_disable_style; ?>>Open</option>
+				            	<option value="issued" <?php if($final_po_data['order_status']=='issued'){?> selected="selected" <?php }?> <?php echo $status_disable_style; ?> style="<?php echo $open_status_disable_type; ?>">Issued</option>
+				            	<option value="completed" <?php if($final_po_data['order_status']=='completed'){?> selected="selected" <?php }?> style="<?php echo $open_status_disable_type; ?>" >Completed</option>
+				            	<option value="cancelled" <?php if($final_po_data['order_status']=='cancelled'){?> selected="selected" <?php }?> <?php echo $status_disable_style; ?> >Cancelled</option>
+			            	</select>
+			            	</td>
+			            	<td><strong>Supplier:</strong></td>
+			            	<td>
+			            		<select name="vendor_id" id="vendor_id" <?php echo $disable_style?>>
+			            			<option value="" <?php echo $status_disable_style; ?> >Select Vendor</option>
+			            		<?php foreach($vendor_data as $vendor_val){?>
+			            			<option value="<?php echo $vendor_val['entity_id'];?>" <?php if($vendor_val['entity_id']==$final_po_data['vendor_id']){?> selected="selected" <?php } else { echo $status_disable_style; } ?>> <?php echo $vendor_val['vendorname'];?></option>
+			            		<?php }?>
+			            		</select>
+			            		
+			            	<?php
+			            		//condition for show/hide issue po button and print po butoon 
+			            		if(($final_po_data['order_status']=='open' || $final_po_data['order_status']=='cancelled') && $final_po_data['vendor_id']!='')
+			            		  {				  	
+			                ?>
+			                <button style="cursor: pointer; display:none;" <?php echo ($final_po_data['order_status']=='issued')?'':$disable_style; ?>  class="scalable disabled "  type="submit" title="Print Po" id="printpo"><span><span><span>Print Po</span></span></span></button>
+							<button style="cursor: pointer; display:none;" <?php echo ($final_po_data['order_status']=='issued')?'':$disable_style?>  class="scalable update-button " type="submit" title="Issue Po" id="issuepo"><span><span><span>Issue Po</span></span></span></button>
+							<?php 			
+			            		  }
+			            	?>                				
+			            	</td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Company:</strong></td>
+			            	<td colspan="3"><input type="text" <?php echo $disable_style?> size="255" style="width: 180px;" class="input-text" name="company" value="<?php echo ($final_po_data['company']!='')?$final_po_data['company']:$customer_company;?>"></td>
+			            </tr>
+		            	<tr>
+			            	<td><strong>Ship To:</strong></td>
+			            	<td><input type="text" <?php echo $disable_style?> size="255" style="width: 180px;" class="input-text" name="ship_to" value="<?php echo ($final_po_data['ship_to']!='')?$final_po_data['ship_to']:$customer_firstname." ".$customer_lastname;?>"></td>
+			            	<td><strong>PO Date:</strong></td>
+			            	<td class="value">
+					        <input type="text"  <?php echo $disable_style?> readonly="readonly" size="255" style="width: 180px;" class=" input-text" value="<?php echo ($final_po_data['pos_issued_date']!='')?date('m-d-Y',strtotime($final_po_data['pos_issued_date'])):date('m-d-Y');?>" id="purchaseorder_pos_issued_date" name="pos_issued_date"> <img style="" title="Select Date" id="purchaseorder_pos_issued_date_trig" class="v-middle" alt="" src="<?php echo $this->getSkinUrl('images/grid-cal.gif', array('_secure'=>true)) ?>">
+					        <?php if($status_disable_style == '' && $disable_style ==''){ ?>
+					            <script type="text/javascript">
+					            //&lt;![CDATA[
+					                Calendar.setup({
+					                    inputField: "purchaseorder_pos_issued_date",
+					                    ifFormat: "%m-%e-%Y",
+					                    showsTime: false,
+					                    button: "purchaseorder_pos_issued_date_trig",
+					                    align: "Bl",
+					                    singleClick : true
+					                }); 
+					            //]]&gt;
+					            </script>
+					            <?php }?>            
+					         </td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Address:</strong></td>
+			            	<td>
+			            	
+			            	<input type="text"  <?php echo $disable_style?> size="255" style="width: 180px;" name="address"  class="input-text"  value="<?php echo $final_po_data['address'];?>"></td>
+			            	<td><strong>Deliver Date:</strong></td>
+			            	<td class="value">
+					        <input type="text" <?php echo $disable_style?> readonly="readonly" size="255" style="width:180px !important;" class="  input-text" value="<?php echo ($final_po_data['deliver_date']!='')?date('m-d-Y',strtotime($final_po_data['deliver_date'])):date('m-d-Y');?>" id="po_deliver_date" name="deliver_date"> <img style="" title="Select Date" id="po_deliver_date_trig" class="v-middle" alt="" src="<?php echo $this->getSkinUrl('images/grid-cal.gif', array('_secure'=>true)) ?>">
+					        <?php if($status_disable_style == '' && $disable_style ==''){ ?>
+					            <script type="text/javascript">
+					            //&lt;![CDATA[
+					                Calendar.setup({
+					                    inputField: "po_deliver_date",
+					                    ifFormat: "%m-%e-%Y",
+					                    showsTime: false,
+					                    button: "po_deliver_date_trig",
+					                    align: "Bl",
+					                    singleClick : true
+					                });
+					            //]]&gt;
+					            </script>            
+					            <?php } ?>
+					         </td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Address 2:</strong></td>
+			            	<td><input type="text"  <?php echo $disable_style?> size="255" style="width: 180px;"  class="input-text" id="address2" name="address2"  value="<?php echo $final_po_data['address2'];?>"></td>
+			            	<td><strong>Deliver Method:</strong></td>
+			            	<td class="value">
+					        	<input type="text"  style="width: 180px;"  <?php echo $disable_style?> class="input-text" value="<?php echo ($final_po_data['delivery_method']!='')?$final_po_data['delivery_method']:$order->getShippingDescription();?>" id="delivery_method" name="delivery_method">
+					        </td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>City:</strong></td>
+			            	<td><input type="text"  <?php echo $disable_style?> size="255" style="width: 180px;" name="city"  class="input-text" value="<?php echo $final_po_data['city'];?>"></td>
+			            	<td><strong>Terms:</strong></td>
+			            	<td class="value">
+					        	<input type="text"  style="width: 180px;"  <?php echo $disable_style?> class="input-text" value="<?php echo $final_po_data['terms'];?>" id="terms" name="terms">
+					        </td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>State:</strong></td>
+			            	<td><?php 
+			            	
+                    		$regionCollection = Mage::getModel('directory/region_api')->items('US');
+                    		
+			            	?>
+			            	<select name='region_id' id='region_id' class="validate-select"  <?php echo $disable_style?> >
+							    <?php
+							        foreach($regionCollection as $region) {
+							            ?>
+							            <option value="<?php echo $region['region_id'] ?>" <?php if($final_po_data['region_id']==$region['region_id']){?> selected="selected" <?php } else{ echo $status_disable_style; } ?>><?php echo $region['name'] ?></option>
+							            <?php
+							        }
+							    ?>
+							</select>
+			            	</td>
+			            	<td  rowspan="4"><strong>Note:</strong></td>
+			            	<td class="value" rowspan="4">
+					        	<textarea style="width: 98%" rows="4" <?php echo $disable_style?> cols="38" name="note"><?php echo $final_po_data['note'];?></textarea>
+					        </td>
+		            	</tr>
+		            	<tr>
+			            	<td><strong>Zip:</strong></td>
+			            	<td><input type="text"  <?php echo $disable_style?> size="255" style="width: 180px;"  class="input-text" value="<?php echo $final_po_data['post_code'];?>" id="post_code" name="post_code"></td>
+			            </tr>
+			            <tr>
+			            	<td><strong>Country:</strong></td>
+			            	<td><?php
+			            	 
+			            	$countryCollection = Mage::getModel('directory/country')->getResourceCollection()
+                            ->loadByStore()
+                            ->toOptionArray(true);?>
+			            	<select name='country_id'  <?php echo $disable_style?> id='country_id' class="validate-select"  >
+							    <?php
+							        foreach($countryCollection as $country) {
+							            ?>
+							            <option value="<?php echo $country['value'] ?>" <?php if($final_po_data['country_id']==$country['value']){?> selected="selected" <?php } else{ echo $status_disable_style; }?>><?php echo ($country['label']=='1')?'':$country['label'] ?></option>
+							            <?php
+							        }
+							    ?>
+							</select>
+			            	
+			            	</td>
+			            </tr>
+			            <tr>
+			            	<td><strong>Phone:</strong></td>
+			            	<td><input type="text"  <?php echo $disable_style?>  size="255" style="width: 180px;"  class="input-text" value="<?php echo $final_po_data['phone']; ?>" id="po_deliver_method" name="phone"></td>
+			            </tr>
+		        	
+		        </tbody>
+		        
+		    </table>
+		    <input type="hidden" value="0" id="set_back_order" name="set_back_order">
+		  </div>
+		</div>
+		
+    </div>
+    <div class="clear">&nbsp;</div>
+    
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+           
+           <h4 class="icon-head head-products">Purchase Order Items</h4>
+        </div>
+    </div>
+    
+    <div id="invoice_item_container">
+          <div class="grid np">
+		  <div class="hor-scroll">
+		    <table cellspacing="0" class="data order-tables">
+		        
+		        <thead>
+		            <tr class="headings">
+		            	<?php if($disable_style==''){?>
+		            	<th ><?php echo $this->helper('sales')->__('Action') ?></th>
+		            	<?php }?>
+		            	<th width="5%"><?php echo $this->helper('sales')->__('Qty') ?></th>
+		            	<th width="10%"><?php echo $this->helper('sales')->__('Part #') ?></th>
+		                <th width="25%"><?php echo $this->helper('sales')->__('Part Description') ?></th>
+		                <th width="10%"><?php echo $this->helper('sales')->__('Vendor Part #') ?></th>
+		                <th width="25%"><?php echo $this->helper('sales')->__('Vendor Part Description') ?></th>
+		                <th width="9%"><?php echo $this->helper('sales')->__('Price') ?></th>
+		                
+		                <th width="12%"><?php echo $this->helper('sales')->__('Price Ext.') ?></th>
+		                <?php 
+		                if($final_po_data['order_status']!='open') { ?>
+		                	<th width="6%"><?php echo $this->helper('sales')->__('Back Order') ?></th>
+		                	<th width="5%"><?php echo $this->helper('sales')->__('Delivered') ?></th>
+		                <?php  } ?>
+		            </tr>
+		        </thead>
+		        <tbody>
+		        <?php $i=0;
+		        $sub_total = '0';
+		        foreach ($po_item_data as $item){
+		        ?>
+		            
+		            
+		            	<tr class="<?php echo $i%2?'even':'odd' ?>">
+		            		<?php if($disable_style==''){?>
+		            		<td><a style="cursor: pointer;" onclick="deleteConfirm('Are you sure you want to do this?','<?php echo $delete_url?>item_id/<?php echo $item['item_id'];?>')">Remove</a></td>
+		            		<?php }?>
+			            	<td>
+			            		<input type='hidden' name='po_entity_id[<?php echo $item['item_id'];?>]' value='<?php echo $item['entity_id'];?>'/>
+			            		<input onkeypress="return isNumberKey(event)" onblur="changePrice();" <?php echo $disable_style?> name="po_qty[<?php echo $item['item_id'];?>]" id="qty_<?php echo $item['item_id'];?>" type="text" value="<?php echo $item['requested_qty'];?>" class="input-text qty-input" size="3"></td>
+			                <td id=""><?php echo $item['item_sku']; ?></td>
+			                <td id=""><?php echo $item['item_name']; ?></td>
+			                <td id="sku_<?php echo $item['item_id'];?>"><input <?php echo $disable_style?> name="vendor_part_number[<?php echo $item['item_id'];?>]" id="vendor_part_number_<?php echo $item['item_id'];?>" type="text" value="<?php echo $item['vendor_part_number']; ?>" class="input-text qty-input" ></td>
+			                <td id="desc_<?php echo $item['item_id'];?>">
+			                <input <?php echo $disable_style?> name="vendor_descritption[<?php echo $item['item_id'];?>]" id="vendor_descritption_<?php echo $item['item_id'];?>" type="text" value="<?php echo $item['vendor_descritption']; ?>" class="" maxlength="255" size="100"  style="padding:2px" >
+			                <!-- <textarea rows="4" cols="30" id="vendor_descritption_<?php echo $item['item_id'];?>" <?php echo $disable_style?> name="vendor_descritption[<?php echo $item['item_id'];?>]"><?php echo $item['vendor_descritption']; ?></textarea>-->
+			                </td>
+			                <td><?php echo $currency_symbol; ?>
+			                <input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> style="width:76%;" onblur="changePrice();" id="item_cost_<?php echo $item['item_id'];?>" name="po_item_cost[<?php echo $item['item_id'];?>]" type="text" value="<?php echo number_format($item['item_cost'],2,".","");?>" class="cost input-text " size="4">
+			                </td>
+			                
+			                <td><?php
+			                $sub_total += number_format($item['item_cost']*$item['requested_qty'],2,".","");
+			                echo $currency_symbol?><span class="" id="cost_<?php echo $item['item_id'];?>"><?php echo number_format($item['item_cost']*$item['requested_qty'],2,".",""); ?><span></td>
+			                
+			                <?php 
+		                	if($final_po_data['order_status']!='open') { ?>
+			                
+				                <td><input onkeypress="return isNumberKey(event);" <?php if($final_po_data['order_status']!='issued'){?> readonly="readonly" <?php }?> type="text" size="4" class="input-text" value="<?php echo ($final_po_data['order_status']!='open')?($item['back_order_qty']=='')?$item['requested_qty']:$item['back_order_qty']:'0'; ?>" name="back_order_qty[<?php echo $item['item_id'];?>]">
+				                <input <?php if($final_po_data['order_status']!='issued'){?> readonly="readonly" <?php }?> type="hidden" size="4" class="input-text" value="<?php echo ($final_po_data['order_status']!='open')?($item['back_order_qty']=='')?$item['requested_qty']:$item['back_order_qty']:'0'; ?>" name="db_back_order_qty[<?php echo $item['item_id'];?>]">
+				                </td>
+				                <td><input onkeypress="return isNumberKey(event);" readonly="readonly"  <?php echo $disable_style?> type="text" size="1" class="input-text" value="<?php echo (int)$item['delivered_qty'];?>" name="delivered_qty[<?php echo $item['item_id'];?>]"></td>
+			                <?php } ?>
+			              
+			                
+		            	</tr>
+		            
+		        <?php $i++;} ?>
+		        		<tr>
+		            		
+			                <td  colspan="<?php echo $colspan;?>" style="text-align: right;"><b>SubTotal:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> id="sub_total" style="width:76%;" type="text" size="4" class="input-text" value="<?php echo number_format($sub_total,2,".","")?>" name="sub_total"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+			            <tr>
+		            		<td colspan="<?php echo $colspan;?>" style="text-align: right;"><b>Tax:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> onblur="changePrice()" id="tax" style="width:76%;" type="text" size="4" class="input-text" value="<?php echo ($final_po_data['tax']!='')?number_format($final_po_data['tax'],2,".",""):'0.00';?>" name="tax"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+			            <tr>
+		            		<td colspan="<?php echo $colspan;?>" style="text-align: right;"><b>Freight:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> onblur="changePrice()" id="freight" style="width:76%;" type="text" size="4" class="input-text" value="<?php echo ($final_po_data['freight']!='')?number_format($final_po_data['freight'],2,".",""):'0.00';?>" name="freight"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+			            <tr>
+		            		<td colspan="<?php echo $colspan;?>" style="text-align: right;"><b>Other Fees:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> onblur="changePrice()" id="other_fees" style="width:76%;" type="text" size="4" class="input-text" value="<?php echo ($final_po_data['other_fee']!='')?number_format($final_po_data['other_fee'],2,".",""):'0.00';?>" name="other_fee"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+			            <tr>
+		            		<td colspan="<?php echo $colspan;?>" style="text-align: right;"><b>Adjustment:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" <?php echo $disable_style?> onblur="changePrice()" id="adjustment"  style="width:76%;" type="text" size="4" class="input-text" value="<?php echo ($final_po_data['adjustment']!='')?number_format($final_po_data['adjustment'],2,".",""):'0.00';?>" name="adjustment"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+			            <tr>
+		            		<td colspan="<?php echo $colspan;?>" style="text-align: right;"><b>Total:</b></td>
+			                <td><?php echo $currency_symbol?><input onkeypress="return isNumberKey(event);" id="total" readonly="readonly" style="width:76%;" type="text" size="6" class="total input-text" value="<?php echo number_format($sub_total+$final_po_data['tax']+$final_po_data['freight']+$final_po_data['other_fee']+$final_po_data['adjustment'],2,".","")?>" name="grand_total"></td>
+			                <?php 
+		                		if($final_po_data['order_status']!='open') { 
+							?>
+			                <td></td>
+			                <td></td>
+			                <?php } ?>
+			            </tr>
+		        </tbody>
+		        <tfoot>
+            <tr>
+                <td colspan="<?php echo $colspan;?>">&nbsp;</td>
+                <td colspan="<?php if($final_po_data['order_status']=='issued'){?>1<?php }else{?>4<?php }?>">
+                				<button style="cursor: pointer;" <?php echo ($final_po_data['order_status']=='issued')?'':$disable_style?> onclick="return vendorSelection();" class="scalable update-button " type="submit" title="Save" id=""><span><span><span>Save</span></span></span></button>
+                				<button style="cursor: pointer;" onclick="setLocation('<?php echo $back_url;?>')"  class="scalable update-button " type="button" title="Back" id=""><span><span><span>Back</span></span></span></button>
+                </td>
+                
+                <?php if($final_po_data['order_status']=='issued'){?>
+                <td colspan="3">
+                			<button style="cursor: pointer;" onclick="setBackOrderUpdateStatus()" class="scalable update-button " type="submit" title="Received" id=""><span><span><span>Received</span></span></span></button>
+                </td>			
+                <?php }?>
+                
+            </tr>
+        </tfoot>
+		    </table>
+		  </div>
+		</div>
+		
+    </div>
+    <div class="clear">&nbsp;</div>
+	
+</form>
+
+<!-- Start code for comment -->
+<div id="container_add_comment_form" class="entry-edit"> 
+	 
+    <button id="" title="Reset" type="button" class="scalable "
+		onclick="openCommentForm();" style="float: right; margin-right: 5px;">
+		<span><span><span>Add Comment</span> </span> </span>
+	</button>
+	<br> <br>
+	<div id="add_comment_form" style="display: block;">
+		<div class="entry-edit">
+			<div class="entry-edit-head">
+				<h4 class="icon-head head-edit-form fieldset-legend">Comment</h4>
+				<div class="form-buttons"></div>
+			</div>
+		</div>
+		<div class="entry-edit  fieldset ">
+
+			
+			<div style="display: none;" id="comment_form">
+				<div class="hor-scroll">
+					<span class="field-row"> <label for="comment">Comment <span
+							class="required">*</span>
+					</label> <textarea id="comment" name="comment"
+							class="textarea" style="width: 87%" rows="6" cols="120"></textarea>
+					</span>
+					<table cellspacing="0" class="form-list">
+						<tbody>
+							<tr>
+								<td style="width: 0px;" class="label"></td>
+								<td class="value">
+									<button id="" title="Add Comment" type="button"
+										class="scalable save" name="comment"
+										onclick="addComment();" style="">
+										<span><span><span>Add Comment</span> </span> </span>
+									</button>
+									<button id="" title="Reset" type="button" class="scalable "
+										onclick="closeCommentForm();"
+										style="margin-left: 20px;">
+										<span><span><span>Cancel</span> </span> </span>
+									</button>
+								</td>
+							</tr>
+							
+							<tr>
+								<td colspan="2" class="hidden">
+									<input type="hidden" id="comment_url" name="comment_url" value="<?php echo $comment_url?>">
+									<input type="hidden" id="comment_list_url" name="comment_list_url" value="<?php echo $comment_list_url?>">
+
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="comment_list" class="entry-edit" >
+
+				
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+</div>
+<!-- End code for comment -->
+</div>
+</div>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.js');?>"></script>
+<script type="text/javascript">
+var $j = jQuery.noConflict(); 
+
+$j(document).ready(function(){
+	//set send mail variable
+	$j('#order_status').change(function(){
+		if($j(this).val()=='issued'){
+			$j('#send_mail').val('1');
+		}	
+	});
+
+
+	$j('ul#sales_order_view_tabs li:first').after($j('ul#sales_order_view_tabs li:last'));
+	//call ajax for get vendor item 
+	if($j('#vendor_id').val()!=''){
+		$j('#loading-mask').css('display','block');
+		$j.ajax({
+            type        : 'GET',
+            url         : $j('#ajax_vendor_url').val(),
+            data        : 'vendor_id='+$j('#vendor_id').val(),
+            dataType    : 'json',
+            success     : function(data) {
+
+            	if($j.trim(data[2])!=''){
+					$j("#issuepo").css('display','show');
+					$j("#printpo").css('display','none');						
+				}else{
+					$j("#issuepo").css('display','none');
+					$j("#printpo").css('display','show');
+				}
+
+            	//$j("#terms").val(data[1]);
+            	
+            	$j.each(data[0], function( i, item ) {
+					 
+					$j('#vendor_part_number_'+i).val();
+			    	$j('#vendor_part_number_'+i).val(item.vendor_part_number);
+
+			    	$j('#vendor_descritption_'+i).val();
+			    	$j('#vendor_descritption_'+i).val(item.vendor_descritption);
+
+			    	$j('#cost_'+i).text();
+			    	$j('#cost_'+i).text($j('#qty_'+i).val()*item.vendor_cost);
+			    	
+			    	$j('#po_item_cost_'+i).val();
+			    	$j('#po_item_cost_'+i).val(item.vendor_cost);
+
+			    		    
+			    });
+				changePrice();	
+				$j('#loading-mask').css('display','none');
+            }
+        });
+	}
+	//call ajax for get vendor item on vendor dropbox change
+	$j('#vendor_id').change(function(){
+		if(this.value!=''){
+			$j('#loading-mask').css('display','block');
+			$j.ajax({
+	            type        : 'GET',
+	            url         : $j('#ajax_vendor_url').val(),
+	            data        : 'vendor_id='+this.value+'&onchange=1',
+	            dataType    : 'json',
+	            success     : function(data) {
+		            
+					if(data[0]==null){
+						alert("Item not assign to vendor.");
+						$j('#loading-mask').css('display','none');
+						return false;
+						
+					}
+
+					if($j.trim(data[2])!=''){
+						$j("#issuepo").css('display','show');
+						$j("#printpo").css('display','none');						
+					}else{
+						$j("#issuepo").css('display','none');
+						$j("#printpo").css('display','show');
+					}
+					
+					$j("#terms").val(data[1]);
+					$j.each(data[0], function( i, item ) {
+						$j('#vendor_part_number_'+i).val();
+				    	$j('#vendor_part_number_'+i).val(item.vendor_part_number);
+
+				    	$j('#vendor_descritption_'+i).val();
+				    	$j('#vendor_descritption_'+i).val(item.vendor_descritption);
+
+				    	$j('#cost_'+i).text();
+					    $j('#cost_'+i).text($j('#qty_'+i).val()*item.vendor_cost);
+						
+						
+				    	$j('#item_cost_'+i).val();
+				    	$j('#item_cost_'+i).val(item.vendor_cost);
+	
+				    	$j('#po_item_cost_'+i).val();
+				    	$j('#po_item_cost_'+i).val(item.vendor_cost);
+
+				    	
+				    });
+					changePrice();	
+					$j('#loading-mask').css('display','none');
+	            }
+	        });
+        }
+	});
+
+	//this code for  make drop box value unselected 
+	if($j('#select_hdn').val()=='0'){
+		$j('select option:not(:selected)').each(function(){
+			 $j(this).attr('disabled', 'disabled');
+		});
+	}
+
+	/*if($j('#select_completed_hdn').val()=='0'){
+		$j('select option:not(:selected)').each(function(){
+			 $j(this).attr('disabled', 'disabled');
+		});
+	}
+	
+	
+	if($j('#select_issued_hdn').val()=='1'){
+		$j('select#order_status option:not(:selected)').each(function(){
+			 $j(this).removeAttr('disabled');
+		});
+	}*/
+	
+	$action_list = document.getElementById('comment_list_url').value;
+	var reloadurl_list = $action_list;
+	new Ajax.Request(reloadurl_list, {
+		method: 'post',
+		parameters: "",
+		onComplete: function(transport) {
+			
+			
+			document.getElementById('add_comment_form').style.display == 'block';
+			$('comment_list').update(transport.responseText);
+			document.getElementById('add_comment_form').style.display == 'block';
+			
+		}
+	});
+
+
+
+	$j('#printpo').click(function(){
+		if($j('#vendor_id').val()==''){
+			alert('Please select vendor');
+			return false;
+		}else{
+		$j('#order_status option[value="issued"]').attr('selected', true);
+		} 
+	});
+
+
+	$j('#issuepo').click(function(){
+		if($j('#vendor_id').val()==''){
+			alert('Please select vendor');
+			return false;
+		}else{
+		$j('#order_status option[value="issued"]').attr('selected', true);
+		$j('#send_mail').val('1');
+		}
+	});
+	
+	
+});
+
+//This function call on when click on save button for vendor selecetion
+function vendorSelection(){
+	var $j = jQuery.noConflict();
+	if($j('#vendor_id').val()==''){
+		alert('Please select vendor');
+		return false;
+	}
+}
+
+
+//This function is common function for calculate price 
+function changePrice(){
+	var $j = jQuery.noConflict();
+	var sub_total ='0'; 
+	$j('.cost').each(function(){
+		var item_id_arr = $j(this).attr('id').split('_');
+	    var item_id = item_id_arr['2'];
+	    $j('#cost_'+item_id).text(($j('#qty_'+item_id).val()*$j('#item_cost_'+item_id).val()).toFixed(2));
+	    sub_total = parseFloat($j('#cost_'+item_id).text())+parseFloat(sub_total);
+	});
+	
+	
+	$j('#sub_total').val(sub_total.toFixed(2));
+	//$j('.sub_total').val(po_final_ext);
+
+	$j('#total').val(parseFloat($j('#sub_total').val())+parseFloat($j('#tax').val())+parseFloat($j('#freight').val())+parseFloat($j('#other_fees').val())+parseFloat($j('#adjustment').val()));
+	//$j('.total').val(parseFloat($j('.sub_total').val())+parseFloat($j('.tax').val())+parseFloat($j('.freight').val())+parseFloat($j('.other_fees').val()));
+	
+}
+
+function setBackOrderUpdateStatus(){
+	var $j = jQuery.noConflict();
+	$j('#set_back_order').val('1');
+}
+
+function goback() {
+    history.go(-1);
+}
+function isNumberKey(evt)
+{
+	
+   var charCode = (evt.which) ? evt.which : evt.keyCode
+   /*if($j('#adjustment').val().indexOf("-")>0){
+   		$j('#adjustment').val().replace(/\-/g, '');
+   }
+   */
+   
+   if(charCode==45 || charCode==37 || charCode==39 || charCode==8){
+   		
+   		return true;
+   }
+   		
+
+   if ((charCode > 31 && (charCode < 48 || charCode > 57))) 
+      return false;
+
+   return true;
+}
+
+/**
+ * for comment
+ */
+
+ function addComment(){
+
+		if(document.getElementById('comment').value==''){
+			alert('Comment can not be null');
+			return false;
+		}
+
+		$action = document.getElementById('comment_url').value;
+		var reloadurl = $action;
+		new Ajax.Request(reloadurl, {
+			method: 'post',
+			parameters: "comment="+document.getElementById('comment').value,
+			onComplete: function(transport) {
+				document.getElementById('add_comment_form').style.display == 'block';
+				document.getElementById('comment').value = '';
+				
+				
+				$action_list = document.getElementById('comment_list_url').value;
+				var reloadurl_list = $action_list;
+				new Ajax.Request(reloadurl_list, {
+					method: 'post',
+					parameters: "",
+					onComplete: function(transport) {
+						
+						
+						document.getElementById('add_comment_form').style.display == 'block';
+						$('comment_list').update(transport.responseText);
+						document.getElementById('add_comment_form').style.display == 'block';
+						
+					}
+				});
+				
+			}
+		});
+	}
+ 
+ function openCommentForm(){
+		if(document.getElementById('comment_form').style.display == 'none')
+		{
+			document.getElementById('comment_form').style.display='block';
+		}
+		/*else
+		{
+			document.getElementById('add_comment_form').style.display = 'none';
+		}*/	
+	}
+	function closeCommentForm(){
+		if(document.getElementById('comment_form').style.display == 'block')
+		{
+			document.getElementById('comment_form').style.display='none';
+		}
+		/*else
+		{
+			document.getElementById('add_comment_form').style.display = 'none';
+		}*/	
+	}
+/**
+ * end for comment
+ */
+
+</script>

@@ -1,0 +1,406 @@
+[07-Jan-2015 14:43:27 UTC] PHP Parse error:  syntax error, unexpected end of file in Command line code on line 1
+[08-Jan-2015 06:39:37 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Resource/Product/Collection.php on line 2175
+[08-Jan-2015 06:41:57 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3072 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 85
+[08-Jan-2015 06:48:26 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3072 bytes) in /home/usapooldirect/public_html/lib/Varien/Autoload.php on line 93
+[08-Jan-2015 06:49:42 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 640 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 48
+[08-Jan-2015 06:50:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 1280 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 53
+[08-Jan-2015 06:50:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 961 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 25
+[08-Jan-2015 06:56:50 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 640 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 48
+[08-Jan-2015 06:58:46 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 240 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 46
+[08-Jan-2015 07:02:38 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 499025 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/Core/Model/Design/Package.php on line 763
+[08-Jan-2015 07:04:30 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 3072 bytes) in /home/usapooldirect/public_html/app/code/core/Mage/CatalogRule/Model/Observer.php on line 66
+[09-Jan-2015 15:55:23 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[09-Jan-2015 22:28:13 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[11-Jan-2015 08:59:07 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[12-Jan-2015 02:00:24 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[13-Jan-2015 00:02:30 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[13-Jan-2015 02:09:40 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[13-Jan-2015 07:23:35 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/code/core/Mage/Core/Model/Store.php on line 936
+[13-Jan-2015 10:10:37 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:12:39 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:13:38 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:14:24 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:14:36 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:17:09 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:18:12 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:18:37 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 10:22:01 UTC] PHP Fatal error:  Class 'Mage_Core_Model_Store' not found in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 4
+[13-Jan-2015 21:15:14 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/js/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[14-Jan-2015 00:34:35 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:34:38 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:34:48 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:35:38 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:40:34 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:40:51 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 00:41:01 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 17:52:22 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 17:52:42 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 17:54:54 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 17:56:44 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[14-Jan-2015 17:57:08 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[15-Jan-2015 13:56:01 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[15-Jan-2015 14:30:20 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[15-Jan-2015 14:30:24 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[16-Jan-2015 10:07:59 UTC] PHP Fatal error:  Call to a member function getCollection() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Core/Model/App.php on line 618
+[16-Jan-2015 15:10:27 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[16-Jan-2015 21:24:22 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[16-Jan-2015 21:24:28 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[16-Jan-2015 21:24:29 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[16-Jan-2015 21:24:35 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[17-Jan-2015 01:20:56 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[17-Jan-2015 01:21:11 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[17-Jan-2015 01:21:54 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[17-Jan-2015 01:23:07 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:36:14 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:36:31 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:37:27 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:37:58 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:38:53 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:39:24 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:41:32 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:42:03 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[18-Jan-2015 15:42:26 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:17:35 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:17:48 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:18:07 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:19:59 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:20:38 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:20:46 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:21:02 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:21:05 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:21:19 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 20:47:12 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[19-Jan-2015 22:34:50 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[20-Jan-2015 05:33:45 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 05:34:06 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 07:52:47 UTC] PHP Fatal error:  Call to undefined function mb_convert_case() in /home/usapooldirect/public_html/app/code/local/Mana/Filters/Model/Source/Display/All.php on line 41
+[20-Jan-2015 07:53:50 UTC] PHP Fatal error:  Call to undefined function mb_convert_case() in /home/usapooldirect/public_html/app/code/local/Mana/Filters/Model/Source/Display/All.php on line 41
+[20-Jan-2015 07:54:26 UTC] PHP Fatal error:  Call to undefined function mb_convert_case() in /home/usapooldirect/public_html/app/code/local/Mana/Filters/Model/Source/Display/All.php on line 41
+[20-Jan-2015 08:03:49 UTC] PHP Fatal error:  Call to undefined function mb_convert_case() in /home/usapooldirect/public_html/app/code/local/Mana/Filters/Model/Source/Display/All.php on line 41
+[20-Jan-2015 15:38:30 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:12:05 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:12:49 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:13:23 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:15:06 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:15:28 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:15:49 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:32:25 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:35:14 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[20-Jan-2015 17:54:18 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 04:52:41 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 04:54:16 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 04:54:36 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 04:55:52 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:14:59 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:17:33 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:39:01 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:39:10 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:39:29 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:39:38 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:41:45 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:42:09 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:42:32 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:43:35 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:44:39 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:47:01 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:53:42 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:53:50 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:54:58 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 05:56:17 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 06:00:48 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 08:52:03 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 08:55:06 UTC] PHP Fatal error:  Class 'SoapClient' not found in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Fedex.php on line 134
+[21-Jan-2015 21:18:00 UTC] PHP Fatal error:  Call to a member function getAllRates() on a non-object in /home/usapooldirect/public_html/app/code/local/Mage/Usa/Model/Shipping/Carrier/Usps.php on line 260
+[22-Jan-2015 05:53:48 UTC] PHP Fatal error:  Call to undefined function mb_convert_case() in /home/usapooldirect/public_html/app/code/local/Mana/Filters/Model/Source/Display/All.php on line 41
+[22-Jan-2015 06:18:26 UTC] PHP Fatal error:  Class 'Mage_Usapoolpotemplate_Helper_Data' not found in /home/usapooldirect/public_html/app/Mage.php on line 547
+[28-Jan-2015 19:56:19 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[31-Jan-2015 17:48:03 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:04 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:04 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:05 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:05 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:06 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:06 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:07 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:07 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:08 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:08 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[31-Jan-2015 17:48:09 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[05-Feb-2015 11:36:32 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[06-Feb-2015 07:45:34 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[11-Feb-2015 15:48:02 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[24-Feb-2015 22:30:58 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 894
+[02-Mar-2015 20:21:24 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 593
+[05-Mar-2015 00:34:07 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[06-Mar-2015 19:40:34 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[09-Mar-2015 08:25:21 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:21 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:23 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:25 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:26 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:27 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:28 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:29 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:30 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:31 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:33 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:34 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:35 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:36 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:37 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:38 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:39 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:40 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:42 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:43 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:44 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:45 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 08:25:46 UTC] PHP Fatal error:  Call to a member function getSource() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Catalog/Model/Product.php on line 1390
+[09-Mar-2015 09:08:33 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/ajax/catalog/product/view.phtml on line 349
+[10-Mar-2015 13:47:53 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 96
+[10-Mar-2015 13:48:27 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 96
+[10-Mar-2015 13:49:06 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 96
+[10-Mar-2015 13:49:09 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 96
+[10-Mar-2015 13:49:33 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 96
+[11-Mar-2015 07:49:26 UTC] PHP Fatal error:  Call to a member function getChildren() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 53
+[11-Mar-2015 07:49:27 UTC] PHP Fatal error:  Call to a member function getChildren() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 53
+[11-Mar-2015 07:50:21 UTC] PHP Fatal error:  Call to a member function getChildren() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 53
+[11-Mar-2015 07:56:44 UTC] PHP Parse error:  syntax error, unexpected '$skin_url' (T_VARIABLE), expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 64
+[11-Mar-2015 07:57:13 UTC] PHP Parse error:  syntax error, unexpected '$skin_url' (T_VARIABLE), expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 64
+[11-Mar-2015 07:58:06 UTC] PHP Parse error:  syntax error, unexpected '$skin_url' (T_VARIABLE), expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 64
+[11-Mar-2015 07:58:35 UTC] PHP Parse error:  syntax error, unexpected '$skin_url' (T_VARIABLE), expecting ',' or ';' in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 64
+[11-Mar-2015 08:37:27 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[11-Mar-2015 10:38:44 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[11-Mar-2015 12:40:52 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[11-Mar-2015 13:47:47 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/item/default.phtml on line 208
+[11-Mar-2015 13:47:48 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/item/default.phtml on line 208
+[11-Mar-2015 13:47:49 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/item/default.phtml on line 208
+[11-Mar-2015 13:47:50 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/item/default.phtml on line 208
+[11-Mar-2015 13:47:51 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/item/default.phtml on line 208
+[12-Mar-2015 05:39:17 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[12-Mar-2015 08:51:51 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[12-Mar-2015 10:27:39 UTC] PHP Parse error:  syntax error, unexpected '$title' (T_VARIABLE), expecting ')' in /home/usapooldirect/public_html/app/code/core/Mage/Sales/Model/Quote/Address/Total/Shipping.php on line 197
+[12-Mar-2015 11:06:30 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[12-Mar-2015 17:27:16 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[12-Mar-2015 18:29:17 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[13-Mar-2015 06:00:27 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/cart/shipping.phtml on line 144
+[13-Mar-2015 09:46:54 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[13-Mar-2015 11:22:04 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[13-Mar-2015 13:25:34 UTC] PHP Warning:  Unterminated comment starting line 79 in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 79
+[13-Mar-2015 13:25:34 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 130
+[13-Mar-2015 13:25:41 UTC] PHP Warning:  Unterminated comment starting line 79 in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 79
+[13-Mar-2015 13:25:41 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 130
+[13-Mar-2015 13:26:04 UTC] PHP Warning:  Unterminated comment starting line 79 in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 79
+[13-Mar-2015 13:26:04 UTC] PHP Parse error:  syntax error, unexpected end of file in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/category/view.phtml on line 130
+[14-Mar-2015 06:16:40 UTC] PHP Parse error:  syntax error, unexpected 'echo' (T_ECHO) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/checkout/onepage/review/item.phtml on line 28
+[16-Mar-2015 01:30:52 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[18-Mar-2015 02:42:04 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[18-Mar-2015 20:45:38 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[21-Mar-2015 14:53:53 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[21-Mar-2015 21:44:33 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[23-Mar-2015 03:02:11 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[23-Mar-2015 20:08:52 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 722
+[23-Mar-2015 20:13:43 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 500
+[23-Mar-2015 20:29:07 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 956
+[23-Mar-2015 20:33:43 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 483
+[23-Mar-2015 20:34:30 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 654
+[23-Mar-2015 20:38:21 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 476
+[24-Mar-2015 10:40:13 UTC] PHP Warning:  Unterminated comment starting line 1190 in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 1190
+[24-Mar-2015 10:40:13 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting function (T_FUNCTION) in /home/usapooldirect/public_html/app/code/local/Mage/Core/Model/Store.php on line 1191
+[24-Mar-2015 12:25:03 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[25-Mar-2015 07:13:44 UTC] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 166
+[25-Mar-2015 07:14:59 UTC] PHP Parse error:  syntax error, unexpected 'endif' (T_ENDIF) in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/catalog/product/list/toolbar.phtml on line 166
+[25-Mar-2015 07:17:14 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[25-Mar-2015 08:18:23 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[27-Mar-2015 19:19:53 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 484
+[27-Mar-2015 21:38:56 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[28-Mar-2015 15:33:21 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[30-Mar-2015 16:18:58 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[30-Mar-2015 20:58:42 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[31-Mar-2015 08:20:59 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[01-Apr-2015 17:40:23 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[02-Apr-2015 02:35:52 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[02-Apr-2015 04:35:50 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[02-Apr-2015 12:01:19 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[03-Apr-2015 05:56:37 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 593
+[03-Apr-2015 05:58:24 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 722
+[03-Apr-2015 05:59:39 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 655
+[03-Apr-2015 06:08:04 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Cache/Backend/File.php on line 546
+[03-Apr-2015 10:44:24 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[06-Apr-2015 06:54:38 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[09-Apr-2015 22:03:42 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[10-Apr-2015 03:50:33 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/category/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[10-Apr-2015 04:44:32 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[20-Apr-2015 06:59:38 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[21-Apr-2015 03:00:53 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/app/code/core/Mage/Core/Model/Config.php on line 1224
+[28-Apr-2015 09:11:13 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[28-Apr-2015 18:38:59 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[01-May-2015 20:04:17 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[06-May-2015 09:08:40 UTC] PHP Fatal error:  Maximum execution time of 30 seconds exceeded in /home/usapooldirect/public_html/lib/Zend/Db/Statement/Pdo.php on line 228
+[07-May-2015 02:06:21 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[08-May-2015 13:27:28 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[08-May-2015 15:22:15 UTC] PHP Fatal error:  Call to a member function getCode() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/persistent/checkout/onepage/billing.phtml on line 202
+[08-May-2015 15:35:09 UTC] PHP Fatal error:  Call to a member function setStore() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Shipping/Model/Shipping.php on line 424
+[08-May-2015 15:35:21 UTC] PHP Fatal error:  Call to a member function getCode() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/persistent/checkout/onepage/billing.phtml on line 202
+[08-May-2015 15:35:34 UTC] PHP Fatal error:  Call to a member function setStore() on a non-object in /home/usapooldirect/public_html/app/code/core/Mage/Shipping/Model/Shipping.php on line 424
+[08-May-2015 15:35:43 UTC] PHP Fatal error:  Call to a member function getCode() on a non-object in /home/usapooldirect/public_html/app/design/frontend/unique/default/template/persistent/checkout/onepage/billing.phtml on line 202
+[08-May-2015 18:46:14 UTC] PHP Fatal error:  Uncaught exception 'Exception' with message 'File '/home/usapooldirect/public_html/media/catalog/product/cache/1/thumbnail/400x/040ec09b1e35df139433887a97daa66f/p/e/' does not exists.' in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php:96
+Stack trace:
+#0 /home/usapooldirect/public_html/get.php(205): Varien_File_Transfer_Adapter_Http->send('/home/usapooldi...')
+#1 /home/usapooldirect/public_html/get.php(165): sendFile('/home/usapooldi...')
+#2 {main}
+  thrown in /home/usapooldirect/public_html/lib/Varien/File/Transfer/Adapter/Http.php on line 96
+[09-May-2015 17:52:23 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[09-May-2015 19:55:04 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[11-May-2015 23:57:48 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[14-May-2015 21:27:34 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[14-May-2015 21:27:44 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[15-May-2015 16:46:33 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[21-May-2015 04:22:08 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[22-May-2015 05:50:31 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[22-May-2015 16:22:50 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[22-May-2015 16:23:13 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[22-May-2015 16:23:50 UTC] PHP Fatal error:  Declaration of Zend_Pdf_FileParserDataSource_File::__construct() must be compatible with Zend_Pdf_FileParserDataSource::__construct() in /home/usapooldirect/public_html/lib/Zend/Pdf/FileParserDataSource/File.php on line 41
+[24-May-2015 07:59:56 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[24-May-2015 15:28:09 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[29-May-2015 16:56:33 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:28:55 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:29:25 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:29:26 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:29:44 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:29:44 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 14:30:48 UTC] PHP Fatal error:  Call to a member function getFirstname() on a non-object in /home/usapooldirect/public_html/app/design/adminhtml/default/default/template/purchaseorder/purchaseorder/editpo.phtml on line 12
+[01-Jun-2015 15:56:47 UTC] PHP Fatal error:  Class 'Mage_Usapoolpotemplate_Helper_Data' not found in /home/usapooldirect/public_html/app/Mage.php on line 547
+[01-Jun-2015 15:57:04 UTC] PHP Fatal error:  Class 'Mage_Usapoolpotemplate_Helper_Data' not found in /home/usapooldirect/public_html/app/Mage.php on line 547
+[01-Jun-2015 15:57:13 UTC] PHP Fatal error:  Class 'Mage_Usapoolpotemplate_Helper_Data' not found in /home/usapooldirect/public_html/app/Mage.php on line 547
+[01-Jun-2015 15:57:17 UTC] PHP Fatal error:  Class 'Mage_Usapoolpotemplate_Helper_Data' not found in /home/usapooldirect/public_html/app/Mage.php on line 547
+[02-Jun-2015 08:31:52 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90
+[02-Jun-2015 16:38:54 UTC] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[02-Jun-2015 16:39:03 UTC] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[02-Jun-2015 16:39:51 UTC] PHP Warning:  Unknown: Input variables exceeded 1000. To increase the limit change max_input_vars in php.ini. in Unknown on line 0
+[04-Jun-2015 12:05:39 UTC] PHP Notice:  Undefined index: HTTP_HOST in /home/usapooldirect/public_html/index.php on line 90

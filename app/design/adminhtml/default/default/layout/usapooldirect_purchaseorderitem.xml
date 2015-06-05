@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Purchaseorderitem extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Purchaseorderitem
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+	<!-- Purchase Order Items grid action -->
+	<adminhtml_purchaseorderitem_purchaseorderitem_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>purchaseorderitem/purchaseorderitem</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="purchaseorderitem/adminhtml_purchaseorderitem" name="purchaseorderitem" />
+		</reference>
+	</adminhtml_purchaseorderitem_purchaseorderitem_index>
+	<adminhtml_purchaseorderitem_purchaseorderitem_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="purchaseorderitem/adminhtml_purchaseorderitem_grid" name="purchaseorderitem_grid"/>
+		</block>
+	</adminhtml_purchaseorderitem_purchaseorderitem_grid>
+	<!-- Purchaseorderitem add/edit action -->
+	<adminhtml_purchaseorderitem_purchaseorderitem_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>purchaseorderitem/purchaseorderitem</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="purchaseorderitem/adminhtml_purchaseorderitem_edit" name="purchaseorderitem_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="purchaseorderitem/adminhtml_purchaseorderitem_edit_tabs" name="purchaseorderitem_tabs"></block>
+		</reference> 
+	</adminhtml_purchaseorderitem_purchaseorderitem_edit>
+</layout>

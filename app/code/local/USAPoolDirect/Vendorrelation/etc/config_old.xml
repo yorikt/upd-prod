@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Vendorrelation extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       USAPoolDirect
+ * @package        USAPoolDirect_Vendorrelation
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    <modules>
+        <USAPoolDirect_Vendorrelation>
+            <version>1.0.0</version>
+        </USAPoolDirect_Vendorrelation>
+    </modules>
+    <global>
+        <events>
+            <customer_save_after>
+                <observers>
+                    <usapooldirect_vendorrelation>
+                        <type>singleton</type>
+                    <class>USAPoolDirect_Vendorrelation_Model_Observer</class>
+                     <method>customer_save_after</method>
+                    </usapooldirect_vendorrelation>
+                </observers>
+            </customer_save_after>
+        </events>
+        <resources>
+            <usapooldirect_vendorrelation_setup>
+                <setup>
+                    <module>USAPoolDirect_Vendorrelation</module>
+                    <class>USAPoolDirect_Vendorrelation_Model_Resource_Setup</class>
+                </setup>
+            </usapooldirect_vendorrelation_setup>
+        </resources>
+        <blocks>
+            <usapooldirect_vendorrelation>
+                <class>USAPoolDirect_Vendorrelation_Block</class>
+            </usapooldirect_vendorrelation>
+        </blocks>
+        <helpers>
+            <usapooldirect_vendorrelation>
+                <class>USAPoolDirect_Vendorrelation_Helper</class>
+            </usapooldirect_vendorrelation>
+        </helpers>
+        <models>
+            <usapooldirect_vendorrelation>
+                <class>USAPoolDirect_Vendorrelation_Model</class>
+                <resourceModel>usapooldirect_vendorrelation_resource</resourceModel>
+            </usapooldirect_vendorrelation>
+            <usapooldirect_vendorrelation_resource>
+                <class>USAPoolDirect_Vendorrelation_Model_Resource</class>
+                <entities>
+                    <customervendorid>
+                        <table>usapooldirect_vendorrelation_customervendorid</table>
+                    </customervendorid>
+                    <customervendorid_store>
+                        <table>usapooldirect_vendorrelation_customervendorid_store</table>
+                    </customervendorid_store>
+                    <custvendorrelation>
+                        <table>usapooldirect_vendorrelation_custvendorrelation</table>
+                    </custvendorrelation>
+                </entities>
+            </usapooldirect_vendorrelation_resource>
+        </models>
+        
+     </global>
+    <adminhtml>
+    <layout>
+            <updates>
+                <usapooldirect_vendorrelation>
+                    <file>usapooldirect_vendorrelation.xml</file>
+                </usapooldirect_vendorrelation>
+            </updates>
+        </layout>
+        <translate>
+            <modules>
+                <USAPoolDirect_Vendorrelation>
+                    <files>
+                        <default>USAPoolDirect_Vendorrelation.csv</default>
+                    </files>
+                </USAPoolDirect_Vendorrelation>
+            </modules>
+        </translate>
+    </adminhtml>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <USAPoolDirect_Vendorrelation before="Mage_Adminhtml">USAPoolDirect_Vendorrelation_Adminhtml</USAPoolDirect_Vendorrelation>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+</config>

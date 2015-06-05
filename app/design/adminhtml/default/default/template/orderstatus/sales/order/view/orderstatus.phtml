@@ -1,0 +1,155 @@
+
+<?php  echo "Hit this is New page"; ?>
+<?php /*
+function invoice_create_direct($order_id,$payment_status) // Create Invoice Dynamically by Order ID
+{ 
+	$order = Mage::getModel("sales/order")->load($order_id);  // Get Order Details using Order ID
+	try 
+	{
+		if(!$order->canInvoice())
+		{
+			Mage::throwException(Mage::helper('core')->__('Cannot create an invoice.'));
+		}
+		$invoice = Mage::getModel('sales/service_order', $order)->prepareInvoice();
+		if (!$invoice->getTotalQty()) 
+		{
+			Mage::throwException(Mage::helper('core')->__('Cannot create an invoice without products.'));
+		}
+		
+		$invoice->setRequestedCaptureCase(Mage_Sales_Model_Order_Invoice::CAPTURE_ONLINE);	// Set Invoice Record Request
+		
+	// Comment For Only Invoice 
+	$commentbyme="Status Updated by Admin";
+	if (!empty($commentbyme)) { Mage::getSingleton('adminhtml/session')->setCommentText($commentbyme); }		
+        if (!empty($commentbyme)) 
+		{
+			$invoice->addComment(
+				$commentbyme,
+				isset($data['comment_customer_notify']),
+				isset($data['is_visible_on_front'])
+			);
+        }			
+			
+		$invoice->register();					// Invoice Register for new Invoice 
+		$transactionSave = Mage::getModel('core/resource_transaction')
+			->addObject($invoice)
+			->addObject($invoice->getOrder());
+		$transactionSave->save();				  
+				
+		$order->setData('state', "processing");		 // Set Order State Update
+		$order->setStatus($payment_status);			// Set Order Status
+		//$order->addStatusToHistory($order->getStatus(),$commentbyme, false);
+        $order->save();				// Set Order Save Data of invoice
+	}
+	catch (Mage_Core_Exception $e) 	{	}
+	$invoice->setRequestedCaptureCase( Mage_Sales_Model_Order_Invoice::CAPTURE_OFFLINE );	
+
+}
+// End Invoice Create Function
+
+// Start Comment Add after Change Status
+function comment_create_dynamically($order_comment_id)
+{
+	$user = Mage::getSingleton('admin/session'); // get current logged in user Collection
+	$current_userFirstname = $user->getUser()->getFirstname();
+	$current_userLastname = $user->getUser()->getLastname();
+	$current_Username = $user->getUser()->getUsername();
+	
+	$commentbyme="Order status updated by ".$current_userFirstname." ".$current_userLastname." [".$current_Username."] ";
+	$order = Mage::getModel("sales/order")->load($order_comment_id);  // Set Order Details using Order ID
+	$order->addStatusToHistory($order->getStatus(),$commentbyme, false);       //  Add/Set Order Comment for status 
+	$order->save();
+}
+// End Comment Add after Change Status
+
+// Create Shipment  Order
+function shipment_create_direct($ordered_id)
+{
+	$order = Mage::getModel('sales/order')->load($ordered_id);
+
+	//create shipment
+	$itemQty =  $order->getItemsCollection()->count();
+	$shipment = Mage::getModel('sales/service_order', $order)->prepareShipment($itemQty);
+	$shipment = new Mage_Sales_Model_Order_Shipment_Api();
+	$shipmentId = $shipment->create( $order->getIncrementId(), array(), 'Shipment created through ShipMailInvoice', true, true);
+	
+	//add tracking info
+	$shipment_collection = Mage::getResourceModel('sales/order_shipment_collection');
+	$shipment_collection->addAttributeToFilter('order_id', $ordered_id);
+	foreach($shipment_collection as $sc)
+	{
+		$shipment = Mage::getModel('sales/order_shipment');
+		$shipment->load($sc->getId());
+		if($shipment->getId() != '')
+		{ 
+			try
+			{
+				Mage::getModel('sales/order_shipment_track')
+				->setShipment($shipment)
+				->setData('title', 'carrier')
+				->setData('number', $trackInfo)
+				->setData('carrier_code', 'custom')
+				->setData('order_id', $shipment->getData('order_id'))
+				->save();
+			}
+			catch (Exception $e)
+			{
+				Mage::getSingleton('core/session')->addError('order id '.$ordered_id.' no found');
+			}
+		}
+	}
+	// change order status to complete
+	$order->addStatusToHistory(Mage_Sales_Model_Order::STATE_COMPLETE);
+	$order->setData('state', Mage_Sales_Model_Order::STATE_COMPLETE);
+	$order->save();
+}
+
+$current_url=Mage::helper('core/url')->getCurrentUrl();
+$param="?"; $str=$current_url;rtrim($str,$param);$pos = strpos($str, $param);$endpoint = $pos + strlen($param);
+$newStr = substr($str,0,$endpoint );
+
+if(isset($_GET['create_invoice']))
+{
+	invoice_create_direct($this->getOrder()->getId(),$_GET['status_value']);
+	comment_create_dynamically($this->getOrder()->getId());	
+	echo "Invoice has been Generate <script>location.href='".$newStr."'</script>";	
+}
+if(isset($_GET['create_shipment']))
+{
+	shipment_create_direct($this->getOrder()->getId());
+//	comment_create_dynamically($this->getOrder()->getId());	
+	echo "Shipment has been Generated <script>location.href='".$newStr."'</script>";	
+}
+
+?>
+<?php  
+$core_resource = Mage::getSingleton('core/resource');
+$read = $core_resource->getConnection('core_read');
+$table_name=$core_resource->getTableName('sales_flat_order_item');
+$result = $read->fetchAll("select qty_invoiced from ".$table_name." where order_id = ".$this->getOrder()->getId()." LIMIT 1");
+
+foreach($result as $result)
+{
+	$invoice_check= $result['qty_invoiced'];
+}
+		// Start  Get Payment method Code Name
+		$order_id=$this->getOrder()->getId(); 
+		$order = Mage::getModel("sales/order")->load($order_id); //load order by order id 
+		echo $payment_method_code = $order->getPayment()->getMethodInstance()->getCode();//purchaseorder //ccsave 
+		// End  Get Payment method Code Name
+if($invoice_check < 1) { ?>
+	<form method='get'>
+<?php if($payment_method_code=='purchaseorder') { 
+	echo '<input type="submit" name="create_invoice" id="create_invoice" value="Approved"/><input type="hidden" name="status_value" value="approved" />';
+}else { echo '<input type="submit" name="create_invoice" id="create_invoice" value="Paid"/> <input type="hidden" name="status_value" value="paid" />'; }
+
+?>
+	</form>
+<?php } ?>
+<form method='get'>
+		<input type="submit" name="create_shipment" id="create_shipment" value="Create Shipment"/>
+</form>
+<?php // End   Invoice Create Function   ?>
+
+*/
+?>

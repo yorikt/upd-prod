@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Vendorrelation extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category       USAPoolDirect
+ * @package        USAPoolDirect_Vendorrelation
+ * @copyright      Copyright (c) 2014
+ * @license        http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+    
+    <acl>
+        <resources>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <usapooldirect_vendorrelation translate="title" module="usapooldirect_vendorrelation">
+                                        <title>Vendorrelation</title>
+                                    </usapooldirect_vendorrelation>
+					<usapooldirect_vendorrelation  translate="title" module="usapooldirect_vendorrelation">
+                                        <title>My Custom Section</title>
+                                        <sort_order>100</sort_order>
+                                    </usapooldirect_vendorrelation >
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                    <usapooldirect_vendorrelation translate="title" module="usapooldirect_vendorrelation">
+                        <title>Vendor relation</title>
+                            <children>
+                                <customervendorid translate="title" module="usapooldirect_vendorrelation">
+                                    <title>Customervendorid</title>
+                                    <sort_order>0</sort_order>
+                                </customervendorid>
+                            </children>
+                        </usapooldirect_vendorrelation>
+
+                </children>
+            </admin>
+        </resources>
+    </acl>
+</config>

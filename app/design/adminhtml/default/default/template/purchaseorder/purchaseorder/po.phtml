@@ -1,0 +1,399 @@
+<?php
+
+//Get Paramater 
+$get_order_id = $this->getRequest()->getParam('order_id');
+
+
+// Get all Order Items from order Id in Get Param
+$order = Mage::getModel("sales/order")->load($this->getRequest()->getParam('order_id'));
+$ordered_items = $order->getAllItems();
+
+//Get Currency Symbol
+$currency_symbol = Mage::app()->getLocale()->currency( $currency_code )->getSymbol();
+
+
+// Prepare URLs :: get from url
+$form_save_url  =  Mage:: registry('form_save_url');
+$back_url  =  Mage:: registry('form_back_url');
+$order_url = Mage::registry('order_url');
+
+
+
+//ger from key
+$adminobj= new Mage_Adminhtml_Block_Template();
+
+
+//get all po number
+$tablename_po = Mage::getSingleton("core/resource")->getTableName('purchaseorder_purchaseorder');
+$tablename_po_item = Mage::getSingleton("core/resource")->getTableName('purchaseorderitem_purchaseorderitem');
+$connection_po = Mage::getSingleton('core/resource')->getConnection('core_write');
+
+// Get All POs which have order status not equal to cancel
+$query = 'SELECT po_number FROM '.$tablename_po.' WHERE order_status != "cancelled" and order_id="'.$get_order_id.'"';
+$po_number = $connection_po->fetchAll($query);
+
+// Get All Open Status POs
+$query_po_number = 'SELECT po_number FROM '.$tablename_po.' WHERE order_status = "open"  and order_id="'.$get_order_id.'"';
+$po_number_array = $connection_po->fetchAll($query_po_number);
+
+
+//get qty for po order generate
+$query_po = 'SELECT SUM(poi.requested_qty) as total_qty,poi.item_id,po.*  FROM '.$tablename_po.' as po
+INNER JOIN '.$tablename_po_item.' as poi ON poi.po_order_no = po.po_number
+WHERE po.order_id = '.$this->getRequest()->getParam('order_id').' AND po.order_status != "cancelled" group by poi.item_id';
+$po_data = $connection_po->fetchAll($query_po);
+$final_po_data_qty = array();
+
+foreach($po_data as $po_val){
+	$final_po_data_qty[$po_val['item_id']] = $po_val['total_qty']; 
+}
+//end get qty for po order generate
+
+
+
+/* //get po for purticulr item wise
+$query_po_number = 'SELECT poi.item_id,po.* FROM '.$tablename_po.' as po
+			 INNER JOIN '.$tablename_po_item.' as poi ON poi.po_order_no = po.po_number 
+			 WHERE po.order_id = '.$this->getRequest()->getParam('order_id').' AND po.order_status != "cancelled"';
+$po_data_number = $connection_po->fetchAll($query_po_number);
+$final_po_number = array();
+$back_order_array = array();
+foreach($po_data_number as $po_data_number_val){
+	
+	$back_order_array[$po_data_number_val['item_id']][] = $po_data_number_val['back_order_qty'];
+	if(array_key_exists($po_data_number_val['item_id'],$final_po_number)){
+		$final_po_number[$po_data_number_val['item_id']][] .= $po_data_number_val['po_number'];
+	}else{
+		$final_po_number[$po_data_number_val['item_id']][] = $po_data_number_val['po_number'];
+	}
+	
+} */
+
+//get po for purticulr item wise
+$query_po_number = 'SELECT poi.item_id,poi.back_order_qty,poi.requested_qty,po.* FROM '.$tablename_po.' as po
+			 INNER JOIN '.$tablename_po_item.' as poi ON poi.po_order_no = po.po_number 
+			 WHERE po.order_id = '.$this->getRequest()->getParam('order_id').' AND po.order_status != "cancelled"';
+$po_data_number = $connection_po->fetchAll($query_po_number);
+$final_po_number = array();
+$back_order_array = array();
+//echo "<pre>"; print_r($po_data_number); exit;
+foreach($po_data_number as $po_data_number_val){
+	
+	//set the back order qty to display
+	$po_order_back_qty = '';
+	if($po_data_number_val['order_status']!='open'){
+		$po_order_back_qty = $po_data_number_val['back_order_qty'];
+		if($po_data_number_val['back_order_qty']==''){
+			$po_order_back_qty = $po_data_number_val['requested_qty']; 
+		}	
+	}
+	if(array_key_exists($po_data_number_val['item_id'],$final_po_number)){
+		$final_po_number[$po_data_number_val['item_id']][] .= $po_data_number_val['po_number'];
+		$back_order_array[$po_data_number_val['item_id']][] .= $po_order_back_qty;
+	}else{
+		$final_po_number[$po_data_number_val['item_id']][] = $po_data_number_val['po_number'];
+		$back_order_array[$po_data_number_val['item_id']][] = $po_order_back_qty;
+	}
+	
+}
+
+//end get po for purticulr item wise
+//end all po number
+
+
+
+?>
+<div class="columns ">
+<div id="page:left" class="side-col">
+                            <h3>Order View</h3>
+<ul class="tabs" id="sales_order_view_tabs">
+    <li>
+        <a class="tab-item-link" title="Order Information" name="order_info" id="sales_order_view_tabs_order_info" href="<?php echo $order_url?>">
+            <span>Information</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Invoices" name="order_invoices" id="sales_order_view_tabs_order_invoices" href="<?php echo $order_url?>">
+            <span>Invoices</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Credit Memos" name="order_creditmemos" id="sales_order_view_tabs_order_creditmemos" href="<?php echo $order_url?>">
+            <span>Credit Memos</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Order Shipments" name="order_shipments" id="sales_order_view_tabs_order_shipments" href="<?php echo $order_url?>">
+            <span>Shipments</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link ajax only notloaded" title="Order History" name="order_history" id="sales_order_view_tabs_order_history" href="<?php echo $order_url?>">
+            <span>Comments History</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link" title="Transactions" name="order_transactions" id="sales_order_view_tabs_order_transactions" href="<?php echo $order_url?>">
+            <span>Transactions</span>
+        </a>
+        
+    </li>
+    <li>
+        <a class="tab-item-link ajax only active" title="Purchase Order" name="Purchase Order" id="sales_order_view_tabs_Purchase Order" href="#">
+            <span>Purchase Order</span>
+        </a>
+        
+    </li>
+</ul>
+
+</div>
+<?php
+	//====================================================
+	//for disabled po order buttons when order is canceld
+	$disable_po_order = ''; 
+	if($order->getStatus() == 'canceled'){
+		$disable_po_order =  'disabled'; 
+	} 
+	//====================================================
+?>
+<div id="content" class="main-col">
+<div class="content-header" style="display: flex">
+    <h3 class="icon-head head-sales-order"><?php echo Mage::helper('sales')->__('Order # %s %s | %s', $order->getRealOrderId(), '', $this->formatDate($order->getData('created_at'), 'medium', true));?></h3></p>
+</div>
+	<form id="po_purchase" action="<?php echo $form_save_url; ?>" enctype="multipart/form-data" method="post">
+	<input type="hidden" value="<?php echo $this->getRequest()->getParam('order_id');?>" name="order_id">
+	<input type="hidden" value="<?php echo $adminobj->getFormKey();?>" name="form_key">
+	<div class="entry-edit">
+	        <div class="entry-edit-head" style="display: flex">
+	           
+	           <h4 class="icon-head head-products">Items to Purchase</h4>
+	        </div>
+	    </div>
+	    <div id="invoice_item_container">
+	          <div class="grid np">
+			  <div class="hor-scroll">
+			    <table cellspacing="0" class="data order-tables">
+			        
+			        <thead>
+			            <tr class="headings">
+			            	<th><?php echo $this->helper('sales')->__('Qty') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Item Description') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Price') ?></th>
+			                
+			                <th><?php echo $this->helper('sales')->__('Ext.') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Preferred Supplier') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Order') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Ordered') ?></th>
+			                <th><?php echo $this->helper('sales')->__('PO #') ?></th>
+			                <th><?php echo $this->helper('sales')->__('Back Order') ?></th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			        <?php $counter=0;
+			        $new_order_items = array();
+			        
+			        foreach($ordered_items as $new_item){
+			        	 
+			        	$pro_key = $new_item->getProductId();
+			        	switch($new_item->getProductType()){
+			        
+			        		case "simple":
+			        		case "grouped":
+			        			if(array_key_exists($pro_key, $new_order_items)){
+			        				$new_item->setQtyOrdered($new_order_items[$pro_key]->getQtyOrdered()+$new_item->getQtyOrdered());
+			        				$new_item->setRowTotal($new_order_items[$pro_key]->getRowTotal()+$new_item->getRowTotal());
+			        
+			        			}
+			        			$new_order_items[$pro_key] = $new_item;
+			        			break;
+			        	}
+			        }
+			        foreach ($new_order_items as $item){
+			        	
+			        ?>
+			            <?php //if ($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
+			            
+			            	<tr  class="<?php echo $counter%2?'even':'odd' ?>">
+			            	<td><input name="po_qty[]" disabled="disabled" type="text" value="<?php echo round($item->getQtyOrdered());?>" class="input-text qty-input" size="3">
+			            	<input name="po_total_qty[<?php echo $item->getProductId();?>]" type="hidden" value="<?php echo round($item->getQtyOrdered());?>" class="input-text qty-input" size="3">
+			            	</td>
+			                <td><?php echo $item->getName(); ?>
+			                <input name="po_item_name[<?php echo $item->getProductId();?>]" type="hidden" value="<?php echo $item->getName();?>" class="input-text" size="5">
+			                </td>
+			                <td><?php echo $currency_symbol; ?><input disabled="disabled" name="po_item_cost[<?php echo $item->getProductId();?>]" type="text" value="<?php echo number_format($item->getPrice(),2,".","");?>"  style="width: 84%" class="input-text" size="5">
+			                <input name="po_item_cost[<?php echo $item->getProductId();?>]" type="hidden" value="<?php echo number_format($item->getPrice(),2,".","");?>" class="input-text" size="5">
+			                </td>
+			                <td><?php echo $currency_symbol.''.number_format($item->getRowTotal(),2,".",""); ?></td>
+			                <td>N/A</td>
+			                <td>
+			                	<input name="po_item_sku[<?php echo $item->getProductId();?>]" type="hidden" value="<?php echo $item->getSku();?>">
+			                	<?php
+			                	
+			                	$final_qty =  $item->getQtyOrdered()-$final_po_data_qty[$item->getProductId()];?>
+			                	<?php if($final_qty!='0'  && $order->getStatus() != 'canceled'){?>
+					                <select  class="allselect" title="allselect"  name="po_order_qty[<?php echo $item->getProductId();?>]" id="po_order_qty" style="width: 55px;">
+					                <?php for($i = round($final_qty); $i >= 0; --$i){?>
+					                	<option <?php echo ($i=='0')?'selected="selected"':''?>  value="<?php echo $i;?>"><?php echo $i;?></option>
+					                <?php }?>
+					                </select>
+				                <?php }else{?>
+				                	N/A
+				                <?php }?>
+				                
+				                
+			                </td>
+			                <td><?php echo round($final_po_data_qty[$item->getProductId()]);?></td>
+			                <td><?php
+				                /*foreach($final_po_number[$item->getProductId()] as $po_numbers){
+				                	$order_url = $this->getLayout()->createBlock('purchaseorder/adminhtml_purchaseorder_grid')->getOrderUrl($po_numbers);
+				                	echo '<a href="'.$order_url.'">'.$po_numbers.'</a>,<br/>';
+				                
+				                }*/
+				                $po_number_link ='';
+				                 foreach($final_po_number[$item->getProductId()] as $po_numbers){
+				                	$order_url = $this->getLayout()->createBlock('purchaseorder/adminhtml_purchaseorder_grid')->getOrderUrl($po_numbers);
+				                	$po_number_link .= '<a href="'.$order_url.'">'.$po_numbers.'</a>,<br/>';
+				                	
+				                }echo rtrim($po_number_link,",<br/>");  
+			                ?>
+			                </td>
+			                <td><?php
+			                	$po_back_order_qty = '';
+				                foreach($back_order_array[$item->getProductId()] as $back_order_qty){
+				                	if($back_order_qty==''){ $po_back_order_qty .= "0,<br/>"; }
+				                	else { $po_back_order_qty .= $back_order_qty.',<br/>'; }
+				                }
+				                echo rtrim($po_back_order_qty,",<br/>");
+			                
+				                /* foreach($back_order_array[$item->getProductId()] as $back_order_qty){
+				                	if($back_order_qty==''){ echo "0,<br/>"; }
+				                	$po_back_order_qty = $back_order_qty.',<br/>';
+				                }
+				                echo rtrim($po_back_order_qty,",<br/>"); */
+			                 ?></td>
+			            	</tr>
+			        <?php $counter++;} ?>
+			        </tbody>
+			        <tfoot>
+	            <tr>
+	                <td colspan="4">&nbsp;</td>
+	                <td colspan="5" align="right">
+	                				<select name="po_status" id="po_status" style="" <?php echo $disable_po_order; ?>>
+	                					<option value="new_po">New PO</option>
+	                					<?php if(!empty($po_number_array)){
+	                						
+	                						  foreach($po_number_array as $po_key => $po_val){;
+	                					?>
+	                					<option value="<?php echo $po_val['po_number'];?>" <?php echo $disable_po_order; ?>><?php echo $po_val['po_number'];?></option>
+	                					<?php }}?>
+	                				</select>
+	                				<button style="cursor: pointer;" onclick="return dontAllowZeroItems()" class="scalable update-button <?php echo $disable_po_order; ?> " type="button" title="Order" id="" <?php echo $disable_po_order; ?> ><span><span><span>Order</span></span></span></button>
+	                				<button style="cursor: pointer;" onclick="setMaxQty()" class="scalable update-button <?php echo $disable_po_order; ?> " type="submit" title="Order All" id="" <?php echo $disable_po_order; ?> ><span><span><span>Order All</span></span></span></button>
+	                				<button style="cursor: pointer;" onclick="setLocation('<?php echo $back_url;?>')" class="scalable update-button " type="button" title="Cancel" id=""><span><span><span>Cancel</span></span></span></button></td>
+	                
+	            </tr>
+	        </tfoot>
+			    </table>
+			  </div>
+			</div>
+			
+	    </div>
+	    <div class="clear">&nbsp;</div>
+		<div id="invoice_totals" class="box-left entry-edit"
+			style="width: 49.5%">
+			<div class="entry-edit-head">
+				<h4 style="float: right; padding: 3px 10px 3px 20px">
+					<strong style="padding: 0px 16px 0px 0px">Sub Total:</strong> <strong><span
+						class="price"><?php echo $currency_symbol;?><?php echo number_format($order->getSubtotal(),2,".","");?></span> </strong>
+				</h4>
+			</div>
+			<div class="order-totals">
+				<table width="100%" cellspacing="0">
+					<colgroup>
+						<col>
+						<col width="1">
+					</colgroup>
+					<tbody>
+						<tr class="0">
+							<td class="label"><input type="text"  disabled="disabled"  class="input-text qty-input" value="0.00" name="po_discount_per" size="3">% <strong>Discount Code: (-)</strong></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text" disabled="disabled" value="0.00" class="input-text qty-input" name="po_discount_amt" size="5"></span></td>
+						</tr>
+						<tr class="1">
+							<td class="label"><strong>Shipping:</strong></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text" disabled="disabled"  value="<?php echo number_format($order->getBaseShippingAmount(),2,".","");?>" class="input-text qty-input" name="po_shipping_amt" size="5"></span></td>
+						</tr>
+						<tr class="0">
+							<td class="label"><strong>Handling Fee:</strong></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text"  disabled="disabled"  value="<?php echo number_format($order->getBaseShippingAmount(),2,".","");?>" class="input-text qty-input" name="po_handling_fee_amt" size="5"></span></td>
+						</tr>
+						<tr class="1">
+							<td class="label"><strong>Other Fees:</strong></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text"  disabled="disabled" value="0.00" class="input-text qty-input" name="po_other_fee_amt" size="5"></span></td>
+						</tr>
+						<tr class="0">
+							<td class="label"><strong>Tax:</strong></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text"  disabled="disabled"  value="<?php echo number_format($order->getBaseTaxAmount(),2,".","");?>" class="input-text qty-input" name="po_tax" size="5"> <?php echo $currency_symbol;?>0.00 (0%) Estimated Tax and Rate </span></td>
+						</tr>
+						<tr class="1">
+							<td class="label">*<input type="text"  disabled="disabled" value="0.00" class="input-text qty-input" name="po_blank"></td>
+							<td><span class="price"><?php echo $currency_symbol;?> <input type="text"  disabled="disabled" class="input-text qty-input" value="0.00" name="po_blank_amt" size="5"></span></td>
+						</tr>
+					</tbody>
+				</table>
+				
+			</div>
+			<div class="entry-edit-head">
+				<h4 style="float: right; padding: 3px 10px 3px 20px">
+					<strong style="padding: 0px 16px 0px 0px">Total</strong> <strong><span class="price"><?php echo $currency_symbol;?><?php echo number_format($order->getGrandTotal(),2,".","");?></span> </strong>
+				</h4>
+			</div>
+		</div>
+	</form>	
+</div>	
+</div>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.js');?>"></script>
+<script type="text/javascript">
+var $j = jQuery.noConflict(); 
+
+$j(document).ready(function(){
+	$j('ul#sales_order_view_tabs li:first').after($j('ul#sales_order_view_tabs li:last'));
+});
+	                					
+function setMaxQty(){
+	
+	
+	var selects = $$('select.allselect');
+	selects.each(function(list) {
+        // if the list isn't the same list that triggered the event…
+        list.value = list.down('option').readAttribute('value');
+       
+    });
+}
+
+function dontAllowZeroItems(){
+	var selects = $$('select.allselect');
+	var submitform = 0;
+	selects.each(function(list) {
+        // if the list isn't the same list that triggered the event…
+        if($F(list)>0){
+       
+        	submitform = 1;
+        	return;
+        }
+
+    });
+	
+	if(submitform==1){
+		document.getElementById("po_purchase").submit();	
+	}else{
+		 alert('You can\'t add zero item value to Purchase Order');
+	}
+	
+	
+}
+</script>

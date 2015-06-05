@@ -1,0 +1,8 @@
+<layout version="0.1.0">
+    <adminhtml_sales_order_view>
+        <reference name="order_history">
+            <action method="setTemplate"><template>orderstatus/sales/order/view/history.phtml</template></action>
+            <block type="orderstatus/sales_order_view_orderstatus" name="orderstatus_sales_order_view_orderstatus" template="orderstatus/sales/order/view/orderstatus.phtml"/>
+        </reference>
+    </adminhtml_sales_order_view>
+</layout>

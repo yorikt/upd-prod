@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+<config>
+    <tabs>
+        <mycustom_tab module="usapooldirect_vendorrelation" translate="label">
+            <label>USAPool Direct</label>
+            <sort_order>100</sort_order>
+        </mycustom_tab>
+    </tabs>
+    <sections>
+        <usapooldirect_vendorrelation module="usapooldirect_vendorrelation" translate="label">
+            <label>Settings</label>
+            <sort_order>200</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>mycustom_tab</tab>
+            <groups>
+                <mycustom_group translate="label">
+                    <label>Settings</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <nearby_distance translate="label tooltip comment">
+                            <label>Nearby Distance</label>
+                            <comment>(In Miles)</comment>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <frontend_type>text</frontend_type>
+                        </nearby_distance>
+                    </fields>
+                </mycustom_group>
+            </groups>
+        </usapooldirect_vendorrelation>
+    </sections>
+</config>

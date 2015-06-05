@@ -1,0 +1,587 @@
+<?php
+// $collection = $this->getCollection(); 
+//Get Param From Url
+$customer_id = (int) Mage::app()->getRequest()->getParam('id');
+$order_id = (int) Mage::app()->getRequest()->getParam('order_id');
+$address_id=(int) Mage::app()->getRequest()->getParam('address_id');
+$type = Mage::app()->getRequest()->getParam('type');
+
+/**
+ * Get LatLong From order shipping address and customer id from order
+ */
+if($order_id){
+    
+$order_info=Mage::getModel('sales/order')->load($order_id)->getData();
+$customer_id=$order_info['customer_id'];
+$order_customer = Mage::getModel('customer/customer')->load($customer_id)->getData();
+$order_address = Mage::getModel('sales/order_address')->load($order_info['shipping_address_id'])->getData();
+
+$order_str=mysql_escape_string($order_address['street']);
+$order_street=str_replace("\\n",",",$order_str);
+
+
+$order_add_marker='<h4>'.$order_customer['firstname']." ".$order_customer['lastname'].'</h4>'.$order_street."<br/>".$order_address['city'].", ".$order_address['region'].", ".$order_address['postcode']."<br/>".$order_address['telephone'];
+
+$countryName = Mage::getModel('directory/country')->load($order_address['country_id'])->getName();
+$order_add_info=$order_address['street'].",".$order_address['city'].",".$order_address['region'].",".$order_address['postcode'].",".$countryName;
+$order_add_latlong= Get_lat_lang($order_add_info);
+$order_latlong=explode(",",$order_add_latlong);
+
+}
+/***********************************************************/
+// Nearby Distance value from Config
+$nearby_config=Mage::getStoreConfig('usapooldirect_vendorrelation/mycustom_group/nearby_distance');
+
+// If type is not set Default type is nearbyvendor
+if(!$type){
+    $type="nearbyvendor";
+}
+
+/**
+ * If get customer Id Get LatLong From Customer Default shipping address 
+ */
+$customer = Mage::getModel('customer/customer')->load($customer_id); //insert cust ID
+$customerData= $customer->getData();
+
+if($customerData['default_shipping']!=''){
+    $customer_add_id=$customerData['default_shipping'];
+}else{
+    $customer_add_id=$customerData['default_billing'];
+}
+
+if($address_id){
+	$customer_address=Mage::getModel('customer/address')->load($address_id)->getData();
+}else {
+	$customer_address=Mage::getModel('customer/address')->load($customer_add_id)->getData();
+}
+$str=mysql_escape_string($customer_address['street']);
+$street=str_replace("\\n",", ",$str);
+
+if($order_id){
+	$customer_marker=$order_add_marker;
+}else{
+	$customer_marker='<h4>'.$customer_address['firstname'].' '.$customer_address['lastname'].'</h4>'.$street."<br/> ".$customer_address['city'].", ".$customer_address['region'].", ".$customer_address['postcode']."<br/>".$customer_address['telephone'];
+}
+
+$custvendorrelation = Mage::getModel('usapooldirect_vendorrelation/custvendorrelation')->getCollection();
+$customer_vendor=$custvendorrelation->getData();
+/***********************************************************/
+/**
+ * Set Button URl according to order_id and customer_id
+ */
+if($order_id){
+$assignvendor_url =Mage:: registry ('assignvendor')."order_id/".$order_id."/";
+$nearbyvendor_url =Mage:: registry ('nearbyvendor')."order_id/".$order_id."/";
+$allvendor_url =Mage:: registry ('allvendor')."order_id/".$order_id."/";
+}else{
+$assignvendor_url =Mage:: registry ('assignvendor');
+$nearbyvendor_url =Mage:: registry ('nearbyvendor');
+$allvendor_url =Mage:: registry ('allvendor');
+}
+/***********************************************************/
+/**
+ * Create core connection for Db And Get TableName
+ */
+$core_resource=Mage::getSingleton("core/resource");
+$table_name=$core_resource->getTableName('vendors_managevendors');
+$table_cust_latlong=$core_resource->getTableName('usapooldirect_customer_latilong');
+$table_vendorrelation=$core_resource->getTableName('usapooldirect_vendorrelation_custvendorrelation');
+$connection = Mage::getSingleton('core/resource')->getConnection('core_write');
+/***********************************************************/
+if($address_id){
+    $add_id=$address_id;
+    
+}else{
+    $add_id=$customerData['default_shipping'];
+    
+}
+/**
+ * Set LatLong For Db query according to order_id or customer_id
+ */
+if($order_id){
+    $cust_lat=(float)$order_latlong[0];
+    $cust_lang=(float)$order_latlong[1];
+}else{
+$cust_query="select * from $table_cust_latlong where customer_id=$customer_id and address_id=$add_id";
+$cust_data=$connection->fetchAll($cust_query);
+$cust_lat=(float)$cust_data[0]['latitude'];
+$cust_lang=(float)$cust_data[0]['longitude'];
+}
+/***********************************************************/
+
+/**
+ * Assign Button Class
+ */
+$assigned_button_class = 'back';
+$nearbyvendor_button_class = 'back';
+$allvendor_button_class = 'back';
+/***********************************************************/
+/**
+ * Create Switch case for optimise Query
+ */
+$join="LEFT";
+$having="";
+$no_record_message = '';
+$url='';
+
+switch ($type) {
+    case "assignvendor":
+        $join="INNER";
+		$no_record_message = " assigned to this customer.";
+		$assigned_button_class = '';
+                $url=$assignvendor_url;
+                $c="COUNT(*) AS total,";
+        break;
+    case "nearbyvendor":
+        $join="LEFT";
+        $having="Having distance < $nearby_config";
+		$no_record_message = " near by $nearby_config miles.";
+		$nearbyvendor_button_class = '';
+                $url=$nearbyvendor_url;
+                $c="";
+        break;
+    case "allvendor":
+        $join="LEFT";
+        $having="";
+		$allvendor_button_class = '';
+                $url=$allvendor_url;
+                $c="COUNT(*) AS total,";
+		break;
+}
+/***********************************************************/
+/**
+ * Pagination
+ */
+if(Mage::app()->getRequest()->getParam('page')){
+    $page=Mage::app()->getRequest()->getParam('page');
+}else{
+    $page=1;
+}
+
+if(Mage::app()->getRequest()->getParam('per_page')){
+   $per_page= Mage::app()->getRequest()->getParam('per_page');
+}else{
+$per_page = 20; // Records per page.
+}
+$startpoint = ($page * $per_page) - $per_page;
+/***********************************************************/
+
+$query="(SELECT DISTINCT a.entity_id,a.vendorname,a.city,a.state,a.phoneno,a.zipcode,a.address,a.poemail,a.primary_contact,a.active,a.address2,a.latitude,a.longitude,IF(b.vendor_id,1,0) AS Flag,( 3959 * acos( cos( radians(".$cust_lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude) - radians(".$cust_lang.") ) + sin( radians(".$cust_lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM"
+        . " $table_name As a $join JOIN $table_vendorrelation As b on a.entity_id=b.vendor_id and b.cust_id='".$customer_id."' $having ORDER BY distance ASC LIMIT {$startpoint},{$per_page})";
+//echo $query;
+
+
+$nearest=$connection->fetchAll($query);
+
+/**
+ * Get Total Row Count set Last page According to total Record
+ */
+$query_count="(SELECT $c a.entity_id,a.vendorname,a.city,a.state,a.phoneno,a.zipcode,a.address,a.poemail,a.primary_contact,a.active,a.address2,a.latitude,a.longitude,IF(b.vendor_id,1,0) AS Flag,( 3959 * acos( cos( radians(".$cust_lat.") ) * cos( radians( latitude ) ) * cos( radians( longitude) - radians(".$cust_lang.") ) + sin( radians(".$cust_lat.") ) * sin( radians( latitude ) ) ) ) AS distance FROM"
+        . " $table_name As a $join JOIN $table_vendorrelation As b on a.entity_id=b.vendor_id and b.cust_id='".$customer_id."' $having ORDER BY distance ASC)";
+
+//echo $query_count;
+$nearest_count=$connection->fetchAll($query_count);
+$near_count=count($nearest_count);
+
+if($type=="nearbyvendor"){
+$total=$near_count;
+}else{
+$total=$nearest_count[0]['total'];
+}
+
+$lastpage = ceil($total/$per_page);
+/***********************************************************/
+
+/**
+ * Prepare Array For Marker in Google Map
+ */
+$data=array();
+$data[]="['".$customer_marker."','".$cust_lat."','".$cust_lang."']";
+
+for($j=0;$j<sizeof($nearest);$j++){
+    $address = "<h4>".$nearest[$j]['vendorname']."</h4>";
+    
+    if($nearest[$j]['address']!=''){
+      $address .= $nearest[$j]['address'];
+    }
+    
+    if($nearest[$j]['address2']!=''){
+      $address .= ", ".$nearest[$j]['address2']."<br/>";
+    }
+    
+    $region=Mage::getModel('directory/region')->load($nearest[$j]['state']);
+    $address .= $nearest[$j]['city'].", ".$region->getName().", ".$nearest[$j]['zipcode']."<br/>".$nearest[$j]['phoneno'];
+    
+    if($nearest[$j]['distance']<=$nearby_config && $nearest[$j]['distance']!=0){
+      $data[]="['".$address."','".$nearest[$j]['latitude']."','".$nearest[$j]['longitude']."']";
+    }
+ }
+    $insertvalues = implode(',', $data);
+/***********************************************************/
+
+ob_start("callback");
+
+?>
+
+<div id="vendorlist_container">
+<!--Create Dropdown Box for Multiple Customer Addresses Display start-->
+<?php if(!$order_id){ ?>
+    <div class="customer-addresses" style="float: left;">
+<?php 
+ $shipping_address= $customerData['default_shipping']; // Get Shipping Address ID
+ $data1 = array();
+ echo "<select class='customer-addresselect' id='address_dropdown' url='$url' style='width:300px;'>";
+ foreach ($customer->getAddresses() as $address)
+ {
+  $data1 = $address->toArray();
+  $selectid='';
+  if($add_id==$data1['entity_id']) { $selectid= "selected=selected"; } 
+  
+  echo "<option value=".$data1['entity_id']." ".$selectid.">".$data1['street'].", ".$data1['city'].", ".$data1['region'].", ".$data1['country_id']."</option>";
+} 
+  echo "</select>";
+?>
+    </div>
+<!--Dropdown End-->
+<?php }?> 
+
+<!--src="<?php //echo Mage::getDesign()->getSkinUrl('images/pager_arrow_right.gif');?>"-->
+
+<!--Pagination Div Container Start-->
+<div style="float:right;">
+<?php if($page==1){
+echo '<img style="margin: 0 3px;vertical-align: middle;" src='.Mage::getDesign()->getSkinUrl("images/pager_arrow_left_off.gif").'></img>';
+}else{?> 
+<a href="#" title="Previous page" id="prev" onclick="Prev(<?php if($page<=$lastpage){echo $page-1;} ?>);return false;" name="Prev"  url="<?php echo $url; ?>"><img style="margin: 0 3px;vertical-align: middle;" src="<?php echo Mage::getDesign()->getSkinUrl('images/pager_arrow_left.gif');?>" /></a>
+<?php } ?>
+&nbsp;<input type="text" style="width: 2em;" name="page" value="<?php echo $page;?>" id="page" url="<?php echo $url; ?>" />
+
+<?php if($page>=$lastpage){
+    echo '<img  style="margin: 0 3px;vertical-align: middle;" src='.Mage::getDesign()->getSkinUrl("images/pager_arrow_right_off.gif").'></img>';
+}else{?>
+<a href="#" id="nextpage" title="Next page" page="<?php if($page<=$lastpage){echo $page+1;} ?>"  name="Next"  url="<?php echo $url; ?>"><img style="margin: 0 3px;vertical-align: middle;" src="<?php echo Mage::getDesign()->getSkinUrl('images/pager_arrow_right.gif');?>" /></a>
+<?php } ?>
+Of <?php echo $lastpage;?> Pages &nbsp;&nbsp;|&nbsp;View &nbsp;&nbsp;
+    <select name="list"  id="list" url="<?php echo $url; ?>">
+        <option value="20" <?php if($per_page=="20"){echo "selected";}?>>20</option>
+        <option value="30" <?php if($per_page=="30"){echo "selected";}?>>30</option>
+        <option value="50" <?php if($per_page=="50"){echo "selected";}?>>50</option>
+        <option value="100" <?php if($per_page=="100"){echo "selected";}?>>100</option>
+        <option value="200" <?php if($per_page=="200"){echo "selected";}?>>200</option>
+    </select>
+&nbsp;&nbsp;Per Page&nbsp;&nbsp|&nbsp;&nbsp Total <?php echo $total;?> records found</div>
+
+<!--Pagination Div Container End-->
+<div style="clear:both;"></div>
+
+<div id="contact_list">
+<!--Nearby,All,Assigned Button start-->
+    <div>
+        <button type="button" url="<?php echo $assignvendor_url; ?>" class="scalable vendor <?php echo $assigned_button_class; ?>" value="Assigned" id="assign" style="float:right;margin: 5px;" >Assigned</button>
+        <button type="button" url="<?php echo $nearbyvendor_url; ?>" class="scalable vendor <?php echo $nearbyvendor_button_class; ?>"  value="Nearby" id="nearby" style="float:right;margin: 5px;">Near by</button>
+        <button type="button" url="<?php echo $allvendor_url; ?>" class="scalable vendor <?php echo $allvendor_button_class; ?>" value="All" id="all" style="float:right;margin: 5px;">All</button>
+    </div>
+<!--Nearby,All,Assigned Button End-->
+	<div style="" id="managevendors_tabs_contacts_content">
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-edit-form fieldset-legend">Suppliers</h4>
+			<div class="form-buttons"></div>
+		</div>
+		<div id="contact_grid">
+			<div class="grid">
+				<div class="hor-scroll">
+					<table cellspacing="0" id="contact_grid_table" class="data">
+						
+						<thead>
+							<tr class="headings">
+							<?php if(!$order_id){ ?>
+								<th style="text-align: center;"><span class="nobr"><span>Select</span></span></th>
+							<?php } ?>
+								<th><span class="nobr"><span>Suppliers Name</span></span></th>
+								<th><span class="nobr"><span>City</span></span></th>
+								<th><span class="nobr"><span>State</span></span></th>
+								<th><span class="nobr"><span>Zip</span></span></th>
+								<th><span class="nobr"><span>Distance (In Miles)</span></span></th>
+                                                                <th><span class="nobr"><span>Address</span></span></th>
+								<th><span class="nobr"><span>Email</span></span></th>
+								<th><span class="nobr"><span>Primary</span></span></th>
+								<th><span class="nobr"><span>Status</span></span></th>
+								
+							</tr>
+							
+						</thead>
+						<tbody>
+							<?php if(!empty($nearest)){
+                                                                $check_val='';
+								foreach($nearest as $contact_val){
+                                                                    
+							 ?>
+								<tr title="#" <?php echo ($contact_val['primary']=='1')?'style="background-color: #E7EFEF;cursor: pointer;"':'style="cursor: pointer;"' ?>>
+                                    <?php if(!$order_id){ ?>
+                                    <td class="a-left last ajax" style="text-align:center !important;"><input type="checkbox" value="<?php echo $contact_val['entity_id'];?>" name="vendor_id[]" <?php if($contact_val['Flag']=='1'){echo "checked"; $check_val.="'".$contact_val['entity_id']."',";}?>/></td>
+                                    <?php } ?>
+									<td class="a-left "><?php echo $contact_val['vendorname'];?></td>
+									<td class="a-left "><?php echo $contact_val['city'];?></td>
+									<td class="a-left "><?php $region=Mage::getModel('directory/region')->load($contact_val['state']); echo $region->getName(); ?></td>
+									<td class="a-left "><?php echo $contact_val['zipcode'];?></td>
+                                                                        <td class="a-left "><?php echo round($contact_val['distance'], 2);?></td>
+									<td class="a-left "><?php echo $contact_val['address']."".$contact_val['address2'];?></td>
+									<td class="a-left "><?php echo $contact_val['poemail'];?></td>
+									<td class="a-left "><?php echo $contact_val['primary_contact'];?></td>
+									<td class="a-left"><?php echo ($contact_val['active']=='0')?'Disabled':'Enabled';?></td>
+									
+								</tr>
+							<?php  }?>
+                                                        <input type="hidden" name="uncheck_id" id="uncheck_id"/>
+                                                        <?php }else{?>
+									<tr><td colspan="10">No suppliers found <?php echo $no_record_message; ?></td></tr>
+							<?php								
+									}
+							?>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	
+	
+	
+	</div>
+</div>
+<?php 
+$check= rtrim($check_val,",");
+if($cust_lat=='0' && $cust_lang=='0' || $cust_lat=='' && $cust_lang==''){ ?>
+<div style="color:red;">Customer Lat Long Not Found</div>
+<?php    
+}
+?>
+<?php if(!empty($nearest)){?>
+<div id="map" style="width: 100%; height: 400px;"></div>
+
+<script type="text/javascript">
+
+  // Define your locations: HTML content for the info window, latitude, longitude
+
+  var locations = [<?php echo $insertvalues; ?>];
+       
+  // Setup the different icons and shadows
+  var iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
+    
+  var icons = [
+    iconURLPrefix + 'green-dot.png',
+    iconURLPrefix + 'red-dot.png'
+  ]
+  var icons_length = icons.length;
+ 
+  var shadow = {
+    anchor: new google.maps.Point(15,33),
+    url: iconURLPrefix + 'msmarker.shadow.png'
+  };
+
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: new google.maps.LatLng(-37.92, 151.25),
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    mapTypeControl: false,
+    streetViewControl: false,
+    panControl: false,
+    zoomControlOptions: {
+       position: google.maps.ControlPosition.LEFT_BOTTOM
+    }
+  });
+
+  var infowindow = new google.maps.InfoWindow({
+    maxWidth: 200,
+    maxHeight: 200
+  });
+//alert(infowindow);
+  var marker;
+  var markers = new Array();
+    
+  var iconCounter = 0;
+    
+  // Add the markers and infowindows to the map
+  for (var i = 0; i < locations.length; i++) {  
+    marker = new google.maps.Marker({
+      position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+      map: map,
+      icon : icons[iconCounter],
+      shadow: shadow
+    });
+
+    markers.push(marker);
+
+    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+        infowindow.setContent(locations[i][0]);
+        infowindow.open(map, marker);
+      }
+    })(marker, i));
+      
+    iconCounter++;
+    // We only have a limited number of possible icon colors, so we may have to restart the counter
+    if(iconCounter == 0){
+      iconCounter = 0;
+    }
+  }
+
+  function AutoCenter() {
+    //  Create a new viewpoint bound
+    var bounds = new google.maps.LatLngBounds();
+    //  Go through each...
+      
+    markers.each(function (marker) {
+    bounds.extend(marker.position);
+     //alert(index+"=="+index.position);
+    });
+    //  Fit these bounds to the map
+    map.fitBounds(bounds);
+  }
+  AutoCenter();
+  
+  
+</script> 
+<?php } ?>
+<script>
+
+jQuery("#nextpage").on("click", function() {
+	var page1=jQuery('#nextpage').attr("page");
+
+	  jQuery('#loading-mask').show();
+	    jQuery.ajax({
+	   type:"GET",
+	   url:jQuery('#nextpage').attr("url"),
+	   data:{'page':page1,'per_page':<?php echo $per_page;?>,'address_id':<?php echo $address_id;?>},
+	   success: function(data){
+	                            //alert(data);
+	                                    if(data){
+	                                        jQuery('#vendorlist_container').html(data);  
+	                                        jQuery('#loading-mask').hide();
+	                                    }
+	                        }
+	  });
+	});
+
+	function Prev(page){
+	jQuery('#loading-mask').show();
+	    jQuery.ajax({
+	   type:"GET",
+	   url:jQuery('#prev').attr("url"),
+	   data:{'page':page,'per_page':<?php echo $per_page;?>,'address_id':<?php echo $address_id;?>},
+	   success: function(data){
+	                                    if(data){
+	                                        jQuery('#vendorlist_container').html(data);  
+	                                        jQuery('#loading-mask').hide();
+	                                    }
+	                        }
+	  });
+	}
+
+    jQuery('#address_dropdown').change(function(event){
+       jQuery('#loading-mask').show();
+       jQuery.ajax({
+			type:"GET",
+			url:jQuery(this).attr("url"),
+			data:{'address_id':jQuery(this).val(),'per_page':<?php echo $per_page;?>},
+			success: function(data){
+                                    if(data){
+                                        jQuery('#vendorlist_container').html(data);
+                                      //  jQuery('#address_id').val(jQuery(this).val());
+                                        jQuery('#loading-mask').hide();
+                                    }
+                        }
+		});
+       
+    });
+
+    jQuery('#page').change(function(event){
+    var page=jQuery(this).val();
+    if(page>=<?php echo $lastpage;?>){
+        page=<?php echo $lastpage;?>;
+    }
+    jQuery.ajax({
+			type:"GET",
+			url:jQuery(this).attr("url"),
+			data:{'page':page,'per_page':<?php echo $per_page;?>,'address_id':<?php echo $address_id;?>},
+			success: function(data){
+                                    if(data){
+                                        jQuery('#vendorlist_container').html(data);  
+                                        jQuery('#loading-mask').hide();
+                                    }
+                        }
+		});
+});
+    
+    jQuery('#list').change(function(event){
+    jQuery('#loading-mask').show();
+    jQuery.ajax({
+			type:"GET",
+			url:jQuery(this).attr("url"),
+			data:{'per_page':jQuery(this).val(),'address_id':<?php echo $address_id;?>},
+			success: function(data){
+                                    if(data){
+                                        jQuery('#vendorlist_container').html(data);  
+                                        jQuery('#loading-mask').hide();
+                                    }
+                        }
+		});
+});
+
+    jQuery('input[type="checkbox"]').change(function(event) {
+        var check = [<?php echo $check;?>];
+        var vals=jQuery("#uncheck_id").val();
+        if(jQuery(this).is(':checked')){
+       vals=vals.replace(jQuery(this).val()+","," ")
+         jQuery("#uncheck_id").val(vals);
+
+          }else{
+        var a=jQuery.inArray(jQuery(this).val(),check );
+              if(a!=-1){
+               vals = jQuery(this).val()+","+vals;
+		jQuery("#uncheck_id").val(vals);
+              }
+        
+          }
+      });
+    
+    jQuery('document').ready(function(){
+
+
+       var temp ='1';
+            jQuery('.vendor').each(function(ele){
+            
+            jQuery(this).click(function(){
+            
+            jQuery('#loading-mask').show();
+            jQuery.ajax({
+			type:"GET",
+			url:jQuery(this).attr("url"),
+			data:{'per_page':<?php echo $per_page;?>,'address_id':<?php echo $address_id;?>},
+			success: function(data){
+                                    if(data){
+                                        jQuery('#vendorlist_container').html(data);  
+                                        jQuery('#loading-mask').hide();
+                                    }
+                        }
+		});  
+        });
+          
+      });
+    });    
+
+</script>
+</div>
+<?php
+/**
+ * Create Function For Get Latlong
+ */
+function Get_lat_lang($get_address) {
+    $map_url = 'http://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=' . urlencode($get_address);
+    $add_lat_long = file_get_contents($map_url);
+    $result = json_decode($add_lat_long);
+    $lat_long = $result->results[0]->geometry->location->lat . "," . $result->results[0]->geometry->location->lng;
+    return $lat_long;
+}
+
+ob_end_flush();
+?>

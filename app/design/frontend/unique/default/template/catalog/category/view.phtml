@@ -1,0 +1,130 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Category view template
+ *
+ * @see Mage_Catalog_Block_Category_View
+ */
+?>
+<?php
+    $_helper    = $this->helper('catalog/output');
+    $_category  = $this->getCurrentCategory();
+    $_imgHtml   = '';
+    if ($_imgUrl = $_category->getImageUrl()) {
+        $_imgHtml = '<p class="category-image"><img src="'.$_imgUrl.'" alt="'.$this->escapeHtml($_category->getName()).'" title="'.$this->escapeHtml($_category->getName()).'" /></p>';
+        $_imgHtml = $_helper->categoryAttribute($_category, $_imgHtml, 'image');
+    }
+?>
+<article>
+<header class="page-title category-title">
+    <?php if($this->IsRssCatalogEnable() && $this->IsTopCategory()): ?>
+        <a href="<?php echo $this->getRssLink() ?>" class="link-rss"><?php echo $this->__('Subscribe to RSS Feed') ?></a>
+    <?php endif; ?>
+	<h1><?php echo $_helper->categoryAttribute($_category, $_category->getName(), 'name') ?></h1>
+</header>
+<!--- ESPL ANK 11032015 0118PM Start -->
+<?php //echo $this->getCurrentCategory()->getId(); ?>
+<?php  $childrens =  $this->getCurrentCategory()->getChildren();
+if($childrens != ''){
+	$subCategories = explode(',', $childrens);
+	if(!empty($subCategories)){
+		
+?>
+<div style="width:100%; clear:both;">
+<?php		
+			$_sortArray = array();
+			foreach ( $subCategories as $subCategoryId )
+			{
+				$_sortcat = Mage::getModel('catalog/category')->load($subCategoryId);
+				
+				$_sortArray[] = $_sortcat;
+				
+			}
+			
+			// Sort by position
+			function comparePosition($a, $b) {
+				if ($a->position == $b->position)
+					return 0;
+					return ($a->position > $b->position) ? 1 : -1;
+				}
+
+			usort($_sortArray, 'comparePosition');
+
+			
+			foreach($_sortArray as $cat){
+				if($cat->getIsActive())
+					{
+						//echo '<a href="'.$cat->getURL().'">'.$cat->getName().'</a>';
+						$skin_url = $cat->getThumbnail(); 
+						if(1==1){ //$skin_url!=''
+						?>
+						<a  href="<?php echo $cat->getURL(); ?>"><div class="subcatheader">
+						<img title="<?php echo $cat->getName(); ?>" alt="<?php echo $cat->getName(); ?>"  src="<?php echo Mage::getBaseUrl('media')?>catalog/category/<?php echo $skin_url; ?>" style="width:112px; height:146px;" />
+						<!--span style="font-size:14px; color:#1270A3;padding-top:12px;float:left;width:100%;"-->
+						
+						<!--/span-->
+						</div>
+						</a>
+						<?php
+						}
+					}
+			}
+		 
+?>
+</div>
+<div style="clear:both;border-bottom:solid 1px #dddddd;padding-top:8px;margin-bottom:20px;"> </div>
+
+<?php		
+	}// End if Sub cat
+ } //End if childrens
+?>
+<!--- ESPL ANK 11032015 0118PM Ends -->
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<?php if($_imgUrl): ?>
+    <?php echo $_imgHtml ?>
+<?php endif; ?>
+
+<?php if($_description=$this->getCurrentCategory()->getDescription()): ?>
+    <div class="category-description std">
+        <?php echo $_helper->categoryAttribute($_category, $_description, 'description') ?>
+    </div>
+    <?php endif; ?>
+
+<?php if($this->isContentMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+
+<?php elseif($this->isMixedMode()): ?>
+    <?php echo $this->getCmsBlockHtml() ?>
+    <?php echo $this->getProductListHtml() ?>
+
+<?php else: ?>
+    <?php echo $this->getProductListHtml() ?>
+<?php endif; ?>
+
+</article>

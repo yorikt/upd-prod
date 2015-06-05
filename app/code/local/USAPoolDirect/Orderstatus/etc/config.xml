@@ -1,0 +1,47 @@
+<config>
+   <modules>
+		<USAPoolDirect_Orderstatus>
+			<version>0.0.1</version>
+		</USAPoolDirect_Orderstatus>
+	</modules>
+	<frontend>
+        <helpers>
+            <usapooldirect_orderstatus>
+                <class>USAPoolDirect_Orderstatus_Helper</class>
+            </usapooldirect_orderstatus>
+        </helpers>
+        </frontend>
+        <global>
+            <helpers>
+            <usapooldirect_orderstatus>
+                <class>USAPoolDirect_Orderstatus_Helper</class>
+            </usapooldirect_orderstatus>
+        </helpers>
+        </global>
+    <adminhtml>
+        <layout>
+            <updates>
+                <usapooldirect_orderstatus>
+                    <file>usapooldirect_orderstatus.xml</file>
+                </usapooldirect_orderstatus>
+            </updates>
+        </layout>
+    </adminhtml>
+    
+    <global>
+        <blocks>
+            <orderstatus>
+                <class>USAPoolDirect_Orderstatus_Block</class>
+            </orderstatus>
+          
+          	<adminhtml>
+	            <rewrite>
+	                <sales_order_view>USAPoolDirect_Orderstatus_Block_Sales_Order_View</sales_order_view>
+	            </rewrite>
+	        </adminhtml> 
+          
+        </blocks>
+    </global>
+</config>
+
+ 

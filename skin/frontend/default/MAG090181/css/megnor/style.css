@@ -1,0 +1,95 @@
+#advancedmenu {
+    position:relative;        
+	margin:0 auto;
+ 	z-index:9;
+}
+div.menu {
+   margin:0 10px 0 0; float:left;
+}
+div.menu  a {     padding:18px 14px;   text-transform: uppercase;}
+div.menu.act {
+   background:none;
+}
+div.menu.active {
+	background:none;
+	color:#888888 ; 
+}
+div.megnor-advanced-menu-popup { 
+ 	position:absolute;
+	display: none;
+	text-align:left; 
+	 padding:15px 5px;
+	border:2px solid #ddd;
+	top:61px !important;
+	 background:#fff;
+}
+/*.megnor-advanced-menu-popup .megnor-advanced-menu-popup_inner { background: url("../../images/dropdown-icon.png") no-repeat scroll 0 0 ; position:absolute; top:10px}
+*/
+.home_link a{ padding-left:0; }
+.megnor-advanced-menu-popup_inner{	 background:#FFF;	}
+div.menu a, div.megnor-advanced-menu-popup a {   display:block; }
+div.megnor-advanced-menu-popup a		
+{ 
+	padding:5px 5px;
+	text-transform:none;
+	
+}
+ div.megnor-advanced-menu-popup a:hover{}
+div.megnor-advanced-menu-popup a.actParent {
+    color: #888888;
+}
+div.megnor-advanced-menu-popup a.act {
+    color: #888888;
+}
+div.column {
+    float:left;
+    width:165px; /* column width */
+    padding:5px 20px;
+}
+div.itemSubMenu {
+    /*margin-left:20px;*/
+}
+.clearBoth {
+    clear:both;
+}
+
+div.megnor-advanced-menu-popup .block1		{ }
+div.megnor-advanced-menu-popup .block2		{ padding:5px 15px;}
+#advancedmenu .megnor-advanced-menu-popup .itemMenu  a	{ font-weight:normal; text-transform: capitalize; font-size:13px;}
+#advancedmenu .level1 > a.itemMenuName {
+    font-size: 14px;
+	font-weight:normal ;
+ 
+	border-bottom:2px solid #ddd;
+	padding-bottom:5px;
+	 margin-bottom:5px;
+	padding-left:0;
+} 
+#advancedmenu .level1 > a.itemMenuName:hover{ color:#666; }
+.itemSubMenu .itemMenu 
+{
+	margin-left:2px;
+}
+.itemSubMenu .itemMenu a.itemMenuName
+{
+	 background: url("../../images/dropdown-arrow.png") no-repeat scroll -1px 7px transparent;
+    color: #666; 
+    font-weight: normal;
+    padding: 2px 0 2px 18px; 
+
+}
+.itemSubMenu .itemMenu a.itemMenuName:hover{ background: url("../../images/dropdown-arrow.png") no-repeat scroll -1px -27px #EFEFEF; transition:200ms; }
+.itemSubMenu .itemMenu a:hover	{    color: #000;}
+
+.custom_menu:hover .customblock_inner {    display: block;} 
+.customblock_inner		{ background:#FFF; width:250px; padding:5px;}
+
+.category-banner{ float:left; margin-right:15px;  }
+.title{ font-size:16px; text-align:center; margin-bottom:5px; color:#222 }
+.category-block{text-align:center; float:right; width:200px; }
+.category-block-info{     }
+.category-border{   border-bottom:2px solid #ddd; width:90px; text-align:center;line-height: 9px;
+    margin: 0 auto 8px; }
+.drop-arrow{background: url("../../images/dropdown-icon.png") no-repeat scroll 0px 0px transparent; position:absolute; top:-9px; height:10px; left:40px;
+width:12px;
+}

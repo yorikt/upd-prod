@@ -1,0 +1,73 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * USAPoolDirect_Purchaseorder extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	USAPoolDirect
+ * @package		USAPoolDirect_Purchaseorder
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+--> 
+<layout>
+    <adminhtml_sales_order_view>
+        <reference name="sales_order_tabs">
+            <action method="addTab">
+                <name>Purchase Order</name>
+                <block>purchaseorder/adminhtml_purchaseorder_edit_tab_order</block>
+            </action>
+        </reference>
+    </adminhtml_sales_order_view>
+	<!-- Purchase Orders grid action -->
+	<adminhtml_purchaseorder_purchaseorder_index>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>purchaseorder/purchaseorder</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="purchaseorder/adminhtml_purchaseorder" name="purchaseorder" />
+		</reference>
+	</adminhtml_purchaseorder_purchaseorder_index>
+	<adminhtml_purchaseorder_purchaseorder_grid>
+		<block type="core/text_list" name="root" output="toHtml">
+			<block type="purchaseorder/adminhtml_purchaseorder_grid" name="purchaseorder_grid"/>
+		</block>
+	</adminhtml_purchaseorder_purchaseorder_grid>
+	<!-- Purchaseorder add/edit action -->
+	<adminhtml_purchaseorder_purchaseorder_edit>
+		<update handle="editor"/>
+		<reference name="menu">
+			<action method="setActive">
+				<menupath>purchaseorder/purchaseorder</menupath>
+			</action>
+		</reference>
+		<reference name="content">
+			<block type="purchaseorder/adminhtml_purchaseorder_edit" name="purchaseorder_edit"></block>
+		</reference>
+		<reference name="left">
+			<block type="purchaseorder/adminhtml_purchaseorder_edit_tabs" name="purchaseorder_tabs"></block>
+		</reference> 
+	</adminhtml_purchaseorder_purchaseorder_edit>
+	<!-- Purchaseorder form action START JEMS-->
+	<adminhtml_purchaseorder_purchaseorder_purchaseorder>
+        <reference name="content">
+            <block type="core/template" name="poorder" template="purchaseorder/purchaseorder/po.phtml"></block>
+        </reference>
+    </adminhtml_purchaseorder_purchaseorder_purchaseorder>
+    
+	<adminhtml_purchaseorder_purchaseorder_editpo>
+        <reference name="content">
+            <block type="core/template" name="editpoorder" template="purchaseorder/purchaseorder/editpo.phtml"></block>
+        </reference>
+    </adminhtml_purchaseorder_purchaseorder_editpo>
+    <!-- END JEMS-->
+     
+</layout>

@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Vendor_Vendorpricing extension
+ * 
+ * NOTICE OF LICENSE
+ * 
+ * This source file is subject to the MIT License
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/mit-license.php
+ * 
+ * @category   	Vendor
+ * @package		Vendor_Vendorpricing
+ * @copyright  	Copyright (c) 2014
+ * @license		http://opensource.org/licenses/mit-license.php MIT License
+ */
+-->
+<config>
+	<modules>
+		<Vendor_Vendorpricing>
+			<version>0.0.1</version>
+		</Vendor_Vendorpricing>
+	</modules>
+	<global>
+		<resources>
+			<vendor_vendorpricing_setup>
+				<setup>
+					<module>Vendor_Vendorpricing</module>
+					<class>Vendor_Vendorpricing_Model_Resource_Setup</class>
+				</setup>
+			</vendor_vendorpricing_setup>
+		</resources>
+		<blocks>
+			<vendorpricing>
+				<class>Vendor_Vendorpricing_Block</class>
+			</vendorpricing>
+		</blocks>
+		<helpers>
+			<vendorpricing>
+				<class>Vendor_Vendorpricing_Helper</class>
+			</vendorpricing>
+		</helpers>
+		<models>
+			<vendorpricing>
+				<class>Vendor_Vendorpricing_Model</class>
+				<resourceModel>vendorpricing_resource</resourceModel>
+			</vendorpricing>
+			<vendorpricing_resource>
+				<class>Vendor_Vendorpricing_Model_Resource</class>
+				<entities>
+					<vendorpricing>
+						<table>vendorpricing_vendorpricing</table>
+					</vendorpricing>
+					<vendorpricing_store>
+						<table>vendorpricing_vendorpricing_store</table>
+					</vendorpricing_store>
+				</entities>
+			</vendorpricing_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<vendor_vendorpricing>
+					<file>vendor_vendorpricing.xml</file>
+				</vendor_vendorpricing>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Vendor_Vendorpricing>
+					<files>
+						<default>Vendor_Vendorpricing.csv</default>
+					</files>
+				</Vendor_Vendorpricing>
+			</modules>
+		</translate>
+	</adminhtml>
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<Vendor_Vendorpricing before="Mage_Adminhtml">Vendor_Vendorpricing_Adminhtml</Vendor_Vendorpricing>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+	<default>
+		<vendorpricing>
+		</vendorpricing>
+	</default>
+</config>
